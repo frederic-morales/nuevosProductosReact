@@ -1,9 +1,17 @@
-// import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 
 function Etapa() {
+  const [file, setFile] = useState<File | null>(null);
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setFile(e.target.files[0]);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center mt-16 mb-16">
-      {/* Titutlo de la Etapa */}
+      {/* Titutlo del producto y de la etapa correspondiente */}
       <div>
         <h2 className="text-2xl">Etapa 1 Producto 1</h2>
         <h4 className="text-lg font-bold py-2 text-center text-green-400">
@@ -27,7 +35,16 @@ function Etapa() {
         </div>
         {/* Subir archivos */}
         <div className="col-start-1 sm:col-start-4 col-end-5 bg-blue-300 shadow-3xl shadow-gray-100 rounded-3xl text-sm h-20 sm:h-full">
-          <button className="w-full h-full flex sm:flex-col justify-center items-center gap-8 sm:gap-1 text-xs">
+          <input
+            type="file"
+            className="w-full h-full hidden"
+            id="fileUpload"
+            onChange={handleFileChange}
+          />
+          <label
+            className="w-full h-full flex sm:flex-col justify-center items-center gap-8 sm:gap-1 text-xs relative"
+            htmlFor="fileUpload"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -42,12 +59,15 @@ function Etapa() {
                 d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m6.75 12-3-3m0 0-3 3m3-3v6m-1.5-15H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
               />
             </svg>
-            <p className="md:text-sm">Archivos: 0</p>
-            <p className="md:text-sm">
+            <div className="text-center">
+              <p className="md:text-sm">Archivos: 0</p>
+              {file && <p className="overflow md:text-sm">{file.name}</p>}
+            </div>
+            <p className="md:text-sm text-center">
               Ultimo archivo <br />
               21 02 2025
             </p>
-          </button>
+          </label>
         </div>
         {/* Comentarios */}
         <div className="col-start-1 col-end-5 ">

@@ -120,8 +120,8 @@ function NuevoProducto() {
   };
 
   return (
-    <div className="flex flex-col items-center w-full mt-10">
-      <h2 className="text-xl ">Nuevo Producto</h2>
+    <div className="flex flex-col items-center w-full mt-10 mb-12">
+      <h2 className="text-xl">Nuevo Producto</h2>
       <form className="w-full mt-10 h-full">
         <div className="w-full flex gap-4 justify-center md:justify-between flex-wrap">
           {Object.keys(campos).map((campoId) => (
