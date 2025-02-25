@@ -13,7 +13,7 @@ function Etapa() {
       {/* Etapa Seguimiento */}
       <div className="grid grid-cols-4 gap-4 mt-8 w-[95%] sm:w-9/12">
         {/* Descripcion de la etapa */}
-        <div className="col-start-1 col-end-5 sm:col-end-4 rounded-3xl shadow-xl">
+        <div className="col-start-1 col-end-5 sm:col-end-4 rounded-3xl shadow-3xl shadow-gray-100">
           <div className="flex flex-col items-center justify-center h-48 px-8 overflow-auto text-xs">
             <p className="mt-8 sm:text-lg text-md">Etapa Titulo</p>
             <p className="sm:text-sm">
@@ -26,7 +26,7 @@ function Etapa() {
           </div>
         </div>
         {/* Subir archivos */}
-        <div className="col-start-1 sm:col-start-4 col-end-5 bg-blue-300 shadow-xl rounded-3xl text-sm h-20 sm:h-full">
+        <div className="col-start-1 sm:col-start-4 col-end-5 bg-blue-300 shadow-3xl shadow-gray-100 rounded-3xl text-sm h-20 sm:h-full">
           <button className="w-full h-full flex sm:flex-col justify-center items-center gap-8 sm:gap-1 text-xs">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -52,7 +52,7 @@ function Etapa() {
         {/* Comentarios */}
         <div className="col-start-1 col-end-5 ">
           <p className="text-center mb-5 mt-5 font-black">Comentarios</p>
-          <div className="w-full h-60 p-8 rounded-3xl shadow-xl">
+          <div className="w-full h-60 p-8 rounded-3xl shadow-3xl shadow-gray-100">
             <textarea
               className="w-full h-full focus:outline-none overflow-x-hidden overflow-y-auto whitespace-normal break-words text-sm md:text-md"
               // type="text"

@@ -1,20 +1,20 @@
 import { NavLink } from "react-router";
 
 function Desarrollos() {
-  const desarrollosEnProceso = [1, 2, 3, 4];
+  const desarrollosEnProceso = [1, 2, 3, 4, 5, 6, 7, 8];
 
   return (
-    <div className="max-w-screen-xl mt-8 mx-auto  bg-white min-h-sceen text-xs shadow-xl rounded-2xl py-12">
+    <div className="max-w-screen-md mt-8 mx-auto  bg-white min-h-sceen text-xs py-12">
       <div className="flex flex-col items-center">
         <h2 className="font-bold text-3xl mt-5 tracking-tight text-center">
           Desarrollos En Proceso
         </h2>
       </div>
-      <div className="grid divide-y divide-neutral-200 w-[95%] max-w-3xl mx-auto mt-8">
+      <div className="grid w-[95%] max-w-3xl mx-auto mt-8 gap-2">
         {desarrollosEnProceso.map((desarrollo) => (
           <div
             key={desarrollo}
-            className="py-5 sm:text-base hover:bg-neutral-100 px-4"
+            className="py-5 sm:text-base hover:bg-gray-100 px-4 rounded-2xl"
           >
             <details className="group">
               <summary className="flex justify-between items-center font-medium cursor-pointer list-none">

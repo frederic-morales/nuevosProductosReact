@@ -36,8 +36,8 @@ function Header() {
 
           {/* Usuario y cerrar Sesion */}
           <div className="flex sm:gap-4 w-2/4 justify-end">
-            <div className="flex">
-              <div className="flex cursor-pointer sm:w-28 h-full items-center justify-center rounded-md border px-1 bg-[#4094F7] text-white hover:bg-blue-500">
+            <div className="flex items-center">
+              <div className="flex cursor-pointer sm:w-28 max-h-14 h-full items-center justify-center rounded-md border px-1 bg-[#4094F7] text-white hover:bg-blue-500">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -58,7 +58,7 @@ function Header() {
               </div>
             </div>
             <div className="flex items-center">
-              <div className="flex cursor-pointer items-center px-1 sm:w-36 rounded-md border h-full hover:bg-gray-100">
+              <div className="flex cursor-pointer items-center max-h-14 px-1 sm:w-36 rounded-md border h-full hover:bg-gray-100">
                 <span className="font-medium text-center w-full">
                   Cerrar Sesion
                 </span>

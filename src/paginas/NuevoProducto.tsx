@@ -1,10 +1,26 @@
-import { useState } from "react";
+import { useState, ChangeEvent, useMemo } from "react";
 
-function AsignarEtapa() {
+// Interfaz para paraserle los parametros a las funciones también llamados "PROPS en REACT"
+interface AsignarEtapaProps {
+  etapa: string;
+}
+
+interface NuevoProductoProps {
+  valor: string;
+  keyName: string;
+  onChange: (valor: string) => void; // funcion pasada como "PROP"
+  hasError?: boolean;
+}
+
+// Tipo para mapear un array de elementos accediendo por el nombre del elemento
+type Campos = {
+  [key: string]: string;
+};
+
+function AsignarEtapa({ etapa }: AsignarEtapaProps) {
   const [isChecked, setIsChecked] = useState(false);
-
   return (
-    <label className="flex items-center space-x-3 cursor-pointer group mt-3">
+    <label className="w-full max-w-sm flex items-center space-x-3 cursor-pointer group mt-3">
       <input
         type="checkbox"
         className="absolute opacity-0 h-0 w-0"
@@ -35,10 +51,42 @@ function AsignarEtapa() {
           />
         </svg>
       </span>
-      <span className="text-gray-700 select-none">
-        {"Mostrar nombre de la etapa"}
-      </span>
+      <span className="text-gray-700 select-none">{etapa}</span>
     </label>
+  );
+}
+
+function LlenarCampo({
+  valor,
+  keyName,
+  onChange,
+  hasError,
+}: NuevoProductoProps) {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    onChange(e.target.value);
+  };
+
+  return (
+    <div className="w-full max-w-sm mb-6 md:mb-0">
+      <label
+        className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+        htmlFor="nombreProducto"
+      >
+        {keyName}
+      </label>
+      <input
+        className="appearance-none w-full bg-gray-50 focus:bg-blue-50  text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none "
+        id="nombreProducto"
+        type="text"
+        placeholder="Ingrese el nombre del producto"
+        value={valor}
+        onChange={handleChange}
+      />
+      {/* Solo se mostrará si el campo esta vacio */}
+      {hasError && (
+        <p className="text-red-500 text-xs italic">Campo Obligatorio</p>
+      )}
+    </div>
   );
 }
 
@@ -52,76 +100,62 @@ function NuevoProducto() {
     "Etapa 6",
   ];
 
+  //Campos a renderizar
+  const [campos, setCampos] = useState<Campos>({
+    nombre: "",
+    descripcion: "",
+    informacion: "",
+    camp01: "",
+    campo2: "",
+  });
+  const camposLlenos = useMemo(() => {
+    return Object.values(campos).every((valor) => valor.trim() !== ""); //verifica que un campo no este vacio
+  }, [campos]); //Se ejecuta cada vez que "campos" cambia, osea cada vez que el usuario cambia el valor en un campo
+
+  const handleChange = (campoId: string, valor: string) => {
+    setCampos((prev) => ({
+      ...prev, // prev obiente el ultimo estado de campos
+      [campoId]: valor, // se actualiza solo el campo seleccionado
+    }));
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center w-full mt-10">
+    <div className="flex flex-col items-center w-full mt-10">
       <h2 className="text-xl ">Nuevo Producto</h2>
-      <form className="w-full mt-10">
-        {/* Info del Producto */}
+      <form className="w-full mt-10 h-full">
         <div className="w-full flex gap-4 justify-center md:justify-between flex-wrap">
-          {/* Nombre del Producto */}
-          <div className="w-full max-w-sm mb-6 md:mb-0">
-            <label
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="nombreProducto"
-            >
-              Nombre del Producto
-            </label>
-            <input
-              className="appearance-none w-full bg-gray-50 focus:bg-blue-50 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none "
-              id="nombreProducto"
-              type="text"
-              placeholder="Ingrese el nombre del producto"
+          {Object.keys(campos).map((campoId) => (
+            <LlenarCampo
+              key={campoId}
+              keyName={campoId}
+              valor={campos[campoId]}
+              onChange={(valor) => handleChange(campoId, valor)} // valor es el texto ingresado por el usuario
+              hasError={campos[campoId].trim() === ""} //Verificamos si el campo esta vacio
             />
-            <p className="text-red-500 text-xs italic">Campo Obligatorio</p>
-          </div>
-          {/* Descripcion del Producto */}
-          <div className="w-full max-w-sm mb-6 md:mb-0">
-            <label
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="DescripcionProducto"
-            >
-              Descripcion del Producto
-            </label>
-            <input
-              className="appearance-none w-full bg-gray-50 focus:bg-blue-50 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none "
-              id="DescripcionProducto"
-              type="text"
-              placeholder="Ingrese el nombre del producto"
-            />
-            <p className="text-red-500 text-xs italic">Campo Obligatorio</p>
-          </div>
-          {/* Informacion adicional */}
-          <div className="w-full max-w-sm mb-6 md:mb-0">
-            <label
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="nombreProducto"
-            >
-              Informacion Adicional
-            </label>
-            <input
-              className="appearance-none w-full bg-gray-50 focus:bg-blue-50  text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none "
-              id="nombreProducto"
-              type="text"
-              placeholder="Ingrese el nombre del producto"
-            />
-            <p className="text-red-500 text-xs italic">Campo Obligatorio</p>
-          </div>
-        </div>
-        {/* Asignar Etapas */}
-        <div className="w-full mt-5 flex flex-col items-start max-w-sm">
-          {etapas.map((etapa) => (
-            <AsignarEtapa key={etapa} />
           ))}
         </div>
-        {/* Boton */}
-        <div className="mt-10">
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="button"
-          >
-            Guardar
-          </button>
+        {/* Asignar Etapas */}
+        <div className="w-full my-8 flex flex-col items-center">
+          <p className="w-full max-w-sm">Etapas que llevara el producto</p>
+          <div className="mt-5 flex flex-wrap gap-4 justify-center items-center w-full">
+            {etapas.map((etapa) => (
+              <AsignarEtapa key={etapa} etapa={etapa} />
+            ))}
+          </div>
         </div>
+        {/* Boton */}
+        {camposLlenos && (
+          <div className="w-full pt-12 flex justify-center">
+            <div className="w-full max-w-sm">
+              <button
+                className="w-full bg-blue-500 hover:bg-blue-700 text-white py-3 px-8 rounded focus:outline-none focus:shadow-outline"
+                type="button"
+              >
+                Guardar
+              </button>
+            </div>
+          </div>
+        )}
       </form>
     </div>
   );

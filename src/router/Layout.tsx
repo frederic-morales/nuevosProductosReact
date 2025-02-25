@@ -3,7 +3,7 @@ import Header from "../componentes/Header";
 
 function Layout() {
   return (
-    <div className="w-full max-w-screen-xl mx-auto px-3">
+    <div className="w-full max-w-screen-xl mx-auto px-5">
       <Header></Header>
       {/* Aquí se renderizan las páginas hijas */}
       <Outlet />
