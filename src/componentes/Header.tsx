@@ -33,7 +33,6 @@ function Header() {
               Modulo Productos Nuevos
             </span>
           </div>
-
           {/* Usuario y cerrar Sesion */}
           <div className="flex sm:gap-4 w-2/4 justify-end">
             <div className="flex items-center">
@@ -67,7 +66,7 @@ function Header() {
           </div>
         </div>
         {/* items de abajo */}
-        <div className="mt-4 py-1 flex items-center justify-center border-y ">
+        <div className="mt-4 py-1 flex items-center justify-center">
           <div className="flex gap-x-8 w-full justify-start">
             <span className="cursor-pointer rounded-sm py-1 px-2 font-medium hover:bg-gray-100">
               <Link to={"home"}>Desarrollos en Proceso</Link>

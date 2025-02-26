@@ -1,4 +1,5 @@
 import { useState, ChangeEvent } from "react";
+// import Alert from "./Alert";
 
 function Etapa() {
   const [file, setFile] = useState<File | null>(null);
@@ -10,18 +11,18 @@ function Etapa() {
   };
 
   return (
-    <div className="flex flex-col items-center mt-16 mb-16">
+    <div className="flex flex-col items-center mt-12 mb-16">
       {/* Titutlo del producto y de la etapa correspondiente */}
       <div>
         <h2 className="text-2xl">Etapa 1 Producto 1</h2>
-        <h4 className="text-lg font-bold py-2 text-center text-green-400">
+        <h4 className="text-lg font-bold py-2 text-center text-blue-400">
           Etapa en Proceso
         </h4>
       </div>
       {/* Etapa Seguimiento */}
       <div className="grid grid-cols-4 gap-4 mt-8 w-[95%] sm:w-9/12">
         {/* Descripcion de la etapa */}
-        <div className="col-start-1 col-end-5 sm:col-end-4 rounded-3xl shadow-3xl shadow-gray-100">
+        <div className="col-start-1 col-end-5 sm:col-end-4 rounded-3xl shadow-md shadow-gray-500">
           <div className="flex flex-col items-center justify-center h-48 px-8 overflow-auto text-xs">
             <p className="mt-8 sm:text-lg text-md">Etapa Titulo</p>
             <p className="sm:text-sm">
@@ -34,7 +35,7 @@ function Etapa() {
           </div>
         </div>
         {/* Subir archivos */}
-        <div className="col-start-1 sm:col-start-4 col-end-5 bg-blue-300 shadow-3xl shadow-gray-100 rounded-3xl text-sm h-20 sm:h-full">
+        <div className="col-start-1 sm:col-start-4 col-end-5 bg-blue-300 rounded-3xl shadow-md shadow-gray-500 text-sm h-20 sm:h-full">
           <input
             type="file"
             className="w-full h-full hidden"
@@ -72,7 +73,7 @@ function Etapa() {
         {/* Comentarios */}
         <div className="col-start-1 col-end-5 ">
           <p className="text-center mb-5 mt-5 font-black">Comentarios</p>
-          <div className="w-full h-60 p-8 rounded-3xl shadow-3xl shadow-gray-100">
+          <div className="w-full h-60 p-8 rounded-3xl shadow-md shadow-gray-500">
             <textarea
               className="w-full h-full focus:outline-none overflow-x-hidden overflow-y-auto whitespace-normal break-words text-sm md:text-md"
               // type="text"
@@ -81,13 +82,13 @@ function Etapa() {
         </div>
         {/* Actualizar, Aprobar, Rechazar */}
         <div className="grid grid-cols-3 gap-3 col-start-1 col-end-5 h-14 rounded-3xl mt-6 text-white text-sm">
-          <div className="col-start-1 col-end-2 bg-blue-500 rounded-3xl flex sm:text-lg">
+          <div className="col-start-1 col-end-2 bg-blue-500 rounded-3xl shadow-xs shadow-blue-500 flex sm:text-lg">
             <button className="w-full h-full">Actualizar</button>
           </div>
-          <div className="col-start-2 col-end-3 bg-green-500 rounded-3xl flex sm:text-lg">
+          <div className="col-start-2 col-end-3 bg-green-500 rounded-3xl shadow-xs shadow-green-500 flex sm:text-lg">
             <button className="w-full h-full">Aprobar</button>
           </div>
-          <div className="col-start-3 col-end-4 bg-red-500 rounded-3xl flex sm:text-lg">
+          <div className="col-start-3 col-end-4 bg-red-500 rounded-3xl shadow-xs shadow-red-500 flex sm:text-lg">
             <button className="w-full h-full">Rechazar</button>
           </div>
         </div>

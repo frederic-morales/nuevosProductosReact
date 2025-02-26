@@ -4,7 +4,7 @@ function Desarrollos() {
   const desarrollosEnProceso = [1, 2, 3, 4, 5, 6, 7, 8];
 
   return (
-    <div className="max-w-screen-md mt-8 mx-auto  bg-white min-h-sceen text-xs py-12">
+    <div className="max-w-screen-md mt-8 mx-auto  bg-white min-h-sceen text-xs">
       <div className="flex flex-col items-center">
         <h2 className="font-bold text-3xl mt-5 tracking-tight text-center">
           Desarrollos En Proceso
@@ -29,7 +29,6 @@ function Desarrollos() {
                     Acceder
                   </NavLink>
                 </button>
-
                 <span className="transition group-open:rotate-180">
                   <svg
                     fill="none"
