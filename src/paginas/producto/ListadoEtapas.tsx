@@ -15,17 +15,18 @@ function ListadoEtapas({ titulo, bgColor, etapas }: ListadoEtapasProps) {
         >
           {titulo}
         </h4>
-        <div className="w-full flex flex-wrap items-center justify-center gap-8 mt-8 text-xs md:text-sm">
+        <div className="w-full flex flex-wrap items-center justify-center gap-8 mt-8">
           {etapas?.map((etapa) => (
             <NavLink to={"/Etapa"} key={etapa}>
               <div
                 key={etapa}
-                className={`w-full max-w-[250px] px-4 py-6 flex items-center justify-center rounded-2xl ${bgColor} shadow-lg hover:shadow-cyan-200 opacity-95`}
+                className={`w-full min-w-[200px] max-w-[250px] px-4 py-6 flex items-center justify-center rounded-2xl ${bgColor} shadow-lg hover:shadow-cyan-200 opacity-95`}
               >
-                <p className="text-sm text-navy-700">
+                <p className="text-xs text-navy-700 md:text-sm">
                   <b>Etapa {etapa}</b>
                   <br /> Aprobada 20 de febrero de 2025
-                  <br /> Usuario
+                  <br /> Usuario Responsable
+                  <br /> Proceso Responsable
                 </p>
               </div>
             </NavLink>

@@ -24,7 +24,7 @@ function Desarrollos() {
                 <button>
                   <NavLink
                     to={"/Producto"}
-                    className={"hover:bg-green-300 px-2 rounded-xl"}
+                    className={"hover:text-green-600 px-2 rounded-xl"}
                   >
                     Acceder
                   </NavLink>

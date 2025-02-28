@@ -31,7 +31,7 @@ function Header() {
                 />
               </svg>
               <span className="text-center font-semibold ">
-                Modulo Productos Nuevos
+                Productos Nuevos
               </span>
             </div>
           </div>
