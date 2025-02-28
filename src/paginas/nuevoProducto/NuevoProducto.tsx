@@ -46,7 +46,9 @@ function NuevoProducto() {
 
   return (
     <div className="flex flex-col items-center w-full mt-10 mb-12 ">
-      <h2 className="text-xl font-semibold">Nuevo Producto</h2>
+      <h2 className="text-xl font-black md:text-2xl lg:text-3xl">
+        Nuevo Producto
+      </h2>
       <form className="w-full mt-10 h-full">
         <div className="w-full flex gap-4 justify-center  flex-wrap">
           {Object.keys(campos).map((campoId) => (
@@ -61,7 +63,7 @@ function NuevoProducto() {
         </div>
         {/* Asignar Etapas */}
         <div className="w-full mb-8 mt-12 flex flex-col items-center">
-          <p className="w-full max-w-sm font-semibold sm:text-center">
+          <p className="w-full max-w-sm font-black sm:text-center md:text-xl lg:text-2xl">
             Etapas que llevara el producto
           </p>
           <div className="mt-5 flex flex-wrap gap-4 justify-center items-center w-full">

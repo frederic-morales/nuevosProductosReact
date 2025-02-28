@@ -4,17 +4,17 @@ function Desarrollos() {
   const desarrollosEnProceso = [1, 2, 3, 4, 5, 6, 7, 8];
 
   return (
-    <div className="max-w-screen-md mt-8 mx-auto  bg-white min-h-sceen text-xs">
+    <div className="max-w-screen-md mt-8 mx-auto  min-h-sceen text-xs">
       <div className="flex flex-col items-center">
-        <h2 className="font-bold text-3xl mt-5 tracking-tight text-center">
+        <h2 className="font-black text-3xl mt-5 tracking-tight text-center">
           Desarrollos En Proceso
         </h2>
       </div>
-      <div className="grid w-[95%] max-w-3xl mx-auto mt-8 gap-2">
+      <div className="grid w-[95%] max-w-3xl mx-auto mt-8 gap-3 opacity-95">
         {desarrollosEnProceso.map((desarrollo) => (
           <div
             key={desarrollo}
-            className="py-5 sm:text-base hover:bg-gray-100 px-4 rounded-2xl"
+            className="py-5 sm:text-base bg-gray-50 px-4 rounded-2xl hover:shadow-2xl hover:shadow-blue-300"
           >
             <details className="group">
               <summary className="flex justify-between items-center font-medium cursor-pointer list-none">

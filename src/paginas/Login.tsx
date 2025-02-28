@@ -32,13 +32,13 @@ function Login() {
     <div
       className="min-h-screen flex items-center justify-center "
       style={{
-        backgroundImage: `url("https://images.unsplash.com/photo-1579165466991-467135ad3110?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGFib3JhdG9yaW98ZW58MHx8MHx8fDA%3D")`,
+        backgroundImage: `linear-gradient(rgba(120, 120, 120, 0.5), rgba(100, 100, 100, 0.5)), url("https://images.unsplash.com/photo-1579165466991-467135ad3110?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGFib3JhdG9yaW98ZW58MHx8MHx8fDA%3D")`,
         backgroundPosition: "center",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="bg-white opacity-90 p-8 rounded-lg shadow-2xl shadow-blue-200 w-4/5 max-w-md">
+      <div className="bg-white opacity-95 p-8 rounded-lg shadow-2xl shadow-blue-300 w-4/5 max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
           Iniciar Sesión
         </h2>

@@ -9,11 +9,17 @@ function Producto() {
   return (
     <div className="flex flex-col items-center mt-12 mb-20">
       <div className="">
-        <p className="text-center text-xl font-black ">Nombre del Producto</p>
+        <p className="text-center text-xl font-black md:text-2xl lg:text-3xl">
+          Nombre del Producto
+        </p>
       </div>
       <div className="flex flex-wrap items-start justify-center gap-6 mt-6 w-full ">
         {/* Etapas Totales */}
-        <ListadoEtapas titulo="Etapas Totales" etapas={etapasTotales} />
+        <ListadoEtapas
+          titulo="Etapas Totales"
+          bgColor="bg-gray-100"
+          etapas={etapasTotales}
+        />
         {/* Etapas en Proceso */}
         <ListadoEtapas
           titulo="Etapas En Proceso"
@@ -23,13 +29,13 @@ function Producto() {
         {/* Etapas Aprobadas */}
         <ListadoEtapas
           titulo="Etapas Aprobadas"
-          bgColor="bg-green-50"
+          bgColor="bg-green-200"
           etapas={etapasAprobadas}
         />
         {/* Etapas rechazadas */}
         <ListadoEtapas
           titulo="Etapas Rechazadas"
-          bgColor="bg-red-50"
+          bgColor="bg-red-200"
           etapas={etapasRechazadas}
         />
       </div>
