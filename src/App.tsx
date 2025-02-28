@@ -1,9 +1,9 @@
 import Home from "./paginas/Home";
 import Login from "./paginas/Login";
 import Layout from "./router/Layout";
-import Etapa from "./componentes/Etapa";
-import NuevoProducto from "./paginas/NuevoProducto";
-import Producto from "./componentes/Producto";
+import Etapa from "./paginas/etapa/Etapa";
+import NuevoProducto from "./paginas/nuevoProducto/NuevoProducto";
+import Producto from "./paginas/producto/Producto";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 

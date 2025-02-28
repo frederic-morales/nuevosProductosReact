@@ -1,4 +1,4 @@
-import Desarrollos from "./Desarrollos";
+import Desarrollos from "../componentes/Desarrollos";
 
 function Home() {
   return (

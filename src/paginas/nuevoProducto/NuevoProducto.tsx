@@ -1,91 +1,13 @@
-import { useState, ChangeEvent, useMemo } from "react";
-import Confirmacion from "../componentes/Confirmacion";
-import Alert from "../componentes/Alert";
-
-// Interfaz para paraserle los parametros a las funciones también llamados "PROPS en REACT"
-interface AsignarEtapaProps {
-  etapa: string;
-}
-
-interface LlenarCampoProps {
-  valor: string;
-  keyName: string;
-  onChange: (valor: string) => void; // funcion pasada como "PROP"
-  hasError?: boolean;
-}
+import { useState, useMemo } from "react";
+import Confirmacion from "../../componentes/Confirmacion";
+import Alert from "../../componentes/Alert";
+import Campo from "./Campo";
+import CheckEtapa from "./CheckEtapa";
 
 // Tipo para mapear un array de elementos accediendo por el nombre del elemento
 type Campos = {
   [key: string]: string;
 };
-
-function AsignarEtapa({ etapa }: AsignarEtapaProps) {
-  const [isChecked, setIsChecked] = useState(false);
-  return (
-    <label className="w-full max-w-sm flex items-center space-x-3 cursor-pointer group mt-3">
-      <input
-        type="checkbox"
-        className="absolute opacity-0 h-0 w-0"
-        checked={isChecked}
-        onChange={(e) => setIsChecked(e.target.checked)}
-      />
-      <span
-        className={`flex items-center justify-center w-6 h-6 border-2 rounded-md
-        ${
-          isChecked
-            ? "bg-blue-500 border-blue-500 group-hover:bg-blue-600 group-hover:border-blue-600"
-            : "bg-white border-gray-400 group-hover:border-blue-400"
-        }`}
-      >
-        <svg
-          className={`w-4 h-4 text-white transition-opacity ${
-            isChecked ? "opacity-100" : "opacity-0"
-          }`}
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth="3"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M5 13l4 4L19 7"
-          />
-        </svg>
-      </span>
-      <span className="font-medium">{etapa}</span>
-    </label>
-  );
-}
-
-function LlenarCampo({ valor, keyName, onChange, hasError }: LlenarCampoProps) {
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.value);
-  };
-
-  return (
-    <div className="w-full max-w-sm mb-6 md:mb-0">
-      <label
-        className="block uppercase text-xs font-bold mb-2"
-        htmlFor="nombreProducto"
-      >
-        {keyName}
-      </label>
-      <input
-        className="w-full bg-gray-50 focus:bg-blue-50 rounded py-3 px-4 mb-3 focus:outline-none"
-        id="nombreProducto"
-        type="text"
-        placeholder="Ingrese el nombre del producto"
-        value={valor}
-        onChange={handleChange}
-      />
-      {/* Solo se mostrará si el campo esta vacio */}
-      {hasError && (
-        <p className="text-red-500 text-xs font-semibold">Campo Obligatorio</p>
-      )}
-    </div>
-  );
-}
 
 function NuevoProducto() {
   //Campos a renderizar
@@ -128,7 +50,7 @@ function NuevoProducto() {
       <form className="w-full mt-10 h-full">
         <div className="w-full flex gap-4 justify-center  flex-wrap">
           {Object.keys(campos).map((campoId) => (
-            <LlenarCampo
+            <Campo
               key={campoId}
               keyName={campoId}
               valor={campos[campoId]}
@@ -144,7 +66,7 @@ function NuevoProducto() {
           </p>
           <div className="mt-5 flex flex-wrap gap-4 justify-center items-center w-full">
             {etapas.map((etapa) => (
-              <AsignarEtapa key={etapa} etapa={etapa} />
+              <CheckEtapa key={etapa} etapa={etapa} />
             ))}
           </div>
         </div>
@@ -173,18 +95,18 @@ function NuevoProducto() {
         />
       )}
       {datosConfirmados != null && !datosConfirmados && (
-        <Alert // Cuando el usuario de click en guardar y confirme la accion
+        <Alert // Cuando el usuario de click en guardar y cancele la accion
           duracion={4000}
           bgColor="bg-red-300"
-          mensaje="Se ha cancelado la acción"
+          mensaje="Se ha cancelado la acción "
         ></Alert>
       )}
       {datosConfirmados != null && datosConfirmados && (
-        <Alert // Cuando el usuario de click en guardar y cancele la accion
+        <Alert // Cuando el usuario de click en guardar y confirme la accion
           duracion={4000}
           bgColor="bg-green-300"
           redirigir="/home"
-          mensaje="Se ha cancelado la acción"
+          mensaje="Se ha iniciado un nuevo desarrollo"
         ></Alert>
       )}
     </div>

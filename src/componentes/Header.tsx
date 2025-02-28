@@ -9,7 +9,7 @@ function Header() {
         <div className="flex sm:justify-start w-full sm:gap-4">
           <div className="flex cursor-pointer sm:w-1/4 items-center gap-x-1 p-1 sm:p-3">
             <img className="h-8" src={headerImage} alt="" />
-            <span className="ml-1 sm:ml-2 font-semibold text-[#252C32] text-center">
+            <span className="ml-1 sm:ml-2 font-semibold text-center">
               Wellco Corporation
             </span>
           </div>
