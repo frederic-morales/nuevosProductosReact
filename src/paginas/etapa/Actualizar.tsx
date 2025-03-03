@@ -19,23 +19,33 @@ function Actualizar() {
       setFile(e.target.files[0]);
     }
   };
+
   return (
-    <div className={`grid grid-cols-4 gap-4 mt-8 w-[95%] sm:w-9/12`}>
+    <div className={`grid grid-cols-4 gap-4 mt-4 sm:mt-8 sm:w-9/12`}>
       {/* Descripcion de la etapa */}
-      <div className="col-start-1 col-end-5 sm:col-end-4 rounded-3xl shadow-md shadow-gray-500 bg-gray-100 opacity-95 hover:shadow-lg hover:shadow-blue-300">
-        <div className="flex flex-col items-center justify-center h-48 px-8 overflow-auto text-xs">
-          <p className="mt-8 sm:text-lg text-md">Etapa Titulo</p>
-          <p className="sm:text-sm">
+      <div className="h-48 flex flex-col px-6 py-4 col-start-1 col-end-5 sm:col-end-4 rounded-3xl shadow-md shadow-gray-500 bg-gray-100 opacity-95 hover:shadow-lg hover:shadow-blue-300">
+        <p className="text-base mb-2 font-bold">Titulo</p>
+        <div className="h-[80%] flex-col overflow-auto text-xs [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-300">
+          <p className="sm:text-sm text-justify">
             Descripcion etapa: Lorem ipsum dolor sit amet consectetur
             adipisicing elit. Vitae reiciendis exercitationem voluptatem fuga
             pariatur quasi. A tenetur officiis aliquam sapiente rem et, aliquid
-            dolores, error ratione fugit eius repudiandae! Eveniet.
+            dolores, error ratione fugit eius repudiandae! Eveniet. Lorem ipsum
+            dolor sit amet consectetur adipisicing elit. Praesentium impedit
+            odio natus nemo deserunt soluta voluptatum, vero placeat eligendi
+            exercitationem asperiores doloribus neque quos a facilis assumenda
+            tenetur quasi. Eligendi. Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Commodi quam dolore necessitatibus illum sed
+            itaque quasi consequuntur, rem officia similique consectetur. Cumque
+            tenetur tempore ex magnam eligendi ut rerum minima.
           </p>
-          <p className="mb-8 sm:text-sm">Fecha</p>
         </div>
+        <p className="text-xs sm:text-sm mt-3 font-semibold">
+          03 de marzo de 2025
+        </p>
       </div>
       {/* Subir archivos */}
-      <div className="col-start-1 sm:col-start-4 col-end-5 bg-[#4094F7] hover:bg-blue-500 rounded-3xl shadow-md shadow-gray-500 text-sm h-20 sm:h-full hover:shadow-lg hover:shadow-blue-300">
+      <div className="col-start-1 sm:col-start-4 col-end-5 bg-[#4094F7] hover:bg-blue-500 rounded-3xl shadow-md shadow-gray-500 h-20 sm:h-full hover:shadow-lg hover:shadow-blue-300">
         <input
           type="file"
           className="w-full h-full hidden"
@@ -61,10 +71,10 @@ function Actualizar() {
             />
           </svg>
           <div className="text-center">
-            <p className="md:text-sm">Archivos: 0</p>
+            <p className="italic text-[10px] sm:text-xs">Archivos: 0</p>
             {file && <p className="overflow md:text-sm">{file.name}</p>}
           </div>
-          <p className="md:text-sm text-center">
+          <p className="text-center italic text-[10px] sm:text-xs">
             Ultimo archivo <br />
             21 02 2025
           </p>
@@ -131,7 +141,7 @@ function Actualizar() {
         <Alert // Cuando el usuario de click en guardar y confirme la accion
           duracion={4000}
           bgColor="bg-green-300"
-          redirigir="/Etapa"
+          redirigir="/home"
           mensaje={textoConfirmacion}
         ></Alert>
       )}

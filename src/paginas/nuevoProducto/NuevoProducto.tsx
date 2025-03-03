@@ -100,7 +100,7 @@ function NuevoProducto() {
         <Alert // Cuando el usuario de click en guardar y cancele la accion
           duracion={4000}
           bgColor="bg-red-300"
-          mensaje="Se ha cancelado la acción "
+          mensaje="Se ha cancelado la acción"
         ></Alert>
       )}
       {datosConfirmados != null && datosConfirmados && (

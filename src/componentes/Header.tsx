@@ -74,9 +74,6 @@ function Header() {
             <span className="cursor-pointer rounded-sm py-1 px-2 font-medium hover:bg-gray-100 hover:text-black hover:shadow-xl hover:shadow-blue-300">
               <Link to={"nuevoProducto"}>Iniciar Nuevo Desarrollo</Link>
             </span>
-            <span className="cursor-pointer rounded-sm py-1 px-2 font-medium hover:bg-gray-100 hover:text-black hover:shadow-xl hover:shadow-blue-300">
-              <Link to={"home"}>Historial de Desarrollos</Link>
-            </span>
           </div>
         </div>
       </div>
