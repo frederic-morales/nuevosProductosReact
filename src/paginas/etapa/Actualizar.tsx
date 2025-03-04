@@ -104,7 +104,7 @@ function Actualizar() {
             onClick={() => {
               setShowConfirmacion(true);
               setMsjConfirmacion("Se ha actualizado la etapa correctamente!!");
-              setMsjCancelacion("Se ha cancelado la actualizacion");
+              setMsjCancelacion("Se ha cancelado la actualizacion!!");
             }}
           >
             Actualizar
@@ -116,7 +116,7 @@ function Actualizar() {
             onClick={() => {
               setShowConfirmacion(true);
               setMsjConfirmacion("Se ha aprobado la etapa correctamente!!");
-              setMsjCancelacion("Se ha cancelado la aprobacion de la etapa");
+              setMsjCancelacion("Se ha cancelado la aprobacion de la etapa!!");
             }}
           >
             Aprobar
@@ -128,7 +128,7 @@ function Actualizar() {
             onClick={() => {
               setShowConfirmacion(true);
               setMsjConfirmacion("Se ha rechazado la etapa correctamente!!");
-              setMsjCancelacion("Se ha cancelado el rechazo de la etapa");
+              setMsjCancelacion("Se ha cancelado el rechazo de la etapa!!");
             }}
           >
             Rechazar
@@ -150,7 +150,7 @@ function Actualizar() {
             bgColor="bg-green-300"
             mensaje={msjConfirmacion}
             handleMostrar={setShowAlert}
-            redirigir="/Etapa"
+            redirigir="/Etapa/Historial"
           />
         )}
       {showAlert &&
@@ -161,7 +161,7 @@ function Actualizar() {
             bgColor="bg-red-300"
             mensaje={msjCancelacion}
             handleMostrar={setShowAlert}
-            redirigir="/Etapa"
+            redirigir="/Etapa/Actualizar"
           />
         )}
     </div>

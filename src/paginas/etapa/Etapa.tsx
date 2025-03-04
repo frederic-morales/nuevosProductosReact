@@ -1,21 +1,8 @@
-import { useState } from "react";
-import Actualizar from "./Actualizar";
-import Historial from "./Historial";
+import { Outlet, Link } from "react-router";
+// import Actualizar from "./Actualizar";
+// import Historial from "./Historial";
 
 function Etapa() {
-  const [mostrarHistorial, setMostrarHistorial] = useState<boolean>(false);
-  const [texto, setTexto] = useState<string>("Actualizar Etapa");
-
-  const handleMostrarHistorial = () => {
-    if (!mostrarHistorial) {
-      setMostrarHistorial(true);
-      setTexto("Historial de actualizaciones");
-    } else {
-      setMostrarHistorial(false);
-      setTexto("Actualizar Etapa");
-    }
-  };
-
   return (
     <div className="flex flex-col items-center mt-12 mb-16">
       {/* Titutlo del producto y de la etapa correspondiente */}
@@ -26,20 +13,18 @@ function Etapa() {
         <h4 className="text-lg font-bold text-center text-white md:text-xl mb-6 sm:mb-8">
           Etapa en Proceso
         </h4>
-        <button
-          className="text-start cursor-pointer rounded-lg py-1 px-3 font-medium bg-gray-100 hover:shadow-xl hover:shadow-blue-300 w-fit"
-          onClick={handleMostrarHistorial}
-        >
-          {texto}
-        </button>
+        <Link to={"Actualizar"}>
+          <button className="text-start mr-4 cursor-pointer rounded-lg py-1 px-3 font-medium bg-gray-100 hover:shadow-xl hover:shadow-blue-300 w-fit">
+            Actualizar Etapa
+          </button>
+        </Link>
+        <Link to={"Historial"}>
+          <button className="text-start cursor-pointer rounded-lg py-1 px-3 font-medium bg-gray-100 hover:shadow-xl hover:shadow-blue-300 w-fit">
+            Historial de la Etapa
+          </button>
+        </Link>
       </div>
-      {!mostrarHistorial ? (
-        /* Renderizar actualizar Etapa */
-        <Actualizar />
-      ) : (
-        /* Renderizar historial de la Etapa */
-        <Historial />
-      )}
+      <Outlet />
     </div>
   );
 }

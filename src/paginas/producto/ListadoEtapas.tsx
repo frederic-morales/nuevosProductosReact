@@ -17,7 +17,7 @@ function ListadoEtapas({ titulo, bgColor, etapas }: ListadoEtapasProps) {
         </h4>
         <div className="w-full flex flex-wrap items-center justify-center gap-8 mt-8">
           {etapas?.map((etapa) => (
-            <NavLink to={"/Etapa"} key={etapa}>
+            <NavLink to={"/Etapa/Historial"} key={etapa}>
               <div
                 key={etapa}
                 className={`w-full min-w-[200px] max-w-[250px] px-4 py-6 flex items-center justify-center rounded-2xl ${bgColor} shadow-lg hover:shadow-cyan-200 opacity-95`}

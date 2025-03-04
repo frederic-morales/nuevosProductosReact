@@ -6,7 +6,7 @@ interface AlertProps {
   redirigir?: string;
   bgColor: string;
   mensaje: string;
-  handleMostrar: (valor: boolean) => void;
+  handleMostrar?: (valor: boolean) => void;
 }
 
 function Alert({
@@ -22,15 +22,16 @@ function Alert({
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(false);
+      if (handleMostrar) handleMostrar(false); // If por si no se
       if (redirigir) {
         rutaNueva(redirigir);
       }
     }, duracion);
 
     return () => clearTimeout(timer); // Limpieza al desmontar
-  }, [duracion, rutaNueva, redirigir]);
+  }, [duracion, rutaNueva, redirigir, handleMostrar]);
 
-  handleMostrar(isVisible);
+  // handleMostrar(isVisible);
   return isVisible ? (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-100 opacity-[95%]">
       <div
