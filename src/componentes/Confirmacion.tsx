@@ -17,8 +17,8 @@ function Confirmacion({ mensaje, handleConfirm }: ConfirmacionProps) {
               Sí
             </button>
             <button
-              onClick={() => handleConfirm(false)}
               className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
+              onClick={() => handleConfirm(false)}
             >
               No
             </button>

@@ -3,21 +3,25 @@ import Confirmacion from "../../componentes/Confirmacion";
 import Alert from "../../componentes/Alert";
 
 function Actualizar() {
-  const [datosConfirmados, setDatosConfirmados] = useState<boolean | null>(
-    null
-  );
+  const [showConfirmacion, setShowConfirmacion] = useState<boolean>(false); //Estado que maneja si se debe de mostrar el mensaje de confirmacion
+  const [showAlert, setShowAlert] = useState<boolean>(false); // Estado que maneja si se debe de mostrar la alerta o no, se setea al valor "false" despues de cada renderizacion
+  const [datosConfirmados, setDatosConfirmados] = useState<boolean>(); // Estado que guarda la eleccion del usuario "si" o "no" - Servira para enviar los datos a la DB
+  const [file, setFile] = useState<File | null>(null); // Estado que guarda el archivo subido
+  const [msjConfirmacion, setMsjConfirmacion] = useState<string>("");
+  const [msjCancelacion, setMsjCancelacion] = useState<string>("");
 
-  const [mostrarConfirmacion, setMostrarConfirmacion] =
-    useState<boolean>(false);
-
-  const [textoConfirmacion, setTextoConfirmacion] = useState<string>("");
-
-  const [file, setFile] = useState<File | null>(null);
-
+  // funcion que permite subir el archivo
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setFile(e.target.files[0]);
     }
+  };
+
+  //Funcion que maneja los estados de renderizacion "Confirmacion" y "Alert"
+  const handleConfirmedResponse = (isConfirmed: boolean) => {
+    setShowConfirmacion(false);
+    setShowAlert(true);
+    setDatosConfirmados(isConfirmed);
   };
 
   return (
@@ -98,8 +102,9 @@ function Actualizar() {
           <button
             className="w-full h-full"
             onClick={() => {
-              setMostrarConfirmacion(true);
-              setTextoConfirmacion("Se ha actualizado correctamente!!");
+              setShowConfirmacion(true);
+              setMsjConfirmacion("Se ha actualizado la etapa correctamente!!");
+              setMsjCancelacion("Se ha cancelado la actualizacion");
             }}
           >
             Actualizar
@@ -109,8 +114,9 @@ function Actualizar() {
           <button
             className="w-full h-full"
             onClick={() => {
-              setMostrarConfirmacion(true);
-              setTextoConfirmacion("Se ha aprobado la etapa correctamente!!");
+              setShowConfirmacion(true);
+              setMsjConfirmacion("Se ha aprobado la etapa correctamente!!");
+              setMsjCancelacion("Se ha cancelado la aprobacion de la etapa");
             }}
           >
             Aprobar
@@ -120,39 +126,44 @@ function Actualizar() {
           <button
             className="w-full h-full"
             onClick={() => {
-              setMostrarConfirmacion(true);
-              setTextoConfirmacion("Se ha rechazo la etapa correctamente!!");
+              setShowConfirmacion(true);
+              setMsjConfirmacion("Se ha rechazado la etapa correctamente!!");
+              setMsjCancelacion("Se ha cancelado el rechazo de la etapa");
             }}
           >
             Rechazar
           </button>
         </div>
       </div>
-      {mostrarConfirmacion && (
+      {showConfirmacion && ( //Al hacer click en cualquiera de los 3 botones
         <Confirmacion
+          key={Date.now()}
           mensaje="Esta seguro de realizar esta accion?"
-          handleConfirm={(value) => {
-            setDatosConfirmados(value);
-            setMostrarConfirmacion(false);
-          }}
+          handleConfirm={handleConfirmedResponse}
         />
       )}
-      {datosConfirmados != null && datosConfirmados && (
-        <Alert // Cuando el usuario de click en guardar y confirme la accion
-          duracion={4000}
-          bgColor="bg-green-300"
-          redirigir="/home"
-          mensaje={textoConfirmacion}
-        ></Alert>
-      )}
-      {datosConfirmados != null && !datosConfirmados && (
-        <Alert // Cuando el usuario de click en guardar y cancele la accion
-          duracion={4000}
-          bgColor="bg-red-300"
-          redirigir="/Etapa"
-          mensaje="Se ha cancelado la acción!!"
-        ></Alert>
-      )}
+      {showAlert &&
+        datosConfirmados && ( // Al usuario confirmar que los datos estan correctos
+          <Alert
+            key={Date.now()}
+            duracion={3000}
+            bgColor="bg-green-300"
+            mensaje={msjConfirmacion}
+            handleMostrar={setShowAlert}
+            redirigir="/Etapa"
+          />
+        )}
+      {showAlert &&
+        !datosConfirmados && ( // Al usuario cancelar los datos ingresados
+          <Alert
+            key={Date.now()}
+            duracion={3000}
+            bgColor="bg-red-300"
+            mensaje={msjCancelacion}
+            handleMostrar={setShowAlert}
+            redirigir="/Etapa"
+          />
+        )}
     </div>
   );
 }
