@@ -38,7 +38,7 @@ function Login() {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="bg-white opacity-95 p-8 rounded-lg shadow-2xl shadow-blue-300 w-4/5 max-w-md">
+      <div className="bg-white opacity-95 p-8 rounded-lg shadow-lg shadow-blue-300 w-4/5 max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
           Iniciar Sesión
         </h2>

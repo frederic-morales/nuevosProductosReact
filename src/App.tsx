@@ -1,5 +1,5 @@
 import Home from "./paginas/home/Home";
-import Login from "./paginas/Login";
+import Login from "./paginas/login/Login";
 import Layout from "./router/Layout";
 import Etapa from "./paginas/etapa/Etapa";
 import NuevoProducto from "./paginas/nuevoProducto/NuevoProducto";
@@ -9,6 +9,7 @@ import Actualizar from "./paginas/etapa/Actualizar";
 import Historial from "./paginas/etapa/Historial";
 import ListadoEtapas from "./paginas/producto/ListadoEtapas";
 import "./App.css";
+import ReasignarEtapas from "./paginas/producto/ReasignarEtapas";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
           {
             path: "Etapas",
             element: <ListadoEtapas />,
+          },
+          {
+            path: "Reasignar Etapas",
+            element: <ReasignarEtapas />,
           },
         ],
       },

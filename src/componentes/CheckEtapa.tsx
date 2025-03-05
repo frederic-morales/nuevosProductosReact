@@ -39,7 +39,9 @@ function CheckEtapa({ etapa }: CheckEtapaProps) {
           />
         </svg>
       </span>
-      <span className="font-bold md:text-lg text-white">{etapa}</span>
+      <span className="font-bold md:text-lg text-white drop-shadow-[1px_1px_1px_black]">
+        {etapa}
+      </span>
     </label>
   );
 }

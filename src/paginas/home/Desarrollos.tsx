@@ -6,7 +6,7 @@ function Desarrollos() {
   return (
     <div className="max-w-screen-md mt-8 mx-auto  min-h-sceen text-xs">
       <div className="flex flex-col items-center">
-        <h2 className="font-black text-2xl md:text-4xl mt-5 tracking-tight text-center uppercase text-white">
+        <h2 className="font-black text-2xl md:text-4xl mt-5 tracking-tight text-center uppercase text-white drop-shadow-[1px_1px_0px_black]">
           Desarrollos En Proceso
         </h2>
       </div>

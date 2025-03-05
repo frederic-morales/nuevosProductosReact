@@ -13,9 +13,9 @@ function Campo({ valor, keyName, onChange, hasError }: CampoProps) {
   };
 
   return (
-    <div className="w-full max-w-sm mb-6 md:mb-0 text-white">
+    <div className="w-full max-w-sm mb-6 md:mb-0 text-white ">
       <label
-        className="block uppercase text-xs font-bold mb-2 md:text-sm lg:text-lg "
+        className="block uppercase text-xs font-bold mb-2 md:text-sm lg:text-lg drop-shadow-[1px_1px_1px_black]"
         htmlFor="nombreProducto"
       >
         {keyName}
@@ -30,7 +30,7 @@ function Campo({ valor, keyName, onChange, hasError }: CampoProps) {
       />
       {/* Solo se mostrará si el campo esta vacio */}
       {hasError && (
-        <p className="text-[#ff6d68] text-xs font-bold md:text-sm">
+        <p className="text-[#ff247f] text-xs font-bold md:text-sm drop-shadow-[0px_1px_0x_black]">
           Campo Obligatorio
         </p>
       )}

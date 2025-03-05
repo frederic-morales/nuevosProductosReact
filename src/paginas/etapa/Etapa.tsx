@@ -7,10 +7,10 @@ function Etapa() {
     <div className="flex flex-col items-center mt-12 mb-16">
       {/* Titutlo del producto y de la etapa correspondiente */}
       <div className="w-[100%] sm:w-9/12">
-        <h2 className="text-2xl text-center font-black md:text-4xl mb-4 sm:mb-6 text-white uppercase">
+        <h2 className="text-2xl text-center font-black md:text-4xl mb-4 sm:mb-6 text-white uppercase drop-shadow-[1px_2px_0px_black]">
           Etapa 1 Producto 1
         </h2>
-        <h4 className="text-lg font-bold text-center text-white md:text-xl mb-6 sm:mb-8">
+        <h4 className="text-lg font-black text-center text-white md:text-xl mb-6 sm:mb-8 drop-shadow-[1px_1px_0px_black] uppercase">
           Etapa en Proceso
         </h4>
         <Link to={"Actualizar"}>

@@ -7,8 +7,9 @@ function Actualizar() {
   const [showAlert, setShowAlert] = useState<boolean>(false); // Estado que maneja si se debe de mostrar la alerta o no, se setea al valor "false" despues de cada renderizacion
   const [datosConfirmados, setDatosConfirmados] = useState<boolean>(); // Estado que guarda la eleccion del usuario "si" o "no" - Servira para enviar los datos a la DB
   const [file, setFile] = useState<File | null>(null); // Estado que guarda el archivo subido
-  const [msjConfirmacion, setMsjConfirmacion] = useState<string>("");
-  const [msjCancelacion, setMsjCancelacion] = useState<string>("");
+  const [msjConfirmacion, setMsjConfirmacion] = useState<string>(""); // Mensaje de confirmacion, cambia su estado dependiendo si es "Actualizar", "Aprobar" o "Rechazar"
+  const [msjCancelacion, setMsjCancelacion] = useState<string>(""); // Mensaje de cancelacion, cambia su estado dependiendo si es "Actualizar", "Aprobar" o "Rechazar"
+  const [rutaRedireccion, setRutaRedireccion] = useState<string>(""); // Ruta de confirmacion, cambia su estado dependiendo si es "Actualizar", "Aprobar" o "Rechazar"
 
   // funcion que permite subir el archivo
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -107,6 +108,7 @@ function Actualizar() {
               setShowConfirmacion(true);
               setMsjConfirmacion("Se ha actualizado la etapa correctamente!!");
               setMsjCancelacion("Se ha cancelado la actualizacion!!");
+              setRutaRedireccion("/Etapa/Historial");
             }}
           >
             Actualizar
@@ -119,6 +121,7 @@ function Actualizar() {
               setShowConfirmacion(true);
               setMsjConfirmacion("Se ha aprobado la etapa correctamente!!");
               setMsjCancelacion("Se ha cancelado la aprobacion de la etapa!!");
+              setRutaRedireccion("/Producto/Etapas");
             }}
           >
             Aprobar
@@ -131,6 +134,7 @@ function Actualizar() {
               setShowConfirmacion(true);
               setMsjConfirmacion("Se ha rechazado la etapa correctamente!!");
               setMsjCancelacion("Se ha cancelado el rechazo de la etapa!!");
+              setRutaRedireccion("/Producto/Reasignar Etapas");
             }}
           >
             Rechazar
@@ -152,7 +156,7 @@ function Actualizar() {
             bgColor="bg-green-300"
             mensaje={msjConfirmacion}
             handleMostrar={setShowAlert}
-            redirigir="/Etapa/Historial"
+            redirigir={rutaRedireccion} // Ruta Nueva
           />
         )}
       {showAlert &&
@@ -163,7 +167,6 @@ function Actualizar() {
             bgColor="bg-red-300"
             mensaje={msjCancelacion}
             handleMostrar={setShowAlert}
-            redirigir="/Etapa/Actualizar"
           />
         )}
     </div>

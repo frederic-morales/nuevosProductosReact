@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import Confirmacion from "../../componentes/Confirmacion";
 import Alert from "../../componentes/Alert";
 import Campo from "./Campo";
-import CheckEtapa from "./CheckEtapa";
+import CheckEtapa from "../../componentes/CheckEtapa";
 
 // Tipo para mapear un array de elementos accediendo por el nombre del elemento
 type Campos = {
@@ -46,11 +46,12 @@ function NuevoProducto() {
 
   return (
     <div className="flex flex-col items-center w-full mt-10 mb-12 ">
-      <h2 className="text-xl font-black md:text-2xl lg:text-4xl text-white uppercase">
+      <h2 className="text-xl font-black md:text-2xl lg:text-4xl text-white uppercase drop-shadow-[1px_2px_0px_black]">
         Nuevo Producto
       </h2>
       <form className="w-full mt-10 h-full">
-        <div className="w-full flex gap-4 justify-center  flex-wrap">
+        {/* Campos */}
+        <div className="w-full flex gap-4 justify-center flex-wrap">
           {Object.keys(campos).map((campoId) => (
             <Campo
               key={campoId}
@@ -63,7 +64,7 @@ function NuevoProducto() {
         </div>
         {/* Asignar Etapas */}
         <div className="w-full mb-8 mt-12 md:mt-16 flex flex-col items-center">
-          <p className="w-full max-w-sm md:max-w-xl font-black sm:text-center md:text-xl lg:text-3xl uppercase text-white">
+          <p className="w-full max-w-sm md:max-w-xl font-black sm:text-center md:text-xl lg:text-3xl uppercase text-white drop-shadow-[1px_2px_0px_black]">
             Etapas que llevara el producto
           </p>
           <div className="mt-5 flex flex-wrap gap-4 justify-center items-center w-full">

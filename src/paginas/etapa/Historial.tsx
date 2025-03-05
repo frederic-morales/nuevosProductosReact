@@ -55,13 +55,11 @@ function Historial() {
             </div>
             <div className="w-full sm:w-[40%] flex gap-4 font-semibold">
               {/* Documento */}
-              <div className="w-[50%] flex sm:flex-col bg-[#affdce] p-4 rounded-2xl shadow-xl hover:shadow-green-300">
-                <input
-                  type="file"
-                  className="w-full h-full hidden"
-                  id="fileDownload"
-                  // onChange={handleFileChange}
-                />
+              <a
+                download="algo"
+                href="descarga.pdf"
+                className="w-[50%] flex sm:flex-col bg-[#affdce] p-4 rounded-2xl shadow-xl hover:shadow-green-300"
+              >
                 <label
                   className="w-full h-full flex sm:flex-col gap-2 justify-center items-center relative"
                   htmlFor="fileDownload"
@@ -84,7 +82,7 @@ function Historial() {
                     Nombre ultimo archivo...pdf
                   </p>
                 </label>
-              </div>
+              </a>
               {/* Eliminar actualizacion */}
               <div
                 className="w-[50%] flex sm:flex-col justify-center items-center gap-2 bg-[#f66c79] p-4 rounded-2xl shadow-xl hover:shadow-red-300"

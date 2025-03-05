@@ -1,6 +1,7 @@
 interface ConfirmacionProps {
   mensaje: string;
   handleConfirm: (confirm: boolean) => void; // Retornar el valor bool al componente Padre que esta llamando este componente
+  redirigir?: string;
 }
 
 function Confirmacion({ mensaje, handleConfirm }: ConfirmacionProps) {
