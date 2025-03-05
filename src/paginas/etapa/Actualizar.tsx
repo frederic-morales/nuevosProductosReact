@@ -28,7 +28,7 @@ function Actualizar() {
     <div className={`grid grid-cols-4 gap-4 mt-4 sm:mt-8 sm:w-9/12`}>
       {/* Descripcion de la etapa */}
       <div className="h-48 flex flex-col px-6 py-4 col-start-1 col-end-5 sm:col-end-4 rounded-3xl shadow-md shadow-gray-500 bg-gray-100 opacity-95 hover:shadow-lg hover:shadow-blue-300">
-        <p className="text-base mb-2 font-bold">Titulo</p>
+        <p className="text-base mb-2 font-bold">Nombre de la Etapa</p>
         <div className="h-[80%] flex-col overflow-auto text-xs [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-300">
           <p className="sm:text-sm text-justify">
             Descripcion etapa: Lorem ipsum dolor sit amet consectetur
@@ -44,12 +44,14 @@ function Actualizar() {
             tenetur tempore ex magnam eligendi ut rerum minima.
           </p>
         </div>
-        <p className="text-xs sm:text-sm mt-3 font-semibold">
-          03 de marzo de 2025
+        <p className="text-xs sm:text-sm mt-3 font-semibold ">
+          Se inicio el 03 de marzo de 2025
+          <br />
+          Fecha de finalizacion estimada 05 05 2025
         </p>
       </div>
       {/* Subir archivos */}
-      <div className="col-start-1 sm:col-start-4 col-end-5 bg-[#4094F7] hover:bg-blue-500 rounded-3xl shadow-md shadow-gray-500 h-20 sm:h-full hover:shadow-lg hover:shadow-blue-300">
+      <div className="col-start-1 sm:col-start-4 col-end-5 bg-[#4094F7] hover:bg-blue-500 rounded-3xl shadow-md shadow-gray-500 h-20 sm:h-full hover:shadow-lg hover:shadow-blue-300 font-semibold">
         <input
           type="file"
           className="w-full h-full hidden"

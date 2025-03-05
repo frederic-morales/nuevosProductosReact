@@ -46,7 +46,7 @@ function NuevoProducto() {
 
   return (
     <div className="flex flex-col items-center w-full mt-10 mb-12 ">
-      <h2 className="text-xl font-black md:text-2xl lg:text-3xl">
+      <h2 className="text-xl font-black md:text-2xl lg:text-4xl text-white uppercase">
         Nuevo Producto
       </h2>
       <form className="w-full mt-10 h-full">
@@ -62,8 +62,8 @@ function NuevoProducto() {
           ))}
         </div>
         {/* Asignar Etapas */}
-        <div className="w-full mb-8 mt-12 flex flex-col items-center">
-          <p className="w-full max-w-sm font-black sm:text-center md:text-xl lg:text-2xl">
+        <div className="w-full mb-8 mt-12 md:mt-16 flex flex-col items-center">
+          <p className="w-full max-w-sm md:max-w-xl font-black sm:text-center md:text-xl lg:text-3xl uppercase text-white">
             Etapas que llevara el producto
           </p>
           <div className="mt-5 flex flex-wrap gap-4 justify-center items-center w-full">

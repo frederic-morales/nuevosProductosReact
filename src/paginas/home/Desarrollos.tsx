@@ -6,7 +6,7 @@ function Desarrollos() {
   return (
     <div className="max-w-screen-md mt-8 mx-auto  min-h-sceen text-xs">
       <div className="flex flex-col items-center">
-        <h2 className="font-black text-3xl mt-5 tracking-tight text-center">
+        <h2 className="font-black text-2xl md:text-4xl mt-5 tracking-tight text-center uppercase text-white">
           Desarrollos En Proceso
         </h2>
       </div>
@@ -23,7 +23,7 @@ function Desarrollos() {
                 </span>
                 <button>
                   <NavLink
-                    to={"/Producto"}
+                    to={"/Producto/Etapas"}
                     className={"hover:text-green-600 px-2 rounded-xl"}
                   >
                     Acceder

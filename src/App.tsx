@@ -1,4 +1,4 @@
-import Home from "./paginas/Home";
+import Home from "./paginas/home/Home";
 import Login from "./paginas/Login";
 import Layout from "./router/Layout";
 import Etapa from "./paginas/etapa/Etapa";
@@ -7,6 +7,7 @@ import Producto from "./paginas/producto/Producto";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Actualizar from "./paginas/etapa/Actualizar";
 import Historial from "./paginas/etapa/Historial";
+import ListadoEtapas from "./paginas/producto/ListadoEtapas";
 import "./App.css";
 
 const router = createBrowserRouter([
@@ -22,6 +23,12 @@ const router = createBrowserRouter([
       {
         path: "Producto",
         element: <Producto />,
+        children: [
+          {
+            path: "Etapas",
+            element: <ListadoEtapas />,
+          },
+        ],
       },
       {
         path: "Etapa",

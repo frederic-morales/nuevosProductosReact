@@ -1,44 +1,20 @@
-import ListadoEtapas from "./ListadoEtapas";
+import { Outlet } from "react-router";
 
 function Producto() {
-  const etapasTotales = [1, 2, 3, 4, 5, 6, 7, 8];
-  const etapasEnProceso = [1, 2, 3, 4];
-  const etapasAprobadas = [1, 2, 3];
-  const etapasRechazadas = [1, 2, 3];
-
   return (
-    <div className="flex flex-col items-center mt-12 mb-20">
-      <div className="">
-        <p className="text-center text-xl font-black md:text-2xl lg:text-3xl">
+    <div className="flex flex-col items-center mt-12 mb-8">
+      <div className="text-center text-gray-50 flex flex-col gap-1">
+        <p className="text-xl md:text-2xl lg:text-4xl font-black uppercase">
           Nombre del Producto
         </p>
+        <p className="font-bold text-lg sm:text-xl lg:text-2xl">
+          Desarrollo Iniciado el 05 de marzo de 2025
+        </p>
+        <p className="font-bold text-lg sm:text-xl lg:text-2xl">
+          Tiempo estimado 24 meses
+        </p>
       </div>
-      <div className="flex flex-wrap items-start justify-center gap-6 mt-6 w-full ">
-        {/* Etapas Totales */}
-        <ListadoEtapas
-          titulo="Etapas Totales"
-          bgColor="bg-gray-100"
-          etapas={etapasTotales}
-        />
-        {/* Etapas en Proceso */}
-        <ListadoEtapas
-          titulo="Etapas En Proceso"
-          bgColor="bg-gray-100"
-          etapas={etapasEnProceso}
-        />
-        {/* Etapas Aprobadas */}
-        <ListadoEtapas
-          titulo="Etapas Aprobadas"
-          bgColor="bg-green-200"
-          etapas={etapasAprobadas}
-        />
-        {/* Etapas rechazadas */}
-        <ListadoEtapas
-          titulo="Etapas Rechazadas"
-          bgColor="bg-red-200"
-          etapas={etapasRechazadas}
-        />
-      </div>
+      <Outlet />
     </div>
   );
 }

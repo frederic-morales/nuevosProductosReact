@@ -6,7 +6,7 @@ function Layout() {
     <div>
       <div
         style={{
-          backgroundImage: `linear-gradient(rgba(75, 75, 75, 0.5), rgba(100, 100, 100, 0.5)),  url("https://images.unsplash.com/photo-1579165466991-467135ad3110?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGFib3JhdG9yaW98ZW58MHx8MHx8fDA%3D")`,
+          backgroundImage: `linear-gradient(rgba(40, 40, 40, 0.5), rgba(60, 60, 60, 0.5)),  url("https://images.unsplash.com/photo-1579165466991-467135ad3110?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGFib3JhdG9yaW98ZW58MHx8MHx8fDA%3D")`,
           backgroundPosition: "center",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
