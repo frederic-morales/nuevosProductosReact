@@ -8,7 +8,28 @@ function Historial() {
     null
   ); // Estado que guarda la eleccion del usuario "si" o "no" - Servira para enviar los datos a la DB
 
-  const actualizaciones = [1, 2, 3];
+  const actualizaciones = [
+    {
+      id: 1,
+      descripcion: "Aprobacion",
+      estado: 1,
+    },
+    {
+      id: 1,
+      descripcion: "Rechazo",
+      estado: 3,
+    },
+    {
+      id: 2,
+      descripcion: "Actualizacion",
+      estado: 2,
+    },
+    {
+      id: 3,
+      descripcion: "Actualizacion",
+      estado: 2,
+    },
+  ];
 
   const handleConfirmacion = (valor: boolean) => {
     setDatosConfirmados(valor);
@@ -22,13 +43,23 @@ function Historial() {
       >
         {actualizaciones.map((actualizacion) => (
           <div
-            key={actualizacion}
+            key={actualizacion.id}
             className="flex flex-col sm:flex-row gap-3 text-xs sm:text-sm rounded-2xl"
           >
             {/* Descripcion de la actualizacion */}
-            <div className="h-fit w-full sm:w-[60%] text-justify bg-gray-50 py-5 px-4 rounded-2xl">
+            <div
+              className={`h-fit w-full sm:w-[60%] text-justify py-5 px-4 rounded-2xl bg-gray-50 opacity-95
+                ${
+                  actualizacion.estado == 1 &&
+                  "border-4 border-[#42d340] shadow-md shadow-green-300"
+                }
+                ${
+                  actualizacion.estado == 3 &&
+                  "border-4 border-[#f66c79] shadow-md shadow-[#f66c79]"
+                }`}
+            >
               <p className="mb-2 font-semibold">
-                Fecha de actualizacion {actualizacion}
+                Fecha de {actualizacion.descripcion}
                 <br /> Fecha 05 03 2025
                 <br /> Usuario FSOC
               </p>

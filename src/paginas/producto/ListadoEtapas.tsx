@@ -3,7 +3,7 @@ import { Etapa } from "../../interfaces/Etapa";
 import { useState } from "react";
 
 function ListadoEtapas() {
-  //estados 1=Aprobada, 2=EnProceso, 3=Pendiente, 4=Rechazada
+  //estados 1=Aprobada, 2=Rechazado, 3=EnProceso, 4=Pendiente
   const etapasTotales: Etapa[] = [
     {
       id: 1,
@@ -80,7 +80,7 @@ function ListadoEtapas() {
       fechaCreacion: "Ayer",
       tiempoEstimado: "31/08/2025",
       fechaInicio: "hoy",
-      estado: 2,
+      estado: 3,
     },
     {
       id: 9,
@@ -91,7 +91,7 @@ function ListadoEtapas() {
       fechaCreacion: "Ayer",
       tiempoEstimado: "31/08/2025",
       fechaInicio: "hoy",
-      estado: 2,
+      estado: 3,
     },
     {
       id: 10,
@@ -102,7 +102,7 @@ function ListadoEtapas() {
       fechaCreacion: "Ayer",
       tiempoEstimado: "31/08/2025",
       fechaInicio: "hoy",
-      estado: 3,
+      estado: 4,
     },
     {
       id: 11,
@@ -113,7 +113,7 @@ function ListadoEtapas() {
       fechaCreacion: "Ayer",
       tiempoEstimado: "31/08/2025",
       fechaInicio: "hoy",
-      estado: 3,
+      estado: 4,
     },
     {
       id: 12,
@@ -124,7 +124,7 @@ function ListadoEtapas() {
       fechaCreacion: "Ayer",
       tiempoEstimado: "31/08/2025",
       fechaInicio: "hoy",
-      estado: 3,
+      estado: 4,
     },
   ];
 
@@ -138,7 +138,7 @@ function ListadoEtapas() {
       fechaCreacion: "Ayer",
       tiempoEstimado: "31/08/2025",
       fechaInicio: "hoy",
-      estado: 4,
+      estado: 2,
     },
     {
       id: 2,
@@ -149,7 +149,7 @@ function ListadoEtapas() {
       fechaCreacion: "Ayer",
       tiempoEstimado: "31/08/2025",
       fechaInicio: "hoy",
-      estado: 4,
+      estado: 2,
     },
     {
       id: 3,
@@ -160,7 +160,7 @@ function ListadoEtapas() {
       fechaCreacion: "Ayer",
       tiempoEstimado: "31/08/2025",
       fechaInicio: "hoy",
-      estado: 4,
+      estado: 2,
     },
   ];
 
@@ -175,18 +175,19 @@ function ListadoEtapas() {
     <>
       <div className="flex flex-wrap items-start justify-center gap-6 mt-6 w-full lg:mt-12">
         <div className="w-full flex flex-col items-center rounded-2xl h-fit">
-          <h4
-            className={`text-lg font-bold border-b py-2 text-center text-white md:text-2xl hover:cursor-pointer drop-shadow-[1px_1px_0px_black]`}
+          <button
+            // className={`text-lg font-bold border-b py-2 text-center text-white md:text-2xl hover:cursor-pointer drop-shadow-[2px_1px_0px_black]`}
+            className="text-center md:text-start text-xs md:text-lg cursor-pointer rounded-lg py-2 px-3 md:px-5 font-medium bg-gray-100 hover:shadow-xl hover:shadow-blue-300 w-fit"
             onClick={handleClick}
           >
             {mostrarRechazos ? "Etapas Rechazadas" : "Etapas Totales"}
-          </h4>
+          </button>
           {!mostrarRechazos && (
             <div className="w-full flex flex-wrap items-center justify-center gap-8 mt-8">
               {etapasTotales?.map((etapa) => (
                 <NavLink
                   to={`${etapa.estado == 1 ? "/Etapa/Historial" : ""}${
-                    etapa.estado == 2 ? "/Etapa/Actualizar" : ""
+                    etapa.estado == 3 ? "/Etapa/Actualizar" : ""
                   }`}
                   key={etapa.id}
                 >
@@ -194,8 +195,8 @@ function ListadoEtapas() {
                     key={etapa.id}
                     className={`w-full min-w-[200px] max-w-[250px] px-4 py-6 flex items-center justify-center rounded-2xl shadow-lg hover:shadow-cyan-200 hover:shadow-xl opacity-95
                   ${etapa.estado == 1 && "bg-[#affdce]"} 
-                  ${etapa.estado == 2 && "bg-[#879efc]"} 
-                  ${etapa.estado == 3 && "bg-[#f3f3f3]"}`}
+                  ${etapa.estado == 3 && "bg-[#879efc]"} 
+                  ${etapa.estado == 4 && "bg-[#f3f3f3]"}`}
                   >
                     <p className="text-xs md:text-sm text-black font-semibold">
                       <b>Etapa {etapa.nombre}</b>
@@ -205,15 +206,15 @@ function ListadoEtapas() {
                           <br /> Usuario Responsable
                         </>
                       )}
-                      {etapa.estado == 2 && (
+                      {etapa.estado == 4 && (
                         <>
-                          <br /> Etapa en proceso
-                          <br /> Usuario Responsable
+                          <br /> Etapa Pendiente
                         </>
                       )}
                       {etapa.estado == 3 && (
                         <>
-                          <br /> Etapa Pendiente
+                          <br /> Etapa en proceso
+                          <br /> Usuario Responsable
                         </>
                       )}
                       <br /> Proceso Responsable
@@ -234,6 +235,8 @@ function ListadoEtapas() {
                     <p className="text-xs md:text-sm text-black font-semibold">
                       <b>Etapa {etapa.nombre}</b>
                       <br /> Proceso Responsable
+                      <p>Usuario Responsable</p>
+                      <p>Etapa rechazada el 06 de marzo del 2025</p>
                     </p>
                   </div>
                 </NavLink>

@@ -1,4 +1,4 @@
-import Home from "./paginas/home/Home";
+import Desarrollos from "./paginas/Desarrollos/Desarrollos";
 import Login from "./paginas/login/Login";
 import Layout from "./router/Layout";
 import Etapa from "./paginas/etapa/Etapa";
@@ -16,7 +16,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <Layout />,
     children: [
-      { path: "Home", element: <Home /> },
+      { path: "Desarrollos", element: <Desarrollos /> },
       {
         path: "NuevoProducto",
         element: <NuevoProducto />,
