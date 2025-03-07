@@ -1,6 +1,6 @@
-import { NavLink } from "react-router-dom";
 import { Etapa } from "../../interfaces/Etapa";
 import { useState } from "react";
+import EtapaDescripcion from "../../componentes/EtapaDescripcion";
 
 function ListadoEtapas() {
   //estados 1=Aprobada, 2=Rechazado, 3=EnProceso, 4=Pendiente
@@ -126,9 +126,6 @@ function ListadoEtapas() {
       fechaInicio: "hoy",
       estado: 4,
     },
-  ];
-
-  const etapasRechazadas: Etapa[] = [
     {
       id: 1,
       productoId: 3,
@@ -183,63 +180,34 @@ function ListadoEtapas() {
           </button>
           {!mostrarRechazos && (
             <div className="w-full flex flex-wrap items-center justify-center gap-8 mt-8">
-              {etapasTotales?.map((etapa) => (
-                <NavLink
-                  to={`${etapa.estado == 1 ? "/Etapa/Historial" : ""}${
-                    etapa.estado == 3 ? "/Etapa/Actualizar" : ""
-                  }`}
-                  key={etapa.id}
-                >
-                  <div
-                    key={etapa.id}
-                    className={`w-full min-w-[200px] max-w-[250px] px-4 py-6 flex items-center justify-center rounded-2xl shadow-lg hover:shadow-cyan-200 hover:shadow-xl opacity-95
-                  ${etapa.estado == 1 && "bg-[#affdce]"} 
-                  ${etapa.estado == 3 && "bg-[#879efc]"} 
-                  ${etapa.estado == 4 && "bg-[#f3f3f3]"}`}
-                  >
-                    <p className="text-xs md:text-sm text-black font-semibold">
-                      <b>Etapa {etapa.nombre}</b>
-                      {etapa.estado == 1 && (
-                        <>
-                          <br /> Etapa Aprobada
-                          <br /> Usuario Responsable
-                        </>
-                      )}
-                      {etapa.estado == 4 && (
-                        <>
-                          <br /> Etapa Pendiente
-                        </>
-                      )}
-                      {etapa.estado == 3 && (
-                        <>
-                          <br /> Etapa en proceso
-                          <br /> Usuario Responsable
-                        </>
-                      )}
-                      <br /> Proceso Responsable
-                    </p>
-                  </div>
-                </NavLink>
-              ))}
+              {etapasTotales?.map((etapa) => {
+                if (etapa.estado != 2) {
+                  return (
+                    <EtapaDescripcion
+                      key={etapa.id}
+                      etapa={etapa}
+                      classCSS={`${etapa.estado == 1 && "bg-[#affdce]"} 
+                                ${etapa.estado == 3 && "bg-[#879efc]"}
+                                ${etapa.estado == 4 && "bg-gray-100"}`}
+                    />
+                  );
+                }
+              })}
             </div>
           )}
           {mostrarRechazos && (
             <div className="w-full flex flex-wrap items-center justify-center gap-8 mt-8">
-              {etapasRechazadas?.map((etapa) => (
-                <NavLink to={`/Etapa/Historial`} key={etapa.id}>
-                  <div
-                    key={etapa.id}
-                    className={`w-full min-w-[200px] max-w-[250px] px-4 py-6 flex items-center justify-center rounded-2xl shadow-lg hover:shadow-cyan-200 hover:shadow-xl opacity-95 bg-red-400`}
-                  >
-                    <p className="text-xs md:text-sm text-black font-semibold">
-                      <b>Etapa {etapa.nombre}</b>
-                      <br /> Proceso Responsable
-                      <p>Usuario Responsable</p>
-                      <p>Etapa rechazada el 06 de marzo del 2025</p>
-                    </p>
-                  </div>
-                </NavLink>
-              ))}
+              {etapasTotales?.map((etapa) => {
+                if (etapa.estado == 2) {
+                  return (
+                    <EtapaDescripcion
+                      key={etapa.id}
+                      etapa={etapa}
+                      classCSS="bg-red-400"
+                    />
+                  );
+                }
+              })}
             </div>
           )}
         </div>

@@ -171,20 +171,20 @@ function EtapasUsuario() {
       <div className="flex items-center justify-center mt-8 gap-2 md:gap-6">
         <Button
           text="Etapas Aprobadas"
-          etapa={1}
-          setListarEtapas={setListarEtapas}
+          estado={1}
+          setEstado={setListarEtapas}
           classCSS="border-[#42d340] shadow-green-500"
         ></Button>
         <Button
           text="Etapas Rechazadas"
-          etapa={2}
-          setListarEtapas={setListarEtapas}
+          estado={2}
+          setEstado={setListarEtapas}
           classCSS="border-[#f66c79] shadow-[#f66c79]"
         ></Button>
         <Button
           text="Etapas En Proceso"
-          etapa={3}
-          setListarEtapas={setListarEtapas}
+          estado={3}
+          setEstado={setListarEtapas}
           classCSS="border-[#879efc] shadow-[#879efc]"
         ></Button>
       </div>
@@ -208,3 +208,6 @@ function EtapasUsuario() {
 }
 
 export default EtapasUsuario;
+
+//Pagina que mostrará las etapas que corresponden al usuario en sesión, se obtiene todas las etapas
+//que tiene el usuario y se clasifican por "Etapas Aprobadas", "Etapas Rechazadas" y "Etapas en Proceso"
