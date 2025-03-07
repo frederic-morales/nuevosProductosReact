@@ -186,8 +186,9 @@ function ListadoEtapas() {
                     <EtapaDescripcion
                       key={etapa.id}
                       etapa={etapa}
+                      link={etapa.estado != 4 ? "/Etapa/Historial" : ""}
                       classCSS={`${etapa.estado == 1 && "bg-[#affdce]"} 
-                                ${etapa.estado == 3 && "bg-[#879efc]"}
+                                ${etapa.estado == 3 && "bg-[#879efc]"}          
                                 ${etapa.estado == 4 && "bg-gray-100"}`}
                     />
                   );
@@ -204,6 +205,7 @@ function ListadoEtapas() {
                       key={etapa.id}
                       etapa={etapa}
                       classCSS="bg-red-400"
+                      link="/Etapa/Historial"
                     />
                   );
                 }

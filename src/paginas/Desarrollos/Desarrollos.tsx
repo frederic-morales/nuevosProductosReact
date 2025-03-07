@@ -241,7 +241,7 @@ function Desarrollos() {
           estado={2}
         ></Button>
         <Button
-          text="Desarrollos Aprobados"
+          text="Desarrollos En Proceso"
           classCSS="border-[#879efc] shadow-[#879efc]"
           setEstado={setListarDesarrollos}
           estado={3}
@@ -254,6 +254,11 @@ function Desarrollos() {
             return (
               <DesarrolloDescripcion
                 desarrollo={desarrollo}
+                link={
+                  desarrollo.estado == 2
+                    ? "/Producto/Reasignar Etapas"
+                    : "/Producto/Etapas"
+                }
                 classCSS={`${
                   desarrollo.estado == 1 &&
                   "border-3 border-[#42d340] shadow-md shadow-[#42d340]"

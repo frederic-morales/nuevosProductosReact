@@ -4,15 +4,17 @@ import { Desarrollo } from "../../interfaces/Desarrollo";
 interface DesarrolloDescripcionProps {
   classCSS: string;
   desarrollo: Desarrollo;
+  link: string;
 }
 
 function DesarrolloDescripcion({
   classCSS,
   desarrollo,
+  link,
 }: DesarrolloDescripcionProps) {
   return (
     <NavLink
-      to={"/Producto/Etapas"}
+      to={link}
       className="w-full min-w-[200px] max-w-[250px] md:max-w-[350px] lg:max-w-[380px]"
     >
       <div
