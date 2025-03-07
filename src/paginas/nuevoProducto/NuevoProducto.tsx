@@ -16,7 +16,6 @@ function NuevoProducto() {
     descripcion: "",
     informacion: "",
     camp01: "",
-    campo2: "",
   });
   const etapas = [
     "Etapa 1",

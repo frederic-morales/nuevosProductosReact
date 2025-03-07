@@ -1,4 +1,4 @@
-import Desarrollos from "./paginas/Desarrollos/Desarrollos";
+import Desarrollos from "./paginas/desarrollos/Desarrollos";
 import Login from "./paginas/login/Login";
 import Layout from "./router/Layout";
 import Etapa from "./paginas/etapa/Etapa";
@@ -8,8 +8,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Actualizar from "./paginas/etapa/Actualizar";
 import Historial from "./paginas/etapa/Historial";
 import ListadoEtapas from "./paginas/producto/ListadoEtapas";
-import "./App.css";
 import ReasignarEtapas from "./paginas/producto/ReasignarEtapas";
+import EtapasUsuario from "./paginas/etapasUsuario/etapasUsuario";
+import "./App.css";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
             element: <Historial />,
           },
         ],
+      },
+      {
+        path: "EtapasUsuario",
+        element: <EtapasUsuario />,
       },
     ],
   },

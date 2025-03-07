@@ -78,6 +78,11 @@ function Header() {
                 Iniciar Nuevo Desarrollo
               </span>
             </Link>
+            <Link to={"EtapasUsuario"}>
+              <span className="cursor-pointer rounded-sm py-1 px-2 font-medium hover:bg-gray-100 hover:text-black hover:shadow-xl hover:shadow-blue-300">
+                Mis Etapas
+              </span>
+            </Link>
           </div>
         </div>
       </div>

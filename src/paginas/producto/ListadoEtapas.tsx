@@ -176,7 +176,6 @@ function ListadoEtapas() {
       <div className="flex flex-wrap items-start justify-center gap-6 mt-6 w-full lg:mt-12">
         <div className="w-full flex flex-col items-center rounded-2xl h-fit">
           <button
-            // className={`text-lg font-bold border-b py-2 text-center text-white md:text-2xl hover:cursor-pointer drop-shadow-[2px_1px_0px_black]`}
             className="text-center md:text-start text-xs md:text-lg cursor-pointer rounded-lg py-2 px-3 md:px-5 font-medium bg-gray-100 hover:shadow-xl hover:shadow-blue-300 w-fit"
             onClick={handleClick}
           >
