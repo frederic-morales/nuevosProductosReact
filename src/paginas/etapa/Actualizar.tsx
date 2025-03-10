@@ -87,10 +87,10 @@ function Actualizar() {
           </p>
         </label>
       </div>
-      {/* Comentarios */}
+      {/* Descripcion */}
       <div className="col-start-1 col-end-5 ">
         <p className="text-center mb-5 mt-5 font-bold md:text-xl text-white">
-          Comentarios
+          Descripcion
         </p>
         <div className="w-full h-60 p-8 rounded-3xl shadow-md shadow-gray-500 bg-gray-100 opacity-95 hover:shadow-lg hover:shadow-blue-300">
           <textarea

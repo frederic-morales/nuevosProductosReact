@@ -195,6 +195,7 @@ function EtapasUsuario() {
             return (
               <EtapaDescripcion
                 etapa={etapa}
+                link="/Etapa/Historial"
                 classCSS={`${etapa.estado == 1 && "bg-[#affdce]"} 
                         ${etapa.estado == 2 && "bg-red-400"}
                         ${etapa.estado == 3 && "bg-[#879efc]"}`}

@@ -182,11 +182,14 @@ function ListadoEtapas() {
             <div className="w-full flex flex-wrap items-center justify-center gap-8 mt-8">
               {etapasTotales?.map((etapa) => {
                 if (etapa.estado != 2) {
+                  let ruta = "";
+                  if (etapa.estado == 1) ruta = "/Etapa/Historial";
+                  if (etapa.estado == 3) ruta = "/Etapa/Actualizar";
                   return (
                     <EtapaDescripcion
                       key={etapa.id}
                       etapa={etapa}
-                      link={etapa.estado != 4 ? "/Etapa/Historial" : ""}
+                      link={ruta}
                       classCSS={`${etapa.estado == 1 && "bg-[#affdce]"} 
                                 ${etapa.estado == 3 && "bg-[#879efc]"}          
                                 ${etapa.estado == 4 && "bg-gray-100"}`}
