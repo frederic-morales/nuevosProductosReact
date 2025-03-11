@@ -14,13 +14,18 @@ function Etapa() {
           Etapa en Proceso
         </h4>
         <Link to={"Actualizar"}>
-          <button className="text-start mr-4 cursor-pointer rounded-lg py-1 px-3 font-medium bg-gray-100 hover:shadow-xl hover:shadow-blue-300 w-fit">
+          <button className="text-sm md:text-base text-start m-1 md:mr-4 cursor-pointer rounded-lg py-1 px-3 font-medium bg-gray-100 hover:shadow-xl hover:shadow-blue-300 w-fit">
             Actualizar Etapa
           </button>
         </Link>
         <Link to={"Historial"}>
-          <button className="text-start cursor-pointer rounded-lg py-1 px-3 font-medium bg-gray-100 hover:shadow-xl hover:shadow-blue-300 w-fit">
+          <button className="text-sm md:text-base text-start m-1 md:mr-4 cursor-pointer rounded-lg py-1 px-3 font-medium bg-gray-100 hover:shadow-xl hover:shadow-blue-300 w-fit">
             Historial de la Etapa
+          </button>
+        </Link>
+        <Link to={"Iniciar"}>
+          <button className="text-sm md:text-base text-start m-1 md:mr-4 cursor-pointer rounded-lg py-1 px-3 font-medium bg-gray-100 hover:shadow-xl hover:shadow-blue-300 w-fit">
+            Iniciar Etapa
           </button>
         </Link>
       </div>

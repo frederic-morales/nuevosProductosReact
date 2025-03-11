@@ -10,6 +10,7 @@ import Historial from "./paginas/etapa/Historial";
 import ListadoEtapas from "./paginas/producto/ListadoEtapas";
 import ReasignarEtapas from "./paginas/producto/ReasignarEtapas";
 import EtapasUsuario from "./paginas/etapasUsuario/EtapasUsuario";
+import Iniciar from "./paginas/etapa/Iniciar";
 import "./App.css";
 
 const router = createBrowserRouter([
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
           {
             path: "Historial",
             element: <Historial />,
+          },
+          {
+            path: "Iniciar",
+            element: <Iniciar />,
           },
         ],
       },

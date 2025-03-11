@@ -107,7 +107,7 @@ function NuevoProducto() {
         <Alert // Cuando el usuario de click en guardar y confirme la accion
           duracion={4000}
           bgColor="bg-green-300"
-          redirigir="/Desarrollos"
+          redirigir="/"
           mensaje="Se ha iniciado un nuevo desarrollo"
         ></Alert>
       )}

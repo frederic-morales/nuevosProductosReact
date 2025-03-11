@@ -86,7 +86,7 @@ function ReasignarEtapas() {
         <Alert // Cuando el usuario de click en guardar y confirme la accion
           duracion={4000}
           bgColor="bg-green-300"
-          redirigir="/Desarrollos"
+          redirigir="/"
           mensaje="Se han reasignado las etapas correctamente!!"
         ></Alert>
       )}
