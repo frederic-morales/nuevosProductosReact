@@ -1,9 +1,9 @@
-import { Etapa } from "../interfaces/Etapa";
+import { EtapaPrueba } from "../interfaces/Etapa";
 import { NavLink } from "react-router";
 
 interface EtapaDescripcionProps {
   classCSS: string;
-  etapa: Etapa;
+  etapa: EtapaPrueba;
   link: string;
 }
 

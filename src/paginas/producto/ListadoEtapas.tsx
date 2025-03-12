@@ -1,10 +1,10 @@
-import { Etapa } from "../../interfaces/Etapa";
+import { EtapaPrueba } from "../../interfaces/Etapa";
 import { useState } from "react";
 import EtapaDescripcion from "../../componentes/EtapaDescripcion";
 
 function ListadoEtapas() {
   //estados 1=Aprobada, 2=Rechazado, 3=EnProceso, 4=Pendiente
-  const etapasTotales: Etapa[] = [
+  const etapasTotales: EtapaPrueba[] = [
     {
       id: 1,
       productoId: 3,

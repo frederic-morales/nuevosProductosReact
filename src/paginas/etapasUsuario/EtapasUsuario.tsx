@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { Etapa } from "../../interfaces/Etapa";
+import { EtapaPrueba } from "../../interfaces/Etapa";
 import EtapaDescripcion from "../../componentes/EtapaDescripcion";
 import Button from "../../componentes/Button";
 
 function EtapasUsuario() {
   //estados 1=Aprobada, 2=Rechazado, 3=EnProceso, 4=Pendiente
-  const etapasTotales: Etapa[] = [
+  const etapasTotales: EtapaPrueba[] = [
     {
       id: 1,
       productoId: 3,

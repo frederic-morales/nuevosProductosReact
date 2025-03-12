@@ -1,8 +1,10 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Confirmacion from "../../componentes/Confirmacion";
 import Alert from "../../componentes/Alert";
 import Campo from "./Campo";
 import CheckEtapa from "../../componentes/CheckEtapa";
+import { Etapa } from "../../interfaces/Etapa";
+import axios from "axios";
 
 // Tipo para mapear un array de elementos accediendo por el nombre del elemento
 type Campos = {
@@ -17,17 +19,36 @@ function NuevoProducto() {
     informacion: "",
     camp01: "",
   });
-  const etapas = [
-    "Etapa 1",
-    "Etapa 2",
-    "Etapa 3",
-    "Etapa 4",
-    "Etapa 5",
-    "Etapa 6",
-  ];
+  // const etapasPrueba = [
+  //   "Etapa 1",
+  //   "Etapa 2",
+  //   "Etapa 3",
+  //   "Etapa 4",
+  //   "Etapa 5",
+  //   "Etapa 6",
+  // ];
   const [datosConfirmados, setDatosConfirmados] = useState<boolean | null>(
     null
   );
+
+  const [etapas, setEtapas] = useState<Etapa[]>();
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Función para hacer la solicitud con Axios
+    const fetchData = async () => {
+      try {
+        const response = await axios.get<Etapa[]>(
+          "http://localhost:3000/etapa/getAll"
+        );
+        setEtapas(response.data); // Axios ya parsea la respuesta a JSON
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Ocurrió un error");
+      }
+    };
+
+    fetchData();
+  }, []); // El array vacío [] asegura que el efecto se ejecute solo una vez
 
   const [mostrarConfirmacion, setMostrarConfirmacion] =
     useState<boolean>(false);
@@ -42,6 +63,10 @@ function NuevoProducto() {
       [campoId]: valor, // se actualiza solo el campo seleccionado
     }));
   };
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div className="flex flex-col items-center w-full mt-10 mb-12 ">
@@ -67,9 +92,10 @@ function NuevoProducto() {
             Etapas que llevara el producto
           </p>
           <div className="mt-5 flex flex-wrap gap-4 justify-center items-center w-full">
-            {etapas.map((etapa) => (
-              <CheckEtapa key={etapa} etapa={etapa} />
-            ))}
+            {typeof etapas != "undefined" &&
+              etapas.map((etapa) => (
+                <CheckEtapa key={etapa.EtapaId} Nombre={etapa.Nombre} />
+              ))}
           </div>
         </div>
         {/* Boton */}

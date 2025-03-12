@@ -1,4 +1,4 @@
-export interface Etapa {
+export interface EtapaPrueba {
   id: number;
   productoId: number;
   nombre: string;
@@ -8,4 +8,12 @@ export interface Etapa {
   tiempoEstimado: string;
   fechaInicio: string;
   estado: number;
+}
+
+export interface Etapa {
+  EtapaId?: number;
+  Nombre?: string;
+  Descripcion?: string;
+  FechaCreacion?: Date;
+  TiempoEstimado?: number;
 }
