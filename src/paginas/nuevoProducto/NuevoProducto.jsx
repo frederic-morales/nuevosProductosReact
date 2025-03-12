@@ -3,17 +3,17 @@ import Confirmacion from "../../componentes/Confirmacion";
 import Alert from "../../componentes/Alert";
 import Campo from "./Campo";
 import CheckEtapa from "../../componentes/CheckEtapa";
-import { Etapa } from "../../interfaces/Etapa";
+// import { Etapa } from "../../interfaces/Etapa";
 import axios from "axios";
 
 // Tipo para mapear un array de elementos accediendo por el nombre del elemento
-type Campos = {
-  [key: string]: string;
-};
+// type Campos = {
+//   [key: string]: string;
+// };
 
 function NuevoProducto() {
   //Campos a renderizar
-  const [campos, setCampos] = useState<Campos>({
+  const [campos, setCampos] = useState({
     nombre: "",
     descripcion: "",
     informacion: "",
@@ -27,20 +27,17 @@ function NuevoProducto() {
   //   "Etapa 5",
   //   "Etapa 6",
   // ];
-  const [datosConfirmados, setDatosConfirmados] = useState<boolean | null>(
-    null
-  );
+  const [datosConfirmados, setDatosConfirmados] = useState();
 
-  const [etapas, setEtapas] = useState<Etapa[]>();
-  const [error, setError] = useState<string | null>(null);
+  // const [etapas, setEtapas] = useState<Etapa[]>();
+  const [etapas, setEtapas] = useState();
+  const [error, setError] = useState();
 
   useEffect(() => {
     // Función para hacer la solicitud con Axios
     const fetchData = async () => {
       try {
-        const response = await axios.get<Etapa[]>(
-          "http://localhost:3000/etapa/getAll"
-        );
+        const response = await axios.get("http://localhost:3000/etapa/getAll");
         setEtapas(response.data); // Axios ya parsea la respuesta a JSON
       } catch (err) {
         setError(err instanceof Error ? err.message : "Ocurrió un error");
@@ -50,14 +47,13 @@ function NuevoProducto() {
     fetchData();
   }, []); // El array vacío [] asegura que el efecto se ejecute solo una vez
 
-  const [mostrarConfirmacion, setMostrarConfirmacion] =
-    useState<boolean>(false);
+  const [mostrarConfirmacion, setMostrarConfirmacion] = useState();
 
   const camposLlenos = useMemo(() => {
     return Object.values(campos).every((valor) => valor.trim() !== ""); //verifica que un campo no este vacio
   }, [campos]); //Se ejecuta cada vez que "campos" cambia, osea cada vez que el usuario cambia el valor en un campo
 
-  const handleChange = (campoId: string, valor: string) => {
+  const handleChange = (campoId, valor) => {
     setCampos((prev) => ({
       ...prev, // prev obiente el ultimo estado de campos
       [campoId]: valor, // se actualiza solo el campo seleccionado

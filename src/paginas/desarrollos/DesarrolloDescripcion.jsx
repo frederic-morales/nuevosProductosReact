@@ -1,17 +1,12 @@
 import { NavLink } from "react-router";
-import { Desarrollo } from "../../interfaces/Desarrollo";
 
-interface DesarrolloDescripcionProps {
-  classCSS: string;
-  desarrollo: Desarrollo;
-  link: string;
-}
+// interface DesarrolloDescripcionProps {
+//   classCSS: string;
+//   desarrollo: Desarrollo;
+//   link: string;
+// }
 
-function DesarrolloDescripcion({
-  classCSS,
-  desarrollo,
-  link,
-}: DesarrolloDescripcionProps) {
+function DesarrolloDescripcion({ classCSS, desarrollo, link }) {
   return (
     <NavLink
       to={link}

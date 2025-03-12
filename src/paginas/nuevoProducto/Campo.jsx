@@ -1,14 +1,14 @@
-import { ChangeEvent } from "react";
+// import { ChangeEvent } from "react";
 
-interface CampoProps {
-  valor: string;
-  keyName: string;
-  onChange: (valor: string) => void; // funcion pasada como "PROP"
-  hasError?: boolean;
-}
+// interface CampoProps {
+//   valor: string;
+//   keyName: string;
+//   onChange: (valor: string) => void; // funcion pasada como "PROP"
+//   hasError?: boolean;
+// }
 
-function Campo({ valor, keyName, onChange, hasError }: CampoProps) {
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+function Campo({ valor, keyName, onChange, hasError }) {
+  const handleChange = (e) => {
     onChange(e.target.value);
   };
 

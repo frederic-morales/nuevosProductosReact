@@ -1,24 +1,12 @@
+// import { EtapaPrueba } from "../../interfaces/Etapa";
 import { useState } from "react";
-import { EtapaPrueba } from "../../interfaces/Etapa";
 import EtapaDescripcion from "../../componentes/EtapaDescripcion";
-import Button from "../../componentes/Button";
 
-function EtapasUsuario() {
+function ListadoEtapas() {
   //estados 1=Aprobada, 2=Rechazado, 3=EnProceso, 4=Pendiente
-  const etapasTotales: EtapaPrueba[] = [
+  const etapasTotales = [
     {
       id: 1,
-      productoId: 3,
-      nombre: "Etapa1",
-      descripcion: "Descripcion sdfsdf",
-      usuario: 2,
-      fechaCreacion: "Ayer",
-      tiempoEstimado: "31/08/2025",
-      fechaInicio: "hoy",
-      estado: 1,
-    },
-    {
-      id: 10,
       productoId: 3,
       nombre: "Etapa1",
       descripcion: "Descripcion sdfsdf",
@@ -106,7 +94,7 @@ function EtapasUsuario() {
       estado: 3,
     },
     {
-      id: 100,
+      id: 10,
       productoId: 3,
       nombre: "Etapa1",
       descripcion: "Descripcion sdfsdf",
@@ -114,7 +102,7 @@ function EtapasUsuario() {
       fechaCreacion: "Ayer",
       tiempoEstimado: "31/08/2025",
       fechaInicio: "hoy",
-      estado: 2,
+      estado: 4,
     },
     {
       id: 11,
@@ -125,7 +113,7 @@ function EtapasUsuario() {
       fechaCreacion: "Ayer",
       tiempoEstimado: "31/08/2025",
       fechaInicio: "hoy",
-      estado: 2,
+      estado: 4,
     },
     {
       id: 12,
@@ -139,7 +127,7 @@ function EtapasUsuario() {
       estado: 4,
     },
     {
-      id: 13,
+      id: 1,
       productoId: 3,
       nombre: "Etapa1",
       descripcion: "Descripcion sdfsdf",
@@ -150,7 +138,18 @@ function EtapasUsuario() {
       estado: 2,
     },
     {
-      id: 15,
+      id: 2,
+      productoId: 3,
+      nombre: "Etapa1",
+      descripcion: "Descripcion sdfsdf",
+      usuario: 2,
+      fechaCreacion: "Ayer",
+      tiempoEstimado: "31/08/2025",
+      fechaInicio: "hoy",
+      estado: 2,
+    },
+    {
+      id: 3,
       productoId: 3,
       nombre: "Etapa1",
       descripcion: "Descripcion sdfsdf",
@@ -162,53 +161,64 @@ function EtapasUsuario() {
     },
   ];
 
-  const [listarEtapas, setListarEtapas] = useState<number>(1);
+  // Estado que permirte mostrar las etapas rechazadas
+  const [mostrarRechazos, setMostrarRechazos] = useState();
+
+  const handleClick = () => {
+    setMostrarRechazos(!mostrarRechazos);
+  };
+
   return (
     <>
-      <h1 className="text-center text-white font-bold text-3xl mt-8 uppercase drop-shadow-[1px_2px_0px_black]">
-        Etapas
-      </h1>
-      <div className="flex items-center justify-center mt-8 gap-2 md:gap-6">
-        <Button
-          text="Etapas Aprobadas"
-          estado={1}
-          setEstado={setListarEtapas}
-          classCSS="border-[#42d340] shadow-green-500"
-        ></Button>
-        <Button
-          text="Etapas Rechazadas"
-          estado={2}
-          setEstado={setListarEtapas}
-          classCSS="border-[#f66c79] shadow-[#f66c79]"
-        ></Button>
-        <Button
-          text="Etapas En Proceso"
-          estado={3}
-          setEstado={setListarEtapas}
-          classCSS="border-[#879efc] shadow-[#879efc]"
-        ></Button>
-      </div>
-      {/* {listarEtapas == 1 && ( */}
-      <div className="w-full flex flex-wrap items-center justify-center gap-8 mt-8">
-        {etapasTotales.map((etapa) => {
-          if (etapa.estado == listarEtapas) {
-            return (
-              <EtapaDescripcion
-                etapa={etapa}
-                link="/Etapa/Historial"
-                classCSS={`${etapa.estado == 1 && "bg-[#affdce]"} 
-                        ${etapa.estado == 2 && "bg-red-400"}
-                        ${etapa.estado == 3 && "bg-[#879efc]"}`}
-              />
-            );
-          }
-        })}
+      <div className="flex flex-wrap items-start justify-center gap-6 mt-6 w-full lg:mt-12">
+        <div className="w-full flex flex-col items-center rounded-2xl h-fit">
+          <button
+            className="text-center md:text-start text-xs md:text-lg cursor-pointer rounded-lg py-2 px-3 md:px-5 font-medium bg-gray-100 hover:shadow-xl hover:shadow-blue-300 w-fit"
+            onClick={handleClick}
+          >
+            {mostrarRechazos ? "Etapas Rechazadas" : "Etapas Totales"}
+          </button>
+          {!mostrarRechazos && (
+            <div className="w-full flex flex-wrap items-center justify-center gap-8 mt-8">
+              {etapasTotales?.map((etapa) => {
+                if (etapa.estado != 2) {
+                  let ruta = "";
+                  if (etapa.estado == 1) ruta = "/Etapa/Historial";
+                  if (etapa.estado == 3) ruta = "/Etapa/Actualizar";
+                  return (
+                    <EtapaDescripcion
+                      key={etapa.id}
+                      etapa={etapa}
+                      link={ruta}
+                      classCSS={`${etapa.estado == 1 && "bg-[#affdce]"} 
+                                ${etapa.estado == 3 && "bg-[#879efc]"}          
+                                ${etapa.estado == 4 && "bg-gray-100"}`}
+                    />
+                  );
+                }
+              })}
+            </div>
+          )}
+          {mostrarRechazos && (
+            <div className="w-full flex flex-wrap items-center justify-center gap-8 mt-8">
+              {etapasTotales?.map((etapa) => {
+                if (etapa.estado == 2) {
+                  return (
+                    <EtapaDescripcion
+                      key={etapa.id}
+                      etapa={etapa}
+                      classCSS="bg-red-400"
+                      link="/Etapa/Historial"
+                    />
+                  );
+                }
+              })}
+            </div>
+          )}
+        </div>
       </div>
     </>
   );
 }
 
-export default EtapasUsuario;
-
-//Pagina que mostrará las etapas que corresponden al usuario en sesión, se obtiene todas las etapas
-//que tiene el usuario y se clasifican por "Etapas Aprobadas", "Etapas Rechazadas" y "Etapas en Proceso"
+export default ListadoEtapas;

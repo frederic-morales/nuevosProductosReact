@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-interface AlertProps {
-  duracion: number;
-  redirigir?: string;
-  bgColor: string;
-  mensaje: string;
-  handleMostrar?: (valor: boolean) => void;
-}
+// interface AlertProps {
+//   duracion: number;
+//   redirigir?: string;
+//   bgColor: string;
+//   mensaje: string;
+//   handleMostrar?: (valor: boolean) => void;
+// }
 
 function Alert({
   duracion = 3000,
@@ -15,7 +15,7 @@ function Alert({
   redirigir,
   mensaje,
   handleMostrar,
-}: AlertProps) {
+}) {
   const [isVisible, setIsVisible] = useState(true);
   const rutaNueva = useNavigate();
 

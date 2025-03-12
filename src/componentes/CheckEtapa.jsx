@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Etapa } from "../interfaces/Etapa";
+// import { Etapa } from "../interfaces/Etapa";
 
 // Interfaz para paraserle los parametros a las funciones también llamados "PROPS en REACT"
 // interface CheckEtapaProps {
 //   etapa: string;
 // }
 
-function CheckEtapa(etapa: Etapa) {
+function CheckEtapa(etapa) {
   const [isChecked, setIsChecked] = useState(false);
   return (
     <label className="w-full max-w-sm flex items-center space-x-3 cursor-pointer group mt-3">

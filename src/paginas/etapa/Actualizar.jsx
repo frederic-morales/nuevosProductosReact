@@ -1,25 +1,30 @@
-import { useState, ChangeEvent } from "react";
+import { useState } from "react";
 import Confirmacion from "../../componentes/Confirmacion";
 import Alert from "../../componentes/Alert";
 
 function Actualizar() {
-  const [showConfirmacion, setShowConfirmacion] = useState<boolean>(false); //Estado que maneja si se debe de mostrar el mensaje de confirmacion
-  const [showAlert, setShowAlert] = useState<boolean>(false); // Estado que maneja si se debe de mostrar la alerta o no, se setea al valor "false" despues de cada renderizacion
-  const [datosConfirmados, setDatosConfirmados] = useState<boolean>(); // Estado que guarda la eleccion del usuario "si" o "no" - Servira para enviar los datos a la DB
-  const [file, setFile] = useState<File | null>(null); // Estado que guarda el archivo subido
-  const [msjConfirmacion, setMsjConfirmacion] = useState<string>(""); // Mensaje de confirmacion, cambia su estado dependiendo si es "Actualizar", "Aprobar" o "Rechazar"
-  const [msjCancelacion, setMsjCancelacion] = useState<string>(""); // Mensaje de cancelacion, cambia su estado dependiendo si es "Actualizar", "Aprobar" o "Rechazar"
-  const [rutaRedireccion, setRutaRedireccion] = useState<string>(""); // Ruta de confirmacion, cambia su estado dependiendo si es "Actualizar", "Aprobar" o "Rechazar"
+  const [showConfirmacion, setShowConfirmacion] = useState(); //Estado que maneja si se debe de mostrar el mensaje de confirmacion
+  const [showAlert, setShowAlert] = useState(); // Estado que maneja si se debe de mostrar la alerta o no, se setea al valor "false" despues de cada renderizacion
+  const [datosConfirmados, setDatosConfirmados] = useState(); // Estado que guarda la eleccion del usuario "si" o "no" - Servira para enviar los datos a la DB
+  const [file, setFile] = useState(); // Estado que guarda el archivo subido
+  const [msjConfirmacion, setMsjConfirmacion] = useState(); // Mensaje de confirmacion, cambia su estado dependiendo si es "Actualizar", "Aprobar" o "Rechazar"
+  const [msjCancelacion, setMsjCancelacion] = useState(); // Mensaje de cancelacion, cambia su estado dependiendo si es "Actualizar", "Aprobar" o "Rechazar"
+  const [rutaRedireccion, setRutaRedireccion] = useState(); // Ruta de confirmacion, cambia su estado dependiendo si es "Actualizar", "Aprobar" o "Rechazar"
 
   // funcion que permite subir el archivo
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+  // const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+  //   if (e.target.files) {
+  //     setFile(e.target.files[0]);
+  //   }
+  // };
+
+  const handleFileChange = (e) => {
     if (e.target.files) {
       setFile(e.target.files[0]);
     }
   };
-
   //Funcion que maneja los estados de renderizacion "Confirmacion" y "Alert"
-  const handleConfirmedResponse = (isConfirmed: boolean) => {
+  const handleConfirmedResponse = (isConfirmed) => {
     setShowConfirmacion(false);
     setShowAlert(true);
     setDatosConfirmados(isConfirmed);

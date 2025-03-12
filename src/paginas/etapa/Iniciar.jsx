@@ -4,12 +4,10 @@ import { useState } from "react";
 import { Link } from "react-router";
 
 function Iniciar() {
-  const [showConfirmacion, setShowConfirmacion] = useState<boolean>(false);
-  const [datosConfirmados, setDatosConfirmados] = useState<boolean | null>(
-    null
-  ); // Estado que guarda la eleccion del usuario "si" o "no" - Servira para enviar los datos a la DB
+  const [showConfirmacion, setShowConfirmacion] = useState();
+  const [datosConfirmados, setDatosConfirmados] = useState(); // Estado que guarda la eleccion del usuario "si" o "no" - Servira para enviar los datos a la DB
 
-  const handleConfirmacion = (valor: boolean) => {
+  const handleConfirmacion = (valor) => {
     setDatosConfirmados(valor);
     setShowConfirmacion(false);
   };

@@ -3,12 +3,7 @@ import Alert from "../../componentes/Alert";
 import Confirmacion from "../../componentes/Confirmacion";
 import { useState } from "react";
 
-interface campoLlenoProps {
-  titulo: string;
-  valor: string;
-}
-
-function CampoLleno(props: campoLlenoProps) {
+function CampoLleno(props) {
   const { titulo, valor } = props;
   return (
     <div className="w-full max-w-sm mb-6 md:mb-0 text-white">
@@ -23,11 +18,8 @@ function CampoLleno(props: campoLlenoProps) {
 }
 
 function ReasignarEtapas() {
-  const [datosConfirmados, setDatosConfirmados] = useState<boolean | null>(
-    null
-  );
-  const [mostrarConfirmacion, setMostrarConfirmacion] =
-    useState<boolean>(false);
+  const [datosConfirmados, setDatosConfirmados] = useState();
+  const [mostrarConfirmacion, setMostrarConfirmacion] = useState();
 
   const etapas = [
     "Etapa 1",

@@ -3,10 +3,8 @@ import Confirmacion from "../../componentes/Confirmacion";
 import { useState } from "react";
 
 function Historial() {
-  const [showConfirmacion, setShowConfirmacion] = useState<boolean>(false);
-  const [datosConfirmados, setDatosConfirmados] = useState<boolean | null>(
-    null
-  ); // Estado que guarda la eleccion del usuario "si" o "no" - Servira para enviar los datos a la DB
+  const [showConfirmacion, setShowConfirmacion] = useState();
+  const [datosConfirmados, setDatosConfirmados] = useState(); // Estado que guarda la eleccion del usuario "si" o "no" - Servira para enviar los datos a la DB
 
   const actualizaciones = [
     {
@@ -31,7 +29,7 @@ function Historial() {
     },
   ];
 
-  const handleConfirmacion = (valor: boolean) => {
+  const handleConfirmacion = (valor) => {
     setDatosConfirmados(valor);
     setShowConfirmacion(false);
   };

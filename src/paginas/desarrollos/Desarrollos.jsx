@@ -1,11 +1,10 @@
 import DesarrolloDescripcion from "./DesarrolloDescripcion";
-import { Desarrollo } from "../../interfaces/Desarrollo";
 import Button from "../../componentes/Button";
 import { useState } from "react";
 
 function Desarrollos() {
   //Estado 1=Aprobado, 2=Rechazado, 3=EnProceso
-  const desarrollosTotales: Desarrollo[] = [
+  const desarrollosTotales = [
     {
       id: 1,
       estado: 1,
@@ -143,7 +142,7 @@ function Desarrollos() {
     },
   ];
 
-  const [listarDesarrollos, setListarDesarrollos] = useState<number>(3);
+  const [listarDesarrollos, setListarDesarrollos] = useState(3);
   return (
     <>
       <h2 className="font-black text-2xl md:text-4xl mt-5 md:mt-8 lg:mt-12 tracking-tight text-center uppercase text-white drop-shadow-[1px_1px_0px_black]">
