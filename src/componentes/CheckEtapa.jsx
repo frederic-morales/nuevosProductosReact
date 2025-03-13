@@ -1,10 +1,4 @@
 import { useState } from "react";
-// import { Etapa } from "../interfaces/Etapa";
-
-// Interfaz para paraserle los parametros a las funciones también llamados "PROPS en REACT"
-// interface CheckEtapaProps {
-//   etapa: string;
-// }
 
 function CheckEtapa(etapa) {
   const [isChecked, setIsChecked] = useState(false);
@@ -41,6 +35,7 @@ function CheckEtapa(etapa) {
         </svg>
       </span>
       <span className="font-bold md:text-lg text-white drop-shadow-[1px_1px_1px_black]">
+        {etapa.EtapaId}
         {etapa.Nombre}
       </span>
     </label>

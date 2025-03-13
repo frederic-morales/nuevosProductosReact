@@ -3,58 +3,50 @@ import Confirmacion from "../../componentes/Confirmacion";
 import Alert from "../../componentes/Alert";
 import Campo from "./Campo";
 import CheckEtapa from "../../componentes/CheckEtapa";
-// import { Etapa } from "../../interfaces/Etapa";
 import axios from "axios";
-
-// Tipo para mapear un array de elementos accediendo por el nombre del elemento
-// type Campos = {
-//   [key: string]: string;
-// };
 
 function NuevoProducto() {
   //Campos a renderizar
-  const [campos, setCampos] = useState({
+  const [camposPrueba, setCamposPrueba] = useState({
     nombre: "",
     descripcion: "",
     informacion: "",
     camp01: "",
   });
-  // const etapasPrueba = [
-  //   "Etapa 1",
-  //   "Etapa 2",
-  //   "Etapa 3",
-  //   "Etapa 4",
-  //   "Etapa 5",
-  //   "Etapa 6",
-  // ];
-  const [datosConfirmados, setDatosConfirmados] = useState();
-
-  // const [etapas, setEtapas] = useState<Etapa[]>();
-  const [etapas, setEtapas] = useState();
   const [error, setError] = useState();
+  const [datosConfirmados, setDatosConfirmados] = useState();
+  const [etapas, setEtapas] = useState();
+  const [campos, setCampos] = useState();
 
+  // Función para hacer la solicitud con Axios
   useEffect(() => {
-    // Función para hacer la solicitud con Axios
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:3000/etapa/getAll");
         setEtapas(response.data); // Axios ya parsea la respuesta a JSON
+        const [etapasResponse, camposResponse] = await Promise.all([
+          axios.get("http://localhost:3000/etapa/getAll"),
+          axios.get("http://localhost:3000/producto/getColumns"),
+        ]);
+
+        setEtapas(etapasResponse.data);
+        setCampos(camposResponse.data);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Ocurrió un error");
       }
     };
 
     fetchData();
-  }, []); // El array vacío [] asegura que el efecto se ejecute solo una vez
+  }, []);
 
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState();
 
   const camposLlenos = useMemo(() => {
-    return Object.values(campos).every((valor) => valor.trim() !== ""); //verifica que un campo no este vacio
-  }, [campos]); //Se ejecuta cada vez que "campos" cambia, osea cada vez que el usuario cambia el valor en un campo
+    return Object.values(camposPrueba).every((valor) => valor.trim() !== ""); //verifica que un campo no este vacio
+  }, [camposPrueba]); //Se ejecuta cada vez que "campos" cambia, osea cada vez que el usuario cambia el valor en un campo
 
   const handleChange = (campoId, valor) => {
-    setCampos((prev) => ({
+    setCamposPrueba((prev) => ({
       ...prev, // prev obiente el ultimo estado de campos
       [campoId]: valor, // se actualiza solo el campo seleccionado
     }));
@@ -64,6 +56,8 @@ function NuevoProducto() {
     return <div>Error: {error}</div>;
   }
 
+  console.log(campos);
+
   return (
     <div className="flex flex-col items-center w-full mt-10 mb-12 ">
       <h2 className="text-xl font-black md:text-2xl lg:text-4xl text-white uppercase drop-shadow-[1px_2px_0px_black]">
@@ -72,13 +66,13 @@ function NuevoProducto() {
       <form className="w-full mt-10 h-full">
         {/* Campos */}
         <div className="w-full flex gap-4 justify-center flex-wrap">
-          {Object.keys(campos).map((campoId) => (
+          {Object.keys(camposPrueba).map((campoId) => (
             <Campo
               key={campoId}
               keyName={campoId}
-              valor={campos[campoId]}
+              valor={camposPrueba[campoId]}
               onChange={(valor) => handleChange(campoId, valor)} // valor es el texto ingresado por el usuario
-              hasError={campos[campoId].trim() === ""} //Verificamos si el campo esta vacio
+              hasError={camposPrueba[campoId].trim() === ""} //Verificamos si el campo esta vacio
             />
           ))}
         </div>
