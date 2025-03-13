@@ -70,12 +70,12 @@ function Header() {
           <div className="flex gap-x-8 w-full justify-start text-white">
             <Link to={"/"}>
               <span className="cursor-pointer rounded-sm py-1 px-2  font-medium hover:bg-gray-100 hover:text-black hover:shadow-xl hover:shadow-blue-300">
-                Desarrollos en Proceso
+                Productos en Proceso
               </span>
             </Link>
             <Link to={"NuevoProducto"}>
               <span className="cursor-pointer rounded-sm py-1 px-2 font-medium hover:bg-gray-100 hover:text-black hover:shadow-xl hover:shadow-blue-300">
-                Iniciar Nuevo Desarrollo
+                Iniciar Producto nuevo
               </span>
             </Link>
             <Link to={"EtapasUsuario"}>

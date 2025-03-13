@@ -4,6 +4,7 @@ import Alert from "../../componentes/Alert";
 import Campo from "./Campo";
 import CheckEtapa from "../../componentes/CheckEtapa";
 import fetchDataProducto from "../../hooks/fetchDataProducto";
+import postDataProducto from "../../hooks/postDataProducto";
 
 function NuevoProducto() {
   // Usa el custom hook para obtener las etapas y los campos
@@ -91,7 +92,10 @@ function NuevoProducto() {
               <button
                 className="w-full bg-blue-500 hover:bg-blue-700 text-white py-3 px-8 rounded focus:outline-none focus:shadow-outline"
                 type="button"
-                onClick={() => setMostrarConfirmacion(true)}
+                onClick={() => {
+                  setMostrarConfirmacion(true);
+                  postDataProducto(camposNuevos);
+                }}
               >
                 Guardar
               </button>

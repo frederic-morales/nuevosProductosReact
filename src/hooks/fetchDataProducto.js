@@ -17,7 +17,6 @@ const fetchDataProducto = () => {
           axios.get(`${api}/etapa/getAll`),
           axios.get(`${api}/producto/getColumns`)
         ])
-
         // Actualiza los estados con los datos obtenidos
         setEtapas(etapasResponse.data)
         setCampos(camposResponse.data)
