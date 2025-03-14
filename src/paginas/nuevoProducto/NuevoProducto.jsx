@@ -12,7 +12,7 @@ function NuevoProducto() {
   const [validarCampos, setValidarCampos] = useState(false); // Validar que los campos requeridos no estén vacíos
   const [datosConfirmados, setDatosConfirmados] = useState(); // Confirmación del envío del formulario
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(); // Mostrar confirmación
-  const [response, setResponse] = useState(); // Para manejar la respuesta al enviar el formulario
+  const [etapasAsignadas, setEtapasAsignadas] = useState([]); // Manejar las etapas a enviar
 
   // Inicializa los campos nuevos con los nombres de las columnas
   if (campos.length > 0 && Object.keys(camposNuevos).length === 0) {
@@ -34,23 +34,35 @@ function NuevoProducto() {
     }));
     validateField();
   };
+  // se modifica etapasAsignadas cada vez que el usuario de check o uncheck en cada etapa
+  const handleToggleEtapa = (etapa, isChecked) => {
+    setEtapasAsignadas(
+      (prevEtapas) =>
+        isChecked
+          ? [...prevEtapas, etapa] // Agregar si se marca
+          : prevEtapas.filter((e) => e.EtapaId !== etapa.EtapaId) // Eliminar si se desmarca
+    );
+  };
 
   //Al usuario confirmar el envio de los datos
   const handleEnviarDatos = async () => {
     const API = import.meta.env.VITE_API_URL;
-    axios
-      .post(`${API}/producto/create`, {
-        nombre: camposNuevos.Nombre,
-        descripcion: camposNuevos.Descripcion,
-      })
-      .then((res) => {
-        setResponse(res);
-      })
-      .catch((err) => {
-        console.log("Error en el post:", err);
-      });
-    console.log(response);
-    console.log(camposNuevos);
+    const resProducto = await axios.post(`${API}/producto/create`, {
+      nombre: camposNuevos.Nombre,
+      descripcion: camposNuevos.Descripcion,
+    });
+
+    // console.log(resProducto);
+    console.log("Campos enviados...", camposNuevos);
+    const nuevoProducto = await resProducto.data.nuevoProductoId;
+    console.log(nuevoProducto);
+    // if (nuevoProducto) {
+    const resAsignarEtapas = await axios.post(`${API}/producto/asignarEtapas`, {
+      desarrolloProducto: nuevoProducto,
+      etapas: etapasAsignadas,
+    });
+    console.log(resAsignarEtapas.data);
+    // }
   };
 
   // Verificar si todos los campos están completos
@@ -68,6 +80,9 @@ function NuevoProducto() {
   if (error) {
     return <div>Error: {error}</div>;
   }
+
+  // console.log(etapas);
+  console.log(etapasAsignadas);
 
   return (
     <div className="flex flex-col items-center w-full mt-10 mb-12 ">
@@ -98,12 +113,16 @@ function NuevoProducto() {
           </p>
           <div className="mt-5 flex flex-wrap gap-4 justify-center items-center w-full">
             {etapas.map((etapa) => (
-              <CheckEtapa key={etapa.EtapaId} Nombre={etapa.Nombre} />
+              <CheckEtapa
+                key={etapa.EtapaId}
+                etapa={etapa}
+                onToggle={handleToggleEtapa}
+              />
             ))}
           </div>
         </div>
         {/* Botón */}
-        {validarCampos && (
+        {validarCampos && etapasAsignadas.length > 0 && (
           <div className="w-full pt-12 flex justify-center">
             <div className="w-full max-w-sm">
               <button
