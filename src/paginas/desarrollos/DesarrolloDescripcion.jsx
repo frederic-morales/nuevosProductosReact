@@ -10,7 +10,7 @@ function DesarrolloDescripcion({ classCSS, desarrollo, link }) {
         className={`w-full px-4 md:px-6 py-4 md:py-6 flex items-center justify-start rounded-2xl shadow-lg hover:shadow-cyan-200 hover:shadow-xl opacity-95 bg-gray-50 ${classCSS}`}
       >
         <p className="text-xs md:text-sm text-black font-semibold">
-          <b>{desarrollo.nombreProducto}</b>
+          <b>{desarrollo.Nombre}</b>
           <br />
           Fecha de Inicio: <b>01 01 2025</b>
           <br /> Desarrollo Aprobado

@@ -22,14 +22,31 @@ function ReasignarEtapas() {
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState();
 
   const etapas = [
-    "Etapa 1",
-    "Etapa 2",
-    "Etapa 3",
-    "Etapa 4",
-    "Etapa 5",
-    "Etapa 6",
+    {
+      EtapaId: 1,
+      Nombre: "Etapa1",
+    },
+    {
+      EtapaId: 2,
+      Nombre: "Etapa2",
+    },
+    {
+      EtapaId: 3,
+      Nombre: "Etapa3",
+    },
   ];
-  const campos = ["Campo 0", "Campo 1", "Campo 2", "Campo 3"];
+  const campos = ["Nombre", "Descripcion"];
+
+  // se modifica etapasAsignadas cada vez que el usuario de check o uncheck en cada etapa
+  const handleToggleEtapa = (etapa, isChecked) => {
+    // setEtapasAsignadas(
+    //   (prevEtapas) =>
+    //     isChecked
+    //       ? [...prevEtapas, etapa] // Agregar si se marca
+    //       : prevEtapas.filter((e) => e.EtapaId !== etapa.EtapaId) // Eliminar si se desmarca
+    // );
+    console.log("Hola");
+  };
 
   return (
     <div className="w-full mt-10 h-full">
@@ -49,7 +66,11 @@ function ReasignarEtapas() {
         </p>
         <div className="mt-5 flex flex-wrap gap-4 justify-center items-center w-full">
           {etapas.map((etapa) => (
-            <CheckEtapa key={etapa} etapa={etapa} />
+            <CheckEtapa
+              key={etapa.EtapaId}
+              etapa={etapa}
+              onToggle={handleToggleEtapa}
+            />
           ))}
         </div>
       </div>

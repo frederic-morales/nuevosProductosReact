@@ -7,7 +7,7 @@ const fetchDataProducto = () => {
   const [loading, setLoading] = useState(true) // Estado de carga
   const [error, setError] = useState(null) // Manejo de errores
 
-  const api = 'http://10.10.1.149:3000'
+  const api = import.meta.env.VITE_API_URL
 
   useEffect(() => {
     const fetchData = async () => {

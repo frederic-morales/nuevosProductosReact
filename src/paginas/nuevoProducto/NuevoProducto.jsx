@@ -44,7 +44,7 @@ function NuevoProducto() {
     );
   };
 
-  //Al usuario confirmar el envio de los datos
+  //Se envian los datos al usuario confirmar el envio de los datos
   const handleEnviarDatos = async () => {
     const API = import.meta.env.VITE_API_URL;
     const resProducto = await axios.post(`${API}/producto/create`, {
@@ -52,17 +52,14 @@ function NuevoProducto() {
       descripcion: camposNuevos.Descripcion,
     });
 
-    // console.log(resProducto);
     console.log("Campos enviados...", camposNuevos);
     const nuevoProducto = await resProducto.data.nuevoProductoId;
     console.log(nuevoProducto);
-    // if (nuevoProducto) {
     const resAsignarEtapas = await axios.post(`${API}/producto/asignarEtapas`, {
       desarrolloProducto: nuevoProducto,
       etapas: etapasAsignadas,
     });
     console.log(resAsignarEtapas.data);
-    // }
   };
 
   // Verificar si todos los campos están completos
@@ -82,7 +79,7 @@ function NuevoProducto() {
   }
 
   // console.log(etapas);
-  console.log(etapasAsignadas);
+  // console.log(etapasAsignadas);
 
   return (
     <div className="flex flex-col items-center w-full mt-10 mb-12 ">

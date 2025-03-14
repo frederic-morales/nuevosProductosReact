@@ -1,146 +1,151 @@
 import DesarrolloDescripcion from "./DesarrolloDescripcion";
 import Button from "../../componentes/Button";
+import fetchAllProductos from "../../hooks/fetchAllProductos";
 import { useState } from "react";
 
 function Desarrollos() {
+  const { productos, loading, error } = fetchAllProductos();
+
   //Estado 1=Aprobado, 2=Rechazado, 3=EnProceso
-  const desarrollosTotales = [
-    {
-      id: 1,
-      estado: 1,
-      nombreProducto: "Nombre del Producto - Prueba",
-      descripcion: "Descripcion del producto",
-      rechazos: 0,
-      tiempoEstimado: 40,
-      tiempoTotal: 34,
-    },
-    {
-      id: 2,
-      estado: 1,
-      nombreProducto: "Nombre del Producto - Prueba",
-      descripcion: "Descripcion del producto",
-      rechazos: 0,
-      tiempoEstimado: 40,
-      tiempoTotal: 34,
-    },
-    {
-      id: 3,
-      estado: 1,
-      nombreProducto: "Nombre del Producto - Prueba",
-      descripcion: "Descripcion del producto",
-      rechazos: 0,
-      tiempoEstimado: 40,
-      tiempoTotal: 34,
-    },
-    {
-      id: 4,
-      estado: 1,
-      nombreProducto: "Nombre del Producto - Prueba",
-      descripcion: "Descripcion del producto",
-      rechazos: 0,
-      tiempoEstimado: 40,
-      tiempoTotal: 34,
-    },
-    {
-      id: 5,
-      estado: 1,
-      nombreProducto: "Nombre del Producto - Prueba",
-      descripcion: "Descripcion del producto",
-      rechazos: 0,
-      tiempoEstimado: 40,
-      tiempoTotal: 34,
-    },
-    {
-      id: 5,
-      estado: 1,
-      nombreProducto: "Nombre del Producto - Prueba",
-      descripcion: "Descripcion del producto",
-      rechazos: 0,
-      tiempoEstimado: 40,
-      tiempoTotal: 34,
-    },
-    {
-      id: 6,
-      estado: 2,
-      nombreProducto: "Nombre del Producto - Prueba",
-      descripcion: "Descripcion del producto",
-      rechazos: 0,
-      tiempoEstimado: 40,
-      tiempoTotal: 34,
-    },
-    {
-      id: 7,
-      estado: 2,
-      nombreProducto: "Nombre del Producto - Prueba",
-      descripcion: "Descripcion del producto",
-      rechazos: 0,
-      tiempoEstimado: 40,
-      tiempoTotal: 34,
-    },
-    {
-      id: 8,
-      estado: 2,
-      nombreProducto: "Nombre del Producto - Prueba",
-      descripcion: "Descripcion del producto",
-      rechazos: 0,
-      tiempoEstimado: 40,
-      tiempoTotal: 34,
-    },
-    {
-      id: 9,
-      estado: 2,
-      nombreProducto: "Nombre del Producto - Prueba",
-      descripcion: "Descripcion del producto",
-      rechazos: 0,
-      tiempoEstimado: 40,
-      tiempoTotal: 34,
-    },
-    {
-      id: 10,
-      estado: 3,
-      nombreProducto: "Nombre del Producto - Prueba",
-      descripcion: "Descripcion del producto",
-      rechazos: 0,
-      tiempoEstimado: 40,
-      tiempoTotal: 34,
-    },
-    {
-      id: 11,
-      estado: 3,
-      nombreProducto: "Nombre del Producto - Prueba",
-      descripcion: "Descripcion del producto",
-      rechazos: 0,
-      tiempoEstimado: 40,
-      tiempoTotal: 34,
-    },
-    {
-      id: 12,
-      estado: 3,
-      nombreProducto: "Nombre del Producto - Prueba",
-      descripcion: "Descripcion del producto",
-      rechazos: 0,
-      tiempoEstimado: 40,
-      tiempoTotal: 34,
-    },
-    {
-      id: 13,
-      estado: 3,
-      nombreProducto: "Nombre del Producto - Prueba",
-      descripcion: "Descripcion del producto",
-      rechazos: 0,
-      tiempoEstimado: 40,
-      tiempoTotal: 34,
-    },
-    {
-      id: 14,
-      estado: 3,
-      nombreProducto: "Nombre del Producto - Prueba",
-      descripcion: "Descripcion del producto",
-      rechazos: 0,
-      tiempoEstimado: 40,
-      tiempoTotal: 34,
-    },
-  ];
+  // const desarrollosTotales = [
+  //   {
+  //     id: 1,
+  //     estado: 1,
+  //     nombreProducto: "Nombre del Producto - Prueba",
+  //     descripcion: "Descripcion del producto",
+  //     rechazos: 0,
+  //     tiempoEstimado: 40,
+  //     tiempoTotal: 34,
+  //   },
+  //   {
+  //     id: 2,
+  //     estado: 1,
+  //     nombreProducto: "Nombre del Producto - Prueba",
+  //     descripcion: "Descripcion del producto",
+  //     rechazos: 0,
+  //     tiempoEstimado: 40,
+  //     tiempoTotal: 34,
+  //   },
+  //   {
+  //     id: 3,
+  //     estado: 1,
+  //     nombreProducto: "Nombre del Producto - Prueba",
+  //     descripcion: "Descripcion del producto",
+  //     rechazos: 0,
+  //     tiempoEstimado: 40,
+  //     tiempoTotal: 34,
+  //   },
+  //   {
+  //     id: 4,
+  //     estado: 1,
+  //     nombreProducto: "Nombre del Producto - Prueba",
+  //     descripcion: "Descripcion del producto",
+  //     rechazos: 0,
+  //     tiempoEstimado: 40,
+  //     tiempoTotal: 34,
+  //   },
+  //   {
+  //     id: 5,
+  //     estado: 1,
+  //     nombreProducto: "Nombre del Producto - Prueba",
+  //     descripcion: "Descripcion del producto",
+  //     rechazos: 0,
+  //     tiempoEstimado: 40,
+  //     tiempoTotal: 34,
+  //   },
+  //   {
+  //     id: 5,
+  //     estado: 1,
+  //     nombreProducto: "Nombre del Producto - Prueba",
+  //     descripcion: "Descripcion del producto",
+  //     rechazos: 0,
+  //     tiempoEstimado: 40,
+  //     tiempoTotal: 34,
+  //   },
+  //   {
+  //     id: 6,
+  //     estado: 2,
+  //     nombreProducto: "Nombre del Producto - Prueba",
+  //     descripcion: "Descripcion del producto",
+  //     rechazos: 0,
+  //     tiempoEstimado: 40,
+  //     tiempoTotal: 34,
+  //   },
+  //   {
+  //     id: 7,
+  //     estado: 2,
+  //     nombreProducto: "Nombre del Producto - Prueba",
+  //     descripcion: "Descripcion del producto",
+  //     rechazos: 0,
+  //     tiempoEstimado: 40,
+  //     tiempoTotal: 34,
+  //   },
+  //   {
+  //     id: 8,
+  //     estado: 2,
+  //     nombreProducto: "Nombre del Producto - Prueba",
+  //     descripcion: "Descripcion del producto",
+  //     rechazos: 0,
+  //     tiempoEstimado: 40,
+  //     tiempoTotal: 34,
+  //   },
+  //   {
+  //     id: 9,
+  //     estado: 2,
+  //     nombreProducto: "Nombre del Producto - Prueba",
+  //     descripcion: "Descripcion del producto",
+  //     rechazos: 0,
+  //     tiempoEstimado: 40,
+  //     tiempoTotal: 34,
+  //   },
+  //   {
+  //     id: 10,
+  //     estado: 3,
+  //     nombreProducto: "Nombre del Producto - Prueba",
+  //     descripcion: "Descripcion del producto",
+  //     rechazos: 0,
+  //     tiempoEstimado: 40,
+  //     tiempoTotal: 34,
+  //   },
+  //   {
+  //     id: 11,
+  //     estado: 3,
+  //     nombreProducto: "Nombre del Producto - Prueba",
+  //     descripcion: "Descripcion del producto",
+  //     rechazos: 0,
+  //     tiempoEstimado: 40,
+  //     tiempoTotal: 34,
+  //   },
+  //   {
+  //     id: 12,
+  //     estado: 3,
+  //     nombreProducto: "Nombre del Producto - Prueba",
+  //     descripcion: "Descripcion del producto",
+  //     rechazos: 0,
+  //     tiempoEstimado: 40,
+  //     tiempoTotal: 34,
+  //   },
+  //   {
+  //     id: 13,
+  //     estado: 3,
+  //     nombreProducto: "Nombre del Producto - Prueba",
+  //     descripcion: "Descripcion del producto",
+  //     rechazos: 0,
+  //     tiempoEstimado: 40,
+  //     tiempoTotal: 34,
+  //   },
+  //   {
+  //     id: 14,
+  //     estado: 3,
+  //     nombreProducto: "Nombre del Producto - Prueba",
+  //     descripcion: "Descripcion del producto",
+  //     rechazos: 0,
+  //     tiempoEstimado: 40,
+  //     tiempoTotal: 34,
+  //   },
+  // ];
+
+  console.log(productos, loading, error);
 
   const [listarDesarrollos, setListarDesarrollos] = useState(3);
   return (
@@ -170,26 +175,27 @@ function Desarrollos() {
       </div>
 
       <div className="w-full flex flex-wrap items-center justify-center gap-6 mt-8 md:mt-12 ">
-        {desarrollosTotales.map((desarrollo) => {
-          if (desarrollo.estado == listarDesarrollos) {
+        {productos.map((desarrollo) => {
+          if (desarrollo.Estado == listarDesarrollos) {
             return (
               <DesarrolloDescripcion
+                key={desarrollo.DesarrolloProductoId}
                 desarrollo={desarrollo}
                 link={
-                  desarrollo.estado == 2
+                  desarrollo.Estado == 2
                     ? "/Producto/Reasignar Etapas"
                     : "/Producto/Etapas"
                 }
                 classCSS={`${
-                  desarrollo.estado == 1 &&
+                  desarrollo.Estado == 1 &&
                   "border-3 border-[#42d340] shadow-md shadow-[#42d340]"
                 } 
                 ${
-                  desarrollo.estado == 2 &&
+                  desarrollo.Estado == 2 &&
                   "border-3 border-[#f66c79] border-md shadow-[#f66c79]"
                 }
                 ${
-                  desarrollo.estado == 3 &&
+                  desarrollo.Estado == 3 &&
                   "border-3 border-[#879efc] border-md shadow-[#879efc]"
                 }`}
                 // classCSS="border-3 border-[#42d340] shadow-md shadow-green-500"
