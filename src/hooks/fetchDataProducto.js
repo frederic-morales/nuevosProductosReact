@@ -18,8 +18,8 @@ const fetchDataProducto = () => {
           axios.get(`${api}/producto/getColumns`)
         ])
         // Actualiza los estados con los datos obtenidos
-        setEtapas(etapasResponse.data)
-        setCampos(camposResponse.data)
+        setEtapas(await etapasResponse.data)
+        setCampos(await camposResponse.data)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Ocurrió un error')
       } finally {

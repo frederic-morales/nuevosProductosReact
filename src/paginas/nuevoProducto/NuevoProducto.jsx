@@ -1,19 +1,18 @@
 import { useState } from "react";
+import axios from "axios";
 import Confirmacion from "../../componentes/Confirmacion";
 import Alert from "../../componentes/Alert";
 import Campo from "./Campo";
 import CheckEtapa from "../../componentes/CheckEtapa";
 import fetchDataProducto from "../../hooks/fetchDataProducto";
-import postDataProducto from "../../hooks/postDataProducto";
 
 function NuevoProducto() {
-  // Usa el custom hook para obtener las etapas y los campos
-  const { etapas, campos, loading, error } = fetchDataProducto();
-
+  const { etapas, campos, loading, error } = fetchDataProducto(); // Usa el custom hook para obtener las etapas y los campos
   const [camposNuevos, setCamposNuevos] = useState({}); // Valores ingresados por el usuario a enviar
   const [validarCampos, setValidarCampos] = useState(false); // Validar que los campos requeridos no estén vacíos
   const [datosConfirmados, setDatosConfirmados] = useState(); // Confirmación del envío del formulario
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(); // Mostrar confirmación
+  const [response, setResponse] = useState(); // Para manejar la respuesta al enviar el formulario
 
   // Inicializa los campos nuevos con los nombres de las columnas
   if (campos.length > 0 && Object.keys(camposNuevos).length === 0) {
@@ -27,13 +26,31 @@ function NuevoProducto() {
     });
   }
 
+  // se llena camposNuevos con los valores que ingresa el usuario
   const handleChange = (campoNombre, valor) => {
     setCamposNuevos((prevCampos) => ({
       ...prevCampos,
       [campoNombre]: valor,
     }));
-
     validateField();
+  };
+
+  //Al usuario confirmar el envio de los datos
+  const handleEnviarDatos = async () => {
+    const API = import.meta.env.VITE_API_URL;
+    axios
+      .post(`${API}/producto/create`, {
+        nombre: camposNuevos.Nombre,
+        descripcion: camposNuevos.Descripcion,
+      })
+      .then((res) => {
+        setResponse(res);
+      })
+      .catch((err) => {
+        console.log("Error en el post:", err);
+      });
+    console.log(response);
+    console.log(camposNuevos);
   };
 
   // Verificar si todos los campos están completos
@@ -90,11 +107,11 @@ function NuevoProducto() {
           <div className="w-full pt-12 flex justify-center">
             <div className="w-full max-w-sm">
               <button
+                typeof="submit"
                 className="w-full bg-blue-500 hover:bg-blue-700 text-white py-3 px-8 rounded focus:outline-none focus:shadow-outline"
                 type="button"
                 onClick={() => {
                   setMostrarConfirmacion(true);
-                  postDataProducto(camposNuevos);
                 }}
               >
                 Guardar
@@ -110,14 +127,8 @@ function NuevoProducto() {
             setDatosConfirmados(value);
             setMostrarConfirmacion(false);
           }}
+          onSubmit={handleEnviarDatos}
         />
-      )}
-      {datosConfirmados != null && !datosConfirmados && (
-        <Alert // Cuando el usuario haga clic en guardar y cancele la acción
-          duracion={4000}
-          bgColor="bg-red-300"
-          mensaje="Se ha cancelado la acción"
-        ></Alert>
       )}
       {datosConfirmados != null && datosConfirmados && (
         <Alert // Cuando el usuario haga clic en guardar y confirme la acción
@@ -125,6 +136,13 @@ function NuevoProducto() {
           bgColor="bg-green-300"
           redirigir="/"
           mensaje="Se ha iniciado un nuevo desarrollo"
+        ></Alert>
+      )}
+      {datosConfirmados != null && !datosConfirmados && (
+        <Alert // Cuando el usuario haga clic en guardar y cancele la acción
+          duracion={4000}
+          bgColor="bg-red-300"
+          mensaje="Se ha cancelado la acción"
         ></Alert>
       )}
     </div>
