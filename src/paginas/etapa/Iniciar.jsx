@@ -12,6 +12,10 @@ function Iniciar() {
     setShowConfirmacion(false);
   };
 
+  const handleSubmit = () => {
+    console.log("Inciando etapa...");
+  };
+
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="w-[100%] sm:w-9/12 mt-8 flex flex-col px-6 py-4 rounded-3xl shadow-md shadow-gray-500 bg-gray-100 opacity-95 hover:shadow-lg hover:shadow-blue-300">
@@ -58,6 +62,7 @@ function Iniciar() {
         <Confirmacion
           mensaje="Esta seguro de Iniciar esta Etapa!!"
           handleConfirm={handleConfirmacion}
+          onSubmit={handleSubmit}
         />
       )}
       {datosConfirmados && (
@@ -65,7 +70,7 @@ function Iniciar() {
           duracion={3000}
           bgColor="bg-green-300"
           mensaje="Etapa iniciada exitosamente!!"
-          redirigir="/Etapa/Actualizar"
+          redirigir=""
         />
       )}
       {datosConfirmados != null && !datosConfirmados && (

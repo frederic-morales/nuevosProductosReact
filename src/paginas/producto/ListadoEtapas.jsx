@@ -30,9 +30,9 @@ function ListadoEtapas() {
               {etapas?.map((etapa) => {
                 if (etapa.Estado != 2) {
                   let ruta = "";
-                  if (etapa.Estado == 1) ruta = "1/Historial";
-                  if (etapa.Estado == 3) ruta = "1/Actualizar";
-                  if (etapa.Estado == null) ruta = "1/Actualizar";
+                  if (etapa.Estado == 1) ruta = "/Etapas/1/Historial";
+                  if (etapa.Estado == 3) ruta = "/Etapas/1/Actualizar";
+                  if (etapa.Estado == null) ruta = "/Etapa/1/Actualizar";
                   return (
                     <EtapaDescripcion
                       key={etapa.EtapaId}
@@ -56,7 +56,7 @@ function ListadoEtapas() {
                       key={etapa.id}
                       etapa={etapa}
                       classCSS="bg-red-400"
-                      link="/Etapa/Historial"
+                      link="/Etapas/1/Historial"
                     />
                   );
                 }

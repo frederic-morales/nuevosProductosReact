@@ -39,12 +39,6 @@ function ReasignarEtapas() {
 
   // se modifica etapasAsignadas cada vez que el usuario de check o uncheck en cada etapa
   const handleToggleEtapa = (etapa, isChecked) => {
-    // setEtapasAsignadas(
-    //   (prevEtapas) =>
-    //     isChecked
-    //       ? [...prevEtapas, etapa] // Agregar si se marca
-    //       : prevEtapas.filter((e) => e.EtapaId !== etapa.EtapaId) // Eliminar si se desmarca
-    // );
     console.log("Hola");
   };
 
@@ -92,6 +86,9 @@ function ReasignarEtapas() {
           handleConfirm={(value) => {
             setDatosConfirmados(value);
             setMostrarConfirmacion(false);
+          }}
+          onSubmit={() => {
+            console.log("Actualizando etapas...");
           }}
         />
       )}

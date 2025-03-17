@@ -44,7 +44,7 @@ function Desarrollos() {
                 desarrollo={desarrollo}
                 link={
                   desarrollo.Estado == 2
-                    ? "/Producto/Reasignar Etapas"
+                    ? `/Producto/${desarrollo.DesarrolloProductoId}/Reasignar Etapas`
                     : `/Producto/${desarrollo.DesarrolloProductoId}/Etapas`
                 }
                 classCSS={`${
@@ -59,7 +59,6 @@ function Desarrollos() {
                   desarrollo.Estado == 3 &&
                   "border-3 border-[#879efc] border-md shadow-[#879efc]"
                 }`}
-                // classCSS="border-3 border-[#42d340] shadow-md shadow-green-500"
               />
             );
           }

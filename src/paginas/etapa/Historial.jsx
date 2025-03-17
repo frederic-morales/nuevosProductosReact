@@ -144,6 +144,9 @@ function Historial() {
         <Confirmacion
           mensaje="Esta seguro de elimninar esta actualización!!"
           handleConfirm={handleConfirmacion}
+          onSubmit={() => {
+            console.log("Eliminando...");
+          }}
         />
       )}
       {datosConfirmados && (
