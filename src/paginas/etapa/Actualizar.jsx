@@ -29,6 +29,9 @@ function Actualizar() {
     setShowAlert(true);
     setDatosConfirmados(isConfirmed);
   };
+  const handleSubmit = () => {
+    console.log("Subiendo archivo...");
+  };
 
   return (
     <div className={`grid grid-cols-4 gap-4 mt-4 sm:mt-8 sm:w-9/12`}>
@@ -41,13 +44,7 @@ function Actualizar() {
             adipisicing elit. Vitae reiciendis exercitationem voluptatem fuga
             pariatur quasi. A tenetur officiis aliquam sapiente rem et, aliquid
             dolores, error ratione fugit eius repudiandae! Eveniet. Lorem ipsum
-            dolor sit amet consectetur adipisicing elit. Praesentium impedit
-            odio natus nemo deserunt soluta voluptatum, vero placeat eligendi
-            exercitationem asperiores doloribus neque quos a facilis assumenda
-            tenetur quasi. Eligendi. Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Commodi quam dolore necessitatibus illum sed
-            itaque quasi consequuntur, rem officia similique consectetur. Cumque
-            tenetur tempore ex magnam eligendi ut rerum minima.
+            dolor sit amet consectetur adipisicing elit.
           </p>
         </div>
         <p className="text-xs sm:text-sm mt-3 font-semibold ">
@@ -113,7 +110,7 @@ function Actualizar() {
               setShowConfirmacion(true);
               setMsjConfirmacion("Se ha actualizado la etapa correctamente!!");
               setMsjCancelacion("Se ha cancelado la actualizacion!!");
-              setRutaRedireccion("/Etapa/Historial");
+              setRutaRedireccion("");
             }}
           >
             Actualizar
@@ -126,7 +123,7 @@ function Actualizar() {
               setShowConfirmacion(true);
               setMsjConfirmacion("Se ha aprobado la etapa correctamente!!");
               setMsjCancelacion("Se ha cancelado la aprobacion de la etapa!!");
-              setRutaRedireccion("/Producto/Etapas");
+              setRutaRedireccion("");
             }}
           >
             Aprobar
@@ -139,7 +136,7 @@ function Actualizar() {
               setShowConfirmacion(true);
               setMsjConfirmacion("Se ha rechazado la etapa correctamente!!");
               setMsjCancelacion("Se ha cancelado el rechazo de la etapa!!");
-              setRutaRedireccion("/Producto/Reasignar Etapas");
+              setRutaRedireccion("");
             }}
           >
             Rechazar
@@ -151,6 +148,7 @@ function Actualizar() {
           key={Date.now()}
           mensaje="Esta seguro de realizar esta accion?"
           handleConfirm={handleConfirmedResponse}
+          onSubmit={handleSubmit}
         />
       )}
       {showAlert &&

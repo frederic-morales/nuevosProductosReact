@@ -1,165 +1,12 @@
-// import { EtapaPrueba } from "../../interfaces/Etapa";
 import { useState } from "react";
+import { useOutletContext } from "react-router-dom";
 import EtapaDescripcion from "../../componentes/EtapaDescripcion";
 
 function ListadoEtapas() {
-  //estados 1=Aprobada, 2=Rechazado, 3=EnProceso, 4=Pendiente
-  const etapasTotales = [
-    {
-      id: 1,
-      productoId: 3,
-      nombre: "Etapa1",
-      descripcion: "Descripcion sdfsdf",
-      usuario: 2,
-      fechaCreacion: "Ayer",
-      tiempoEstimado: "31/08/2025",
-      fechaInicio: "hoy",
-      estado: 1,
-    },
-    {
-      id: 2,
-      productoId: 3,
-      nombre: "Etapa1",
-      descripcion: "Descripcion sdfsdf",
-      usuario: 2,
-      fechaCreacion: "Ayer",
-      tiempoEstimado: "31/08/2025",
-      fechaInicio: "hoy",
-      estado: 1,
-    },
-    {
-      id: 3,
-      productoId: 3,
-      nombre: "Etapa1",
-      descripcion: "Descripcion sdfsdf",
-      usuario: 2,
-      fechaCreacion: "Ayer",
-      tiempoEstimado: "31/08/2025",
-      fechaInicio: "hoy",
-      estado: 1,
-    },
-    {
-      id: 5,
-      productoId: 3,
-      nombre: "Etapa1",
-      descripcion: "Descripcion sdfsdf",
-      usuario: 2,
-      fechaCreacion: "Ayer",
-      tiempoEstimado: "31/08/2025",
-      fechaInicio: "hoy",
-      estado: 1,
-    },
-    {
-      id: 6,
-      productoId: 3,
-      nombre: "Etapa1",
-      descripcion: "Descripcion sdfsdf",
-      usuario: 2,
-      fechaCreacion: "Ayer",
-      tiempoEstimado: "31/08/2025",
-      fechaInicio: "hoy",
-      estado: 1,
-    },
-    {
-      id: 7,
-      productoId: 3,
-      nombre: "Etapa1",
-      descripcion: "Descripcion sdfsdf",
-      usuario: 2,
-      fechaCreacion: "Ayer",
-      tiempoEstimado: "31/08/2025",
-      fechaInicio: "hoy",
-      estado: 1,
-    },
-    {
-      id: 8,
-      productoId: 3,
-      nombre: "Etapa1",
-      descripcion: "Descripcion sdfsdf",
-      usuario: 2,
-      fechaCreacion: "Ayer",
-      tiempoEstimado: "31/08/2025",
-      fechaInicio: "hoy",
-      estado: 3,
-    },
-    {
-      id: 9,
-      productoId: 3,
-      nombre: "Etapa1",
-      descripcion: "Descripcion sdfsdf",
-      usuario: 2,
-      fechaCreacion: "Ayer",
-      tiempoEstimado: "31/08/2025",
-      fechaInicio: "hoy",
-      estado: 3,
-    },
-    {
-      id: 10,
-      productoId: 3,
-      nombre: "Etapa1",
-      descripcion: "Descripcion sdfsdf",
-      usuario: 2,
-      fechaCreacion: "Ayer",
-      tiempoEstimado: "31/08/2025",
-      fechaInicio: "hoy",
-      estado: 4,
-    },
-    {
-      id: 11,
-      productoId: 3,
-      nombre: "Etapa1",
-      descripcion: "Descripcion sdfsdf",
-      usuario: 2,
-      fechaCreacion: "Ayer",
-      tiempoEstimado: "31/08/2025",
-      fechaInicio: "hoy",
-      estado: 4,
-    },
-    {
-      id: 12,
-      productoId: 3,
-      nombre: "Etapa1",
-      descripcion: "Descripcion sdfsdf",
-      usuario: 2,
-      fechaCreacion: "Ayer",
-      tiempoEstimado: "31/08/2025",
-      fechaInicio: "hoy",
-      estado: 4,
-    },
-    {
-      id: 1,
-      productoId: 3,
-      nombre: "Etapa1",
-      descripcion: "Descripcion sdfsdf",
-      usuario: 2,
-      fechaCreacion: "Ayer",
-      tiempoEstimado: "31/08/2025",
-      fechaInicio: "hoy",
-      estado: 2,
-    },
-    {
-      id: 2,
-      productoId: 3,
-      nombre: "Etapa1",
-      descripcion: "Descripcion sdfsdf",
-      usuario: 2,
-      fechaCreacion: "Ayer",
-      tiempoEstimado: "31/08/2025",
-      fechaInicio: "hoy",
-      estado: 2,
-    },
-    {
-      id: 3,
-      productoId: 3,
-      nombre: "Etapa1",
-      descripcion: "Descripcion sdfsdf",
-      usuario: 2,
-      fechaCreacion: "Ayer",
-      tiempoEstimado: "31/08/2025",
-      fechaInicio: "hoy",
-      estado: 2,
-    },
-  ];
+  //"Estados:" 1 = aprobado, 2 = rechazado, 3 = iniciado
+
+  const etapas = useOutletContext();
+  console.log(etapas);
 
   // Estado que permirte mostrar las etapas rechazadas
   const [mostrarRechazos, setMostrarRechazos] = useState();
@@ -180,19 +27,20 @@ function ListadoEtapas() {
           </button>
           {!mostrarRechazos && (
             <div className="w-full flex flex-wrap items-center justify-center gap-8 mt-8">
-              {etapasTotales?.map((etapa) => {
-                if (etapa.estado != 2) {
+              {etapas?.map((etapa) => {
+                if (etapa.Estado != 2) {
                   let ruta = "";
-                  if (etapa.estado == 1) ruta = "/Etapa/Historial";
-                  if (etapa.estado == 3) ruta = "/Etapa/Actualizar";
+                  if (etapa.Estado == 1) ruta = "1/Historial";
+                  if (etapa.Estado == 3) ruta = "1/Actualizar";
+                  if (etapa.Estado == null) ruta = "1/Actualizar";
                   return (
                     <EtapaDescripcion
-                      key={etapa.id}
+                      key={etapa.EtapaId}
                       etapa={etapa}
                       link={ruta}
-                      classCSS={`${etapa.estado == 1 && "bg-[#affdce]"} 
-                                ${etapa.estado == 3 && "bg-[#879efc]"}          
-                                ${etapa.estado == 4 && "bg-gray-100"}`}
+                      classCSS={`${etapa.Estado == 1 && "bg-[#affdce]"} 
+                                ${etapa.Estado == 3 && "bg-[#879efc]"}          
+                                ${etapa.Estado == null && "bg-gray-100"}`}
                     />
                   );
                 }
@@ -201,8 +49,8 @@ function ListadoEtapas() {
           )}
           {mostrarRechazos && (
             <div className="w-full flex flex-wrap items-center justify-center gap-8 mt-8">
-              {etapasTotales?.map((etapa) => {
-                if (etapa.estado == 2) {
+              {etapas?.map((etapa) => {
+                if (etapa.Estado == 2) {
                   return (
                     <EtapaDescripcion
                       key={etapa.id}

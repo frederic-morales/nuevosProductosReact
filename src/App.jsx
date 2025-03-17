@@ -24,7 +24,7 @@ const router = createBrowserRouter([
         element: <NuevoProducto />,
       },
       {
-        path: "Producto",
+        path: "Producto/:id",
         element: <Producto />,
         children: [
           {
@@ -35,26 +35,27 @@ const router = createBrowserRouter([
             path: "Reasignar Etapas",
             element: <ReasignarEtapas />,
           },
+          {
+            path: "Etapas/:id",
+            element: <Etapa />,
+            children: [
+              {
+                path: "Actualizar",
+                element: <Actualizar />,
+              },
+              {
+                path: "Historial",
+                element: <Historial />,
+              },
+              {
+                path: "Iniciar",
+                element: <Iniciar />,
+              },
+            ],
+          },
         ],
       },
-      {
-        path: "Etapa",
-        element: <Etapa />,
-        children: [
-          {
-            path: "Actualizar",
-            element: <Actualizar />,
-          },
-          {
-            path: "Historial",
-            element: <Historial />,
-          },
-          {
-            path: "Iniciar",
-            element: <Iniciar />,
-          },
-        ],
-      },
+
       {
         path: "EtapasUsuario",
         element: <EtapasUsuario />,

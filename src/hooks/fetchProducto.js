@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
-const fetchAllProductos = () => {
-  const [productos, setProductos] = useState([])
+const fetchProducto = ({ productoId }) => {
+  const [etapas, setEtapas] = useState()
+  const [info, setInfo] = useState()
   const [error, setError] = useState(null) // Manejo de errores
   const [loading, setLoading] = useState(true) // Estado de carga
 
@@ -11,23 +12,22 @@ const fetchAllProductos = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Realiza las dos peticiones en paralelo
-        const [productosResponse] = await Promise.all([
-          axios.get(`${api}/producto/getAll`)
+        const [infoResponse, etapasResponse] = await Promise.all([
+          axios.get(`${api}/producto/${productoId}`),
+          axios.get(`${api}/producto/${productoId}/etapas`)
         ])
         // Actualiza los estados con los datos obtenidos
-        setProductos(await productosResponse.data)
+        setInfo(await infoResponse.data)
+        setEtapas(await etapasResponse.data)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Ocurrió un error')
       } finally {
         setLoading(false)
       }
     }
-
     fetchData()
   }, [])
 
-  return { productos, error, loading }
+  return { info, etapas, error, loading }
 }
-
-export default fetchAllProductos
+export default fetchProducto

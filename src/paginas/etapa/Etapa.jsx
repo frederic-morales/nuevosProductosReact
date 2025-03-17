@@ -1,6 +1,5 @@
 import { Outlet, Link } from "react-router";
-// import Actualizar from "./Actualizar";
-// import Historial from "./Historial";
+import { useParams } from "react-router";
 
 function Etapa() {
   return (
