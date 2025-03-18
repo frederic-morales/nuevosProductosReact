@@ -32,7 +32,7 @@ function ListadoEtapas() {
                   let ruta = "";
                   if (etapa.Estado == 1) ruta = "/Etapas/1/Historial";
                   if (etapa.Estado == 3) ruta = "/Etapas/1/Actualizar";
-                  if (etapa.Estado == null) ruta = "/Etapa/1/Actualizar";
+                  if (etapa.Estado == null) ruta = "/Etapas/1/Actualizar";
                   return (
                     <EtapaDescripcion
                       key={etapa.EtapaId}

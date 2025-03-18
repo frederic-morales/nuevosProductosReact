@@ -1,16 +1,10 @@
 // import { EtapaPrueba } from "../interfaces/Etapa";
 import { NavLink } from "react-router";
-import { useParams } from "react-router-dom";
-
-// interface EtapaDescripcionProps {
-//   classCSS: string;
-//   etapa: EtapaPrueba;
-//   link: string;
-// }
+// import { useParams } from "react-router-dom";
 
 function EtapaDescripcion({ etapa, classCSS, link }) {
-  const params = useParams();
-  const etapaAsignadaId = params.id;
+  // const params = useParams();
+  // const etapaAsignadaId = params.id;
 
   return (
     <NavLink to={link}>

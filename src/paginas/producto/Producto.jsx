@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
 import { useParams } from "react-router-dom";
-import fetchProducto from "../../hooks/fetchProducto";
+import fetchProducto from "../../hooks/fetch_producto";
 
 function Producto() {
   const params = useParams();

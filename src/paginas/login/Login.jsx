@@ -5,27 +5,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = async () => {
-    // e.preventDefault();
-    // try {
-    //   const response = await fetch("http://localhost:4000/api/auth/login", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({ email, password }),
-    //   });
-    //   const data = await response.json();
-    //   if (data.error) {
-    //     alert(data.message);
-    //   } else {
-    //     alert("Inicio de sesión exitoso");
-    //     localStorage.setItem("token", data.token);
-    //     window.location.href = "/dashboard";
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-  };
+  const handleSubmit = async () => {};
 
   return (
     // <div className="min-h-screen flex items-center justify-center bg-gray-100">

@@ -1,6 +1,6 @@
-import DesarrolloDescripcion from "./DesarrolloDescripcion";
+import DesarrolloDescripcion from "./Desarrollo_descripcion";
 import Button from "../../componentes/Button";
-import fetchAllProductos from "../../hooks/fetchAllProductos";
+import fetchAllProductos from "../../hooks/fetch_all_productos";
 import { useState } from "react";
 
 function Desarrollos() {

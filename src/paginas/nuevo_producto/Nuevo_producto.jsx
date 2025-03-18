@@ -4,7 +4,7 @@ import Confirmacion from "../../componentes/Confirmacion";
 import Alert from "../../componentes/Alert";
 import Campo from "./Campo";
 import CheckEtapa from "../../componentes/CheckEtapa";
-import fetchDataProducto from "../../hooks/fetchDataProducto";
+import fetchDataProducto from "../../hooks/fetch_data_producto";
 
 function NuevoProducto() {
   const { etapas, campos, loading, error } = fetchDataProducto(); // Usa el custom hook para obtener las etapas y los campos

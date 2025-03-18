@@ -83,6 +83,11 @@ function Header() {
                 Mis Etapas
               </span>
             </Link>
+            <Link to={"Modificar_Etapas"}>
+              <span className="cursor-pointer rounded-sm py-1 px-2 font-medium hover:bg-gray-100 hover:text-black hover:shadow-xl hover:shadow-blue-300">
+                Modificar Etapas
+              </span>
+            </Link>
           </div>
         </div>
       </div>
