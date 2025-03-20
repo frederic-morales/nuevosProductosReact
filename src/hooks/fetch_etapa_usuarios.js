@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
-const fetch_all_usuarios = () => {
-  const [usuarios, setUsuarios] = useState([]) // Etapas a mostrar
+const fetch_etapa_usuarios = ({ EtapaId }) => {
+  const [usuariosEtapa, setUsuariosEtapa] = useState([]) // Etapas a mostrar
   const [loading, setLoading] = useState(true) // Estado de carga
   const [error, setError] = useState(null) // Manejo de errores
   const api = import.meta.env.VITE_API_URL
@@ -10,8 +10,10 @@ const fetch_all_usuarios = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [resUsuarios] = await Promise.all([axios.get(`${api}/usuarios`)])
-        setUsuarios(await resUsuarios.data)
+        const [resUsuariosEtapa] = await Promise.all([
+          axios.get(`${api}/etapa/${EtapaId}/usuarios`)
+        ])
+        setUsuariosEtapa(await resUsuariosEtapa.data)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Ocurrió un error')
       } finally {
@@ -21,7 +23,7 @@ const fetch_all_usuarios = () => {
     fetchData()
   }, [])
 
-  return { usuarios, loading, error }
+  return { usuariosEtapa, loading, error }
 }
 
-export default fetch_all_usuarios
+export default fetch_etapa_usuarios

@@ -1,11 +1,10 @@
-import { useState } from "react";
 import fetch_all_etapas from "../../hooks/fetch_all_etapas";
 import EtapaDescripcion from "../../componentes/EtapaDescripcion";
 
 function Modificar_etapas() {
   const { etapas, loading, error } = fetch_all_etapas();
 
-  console.log(etapas);
+  // console.log(etapas);
 
   return (
     <>

@@ -6,7 +6,7 @@ import { useState } from "react";
 function Desarrollos() {
   const { productos, loading, error } = fetchAllProductos();
 
-  console.log(productos, loading, error);
+  // console.log(productos, loading, error);
 
   const [listarDesarrollos, setListarDesarrollos] = useState(3);
   return (

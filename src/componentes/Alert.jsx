@@ -37,7 +37,7 @@ function Alert({
       <div
         className={`${bgColor} opacity-none p-6 rounded-lg shadow-lg text-center`}
       >
-        <p className="text-lg font-semibold">{mensaje}</p>
+        <p className="text-lg font-semibold text-black">{mensaje}</p>
       </div>
     </div>
   ) : null;

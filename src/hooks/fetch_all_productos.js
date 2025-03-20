@@ -11,7 +11,6 @@ const fetchAllProductos = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Realiza las dos peticiones en paralelo
         const [productosResponse] = await Promise.all([
           axios.get(`${api}/producto/getAll`)
         ])

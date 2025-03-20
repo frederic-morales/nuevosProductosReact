@@ -10,7 +10,7 @@ function Confirmacion({ mensaje, handleConfirm, onSubmit }) {
         className="fixed inset-0 flex items-center justify-center bg-gray-100 bg-opacity-50"
       >
         <div className="bg-white p-6 rounded-lg shadow-lg text-center">
-          <p className="text-lg font-semibold">{mensaje}</p>
+          <p className="text-lg font-semibold text-black">{mensaje}</p>
           <div className="mt-4 flex justify-center gap-4">
             <button
               type="submit"
