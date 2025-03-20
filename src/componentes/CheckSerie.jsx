@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const CheckSerie = ({ onChange }) => {
+const CheckSerie = ({ onChange, hasError }) => {
   // Estado para controlar cuál checkbox está seleccionado
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -20,8 +20,8 @@ const CheckSerie = ({ onChange }) => {
   };
 
   return (
-    <div className="w-full max-w-sm mb-6 md:mb-0 text-white text-center">
-      <h2 className="block uppercase text-lg font-bold mb-2 md:text-xl lg:text-2xl drop-shadow-[1px_1px_1px_black] text-white lg:mb-10">
+    <div className="w-full max-w-sm mb-6 md:mb-0 text-white text-start">
+      <h2 className="block uppercase text-lg font-bold mb-2 md:text-xl lg:text-2xl drop-shadow-[1px_1px_1px_black] text-white lg:mb-5">
         SERIE PRODUCTO
       </h2>
       {/* Primer checkbox */}
@@ -97,6 +97,11 @@ const CheckSerie = ({ onChange }) => {
           VET
         </span>
       </label>
+      {hasError && (
+        <p className="text-[#ff247f] text-xs font-bold md:text-sm drop-shadow-[0px_1px_0x_black] mt-4">
+          Campo Obligatorio
+        </p>
+      )}
     </div>
   );
 };

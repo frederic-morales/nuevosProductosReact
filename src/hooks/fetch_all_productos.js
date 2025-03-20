@@ -16,13 +16,13 @@ const fetchAllProductos = () => {
         ])
         // Actualiza los estados con los datos obtenidos
         setProductos(await productosResponse.data)
+        console.log(await productosResponse.data)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Ocurrió un error')
       } finally {
         setLoading(false)
       }
     }
-
     fetchData()
   }, [])
 

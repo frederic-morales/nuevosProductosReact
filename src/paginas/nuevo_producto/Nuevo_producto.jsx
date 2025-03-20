@@ -12,10 +12,11 @@ import CheckSerie from "../../componentes/CheckSerie";
 function NuevoProducto() {
   const { etapas, campos, loading, error } = fetchDataProducto(); // Usa el custom hook para obtener las etapas y los campos
   const { usuarios } = fetch_all_usuarios(); // Usa el custom hook para obtener los usuarios
-  const [camposNuevos, setCamposNuevos] = useState({}); // Valores ingresados por el usuario a enviar
   const [validarCampos, setValidarCampos] = useState(false); // Validar que los campos requeridos no estén vacíos
   const [datosConfirmados, setDatosConfirmados] = useState(); // Confirmación del envío del formulario
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(); // Mostrar confirmación
+  // Estados para manejar los datos ingresados en el formulario
+  const [camposNuevos, setCamposNuevos] = useState({}); // Valores ingresados por el usuario a enviar
   const [etapasAsignadas, setEtapasAsignadas] = useState([]); // Manejar las etapas a enviar
   const [usuarioResponsable, setUsuarioResponsable] = useState(""); // Usuario responsable del producto
   const [serie, setSerie] = useState(""); // Serie del producto
@@ -23,7 +24,10 @@ function NuevoProducto() {
   // Inicializa los campos nuevos con los nombres de las columnas
   if (campos.length > 0 && Object.keys(camposNuevos).length === 0) {
     campos.forEach((column) => {
-      if (column.columnName === "Nombre" || column.columnName === "Serie") {
+      if (
+        column.columnName === "Nombre" ||
+        column.columnName === "Descripcion"
+      ) {
         camposNuevos[column.columnName] = "";
       }
     });
@@ -56,6 +60,7 @@ function NuevoProducto() {
       nombre: camposNuevos.Nombre,
       descripcion: camposNuevos.Descripcion,
       codigoEmpleado: usuarioResponsable.CodigoEmpleado,
+      serie: serie,
     });
 
     // console.log("Campos enviados...", camposNuevos);
@@ -83,8 +88,6 @@ function NuevoProducto() {
     return <div>Error: {error}</div>;
   }
 
-  // console.log(camposNuevos);
-
   return (
     <div className="flex flex-col items-center w-full mt-10 mb-12 ">
       <h2 className="text-xl font-black md:text-2xl lg:text-4xl text-white uppercase drop-shadow-[1px_2px_0px_black]">
@@ -110,9 +113,10 @@ function NuevoProducto() {
           <Buscar_usuarios
             usuarios={usuarios}
             onSelect={(usuario) => setUsuarioResponsable(usuario)} // Recibe el usuario seleccionado
+            hasError={!usuarioResponsable}
           />
           {/* FARMA O VET */}
-          <CheckSerie onChange={setSerie} />
+          <CheckSerie onChange={setSerie} hasError={!serie} />
         </div>
         {/* Asignar Etapas */}
         <div className="w-full mb-8 mt-12 md:mt-16 flex flex-col items-center">

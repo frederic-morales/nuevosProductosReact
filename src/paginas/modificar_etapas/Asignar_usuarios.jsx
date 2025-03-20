@@ -96,7 +96,7 @@ function Asignar_usuarios() {
         <h2 className="mb-5 text-center text-lg sm:text-xl font-bold uppercase drop-shadow-[2px_1px_1px_black]">
           Resultados de búsqueda
         </h2>
-        <ul className="flex flex-col max-h-96 overflow-auto pr-2 overscroll-none [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-300">
+        <ul className="flex flex-col max-h-[425px] overflow-auto pr-2 overscroll-none [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-300">
           {usuariosFiltrados.map((usuario) => (
             <div className="w-full" key={usuario.CodigoEmpleado}>
               <li className="bg-white text-xs md:text-sm text-black rounded-2xl text-center uppercase font-semibold py-3">

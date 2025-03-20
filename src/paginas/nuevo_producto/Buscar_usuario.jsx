@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Buscar_usuarios({ usuarios, onSelect }) {
+function Buscar_usuarios({ usuarios, onSelect, hasError }) {
   const [searchTerm, setSearchTerm] = useState(""); // Estado para almacenar el término de búsqueda
   const [selectedUser, setSelectedUser] = useState(""); // Estado para almacenar el usuario seleccionado
   const filteredUsuarios = usuarios.filter(
@@ -19,7 +19,7 @@ function Buscar_usuarios({ usuarios, onSelect }) {
   }; // Actualizar el usuario seleccionado
 
   return (
-    <div className="w-full max-w-sm mb-6 md:mb-0 text-white text-center">
+    <div className="w-full max-w-sm mb-6 md:mb-0 text-white ">
       <label className="block uppercase text-lg font-bold mb-2 md:text-xl lg:text-2xl drop-shadow-[1px_1px_1px_black]">
         Usuario Responsable
       </label>
@@ -31,7 +31,6 @@ function Buscar_usuarios({ usuarios, onSelect }) {
         onChange={(e) => setSearchTerm(e.target.value)}
         className="w-full bg-gray-50 text-black focus:bg-blue-50 py-3 px-4 rounded-t-lg focus:outline-none focus:shadow-xl focus:shadow-blue-300"
       />
-
       {/* Menú desplegable */}
       <select
         value={selectedUser}
@@ -66,6 +65,11 @@ function Buscar_usuarios({ usuarios, onSelect }) {
               ).Apellidos
             }
           </b>
+        </p>
+      )}
+      {hasError && (
+        <p className="text-[#ff247f] text-xs font-bold md:text-sm drop-shadow-[0px_1px_0x_black]">
+          Campo Obligatorio
         </p>
       )}
     </div>
