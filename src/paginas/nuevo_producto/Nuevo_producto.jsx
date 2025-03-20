@@ -4,23 +4,26 @@ import Confirmacion from "../../componentes/Confirmacion";
 import Alert from "../../componentes/Alert";
 import Campo from "./Campo";
 import CheckEtapa from "../../componentes/CheckEtapa";
+import Buscar_usuarios from "./Buscar_usuario";
 import fetchDataProducto from "../../hooks/fetch_data_producto";
+import fetch_all_usuarios from "../../hooks/fetch_all_usuarios";
+import CheckSerie from "../../componentes/CheckSerie";
 
 function NuevoProducto() {
   const { etapas, campos, loading, error } = fetchDataProducto(); // Usa el custom hook para obtener las etapas y los campos
+  const { usuarios } = fetch_all_usuarios(); // Usa el custom hook para obtener los usuarios
   const [camposNuevos, setCamposNuevos] = useState({}); // Valores ingresados por el usuario a enviar
   const [validarCampos, setValidarCampos] = useState(false); // Validar que los campos requeridos no estén vacíos
   const [datosConfirmados, setDatosConfirmados] = useState(); // Confirmación del envío del formulario
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(); // Mostrar confirmación
   const [etapasAsignadas, setEtapasAsignadas] = useState([]); // Manejar las etapas a enviar
+  const [usuarioResponsable, setUsuarioResponsable] = useState(""); // Usuario responsable del producto
+  const [serie, setSerie] = useState(""); // Serie del producto
 
   // Inicializa los campos nuevos con los nombres de las columnas
   if (campos.length > 0 && Object.keys(camposNuevos).length === 0) {
     campos.forEach((column) => {
-      if (
-        column.columnName === "Nombre" ||
-        column.columnName === "Descripcion"
-      ) {
+      if (column.columnName === "Nombre" || column.columnName === "Serie") {
         camposNuevos[column.columnName] = "";
       }
     });
@@ -33,7 +36,9 @@ function NuevoProducto() {
       [campoNombre]: valor,
     }));
     validateField();
+    // console.log(usuarioResponsable);
   };
+
   // se modifica etapasAsignadas cada vez que el usuario de check o uncheck en cada etapa
   const handleToggleEtapa = (etapa, isChecked) => {
     setEtapasAsignadas(
@@ -50,11 +55,12 @@ function NuevoProducto() {
     const resProducto = await axios.post(`${API}/producto/create`, {
       nombre: camposNuevos.Nombre,
       descripcion: camposNuevos.Descripcion,
+      codigoEmpleado: usuarioResponsable.CodigoEmpleado,
     });
 
-    console.log("Campos enviados...", camposNuevos);
+    // console.log("Campos enviados...", camposNuevos);
+    // console.log(nuevoProducto);
     const nuevoProducto = await resProducto.data.nuevoProductoId;
-    console.log(nuevoProducto);
     const resAsignarEtapas = await axios.post(`${API}/producto/asignarEtapas`, {
       desarrolloProducto: nuevoProducto,
       etapas: etapasAsignadas,
@@ -73,13 +79,11 @@ function NuevoProducto() {
   if (loading) {
     return <div>Cargando...</div>;
   }
-
   if (error) {
     return <div>Error: {error}</div>;
   }
 
-  // console.log(etapas);
-  // console.log(etapasAsignadas);
+  // console.log(camposNuevos);
 
   return (
     <div className="flex flex-col items-center w-full mt-10 mb-12 ">
@@ -88,7 +92,7 @@ function NuevoProducto() {
       </h2>
       <form className="w-full mt-10 h-full">
         {/* Campos */}
-        <div className="w-full flex gap-4 justify-center flex-wrap">
+        <div className="w-full flex gap-4 lg:gap-12 justify-center flex-wrap">
           {campos.map((campo) =>
             campo.columnName === "Nombre" ||
             campo.columnName === "Descripcion" ? (
@@ -102,6 +106,13 @@ function NuevoProducto() {
               ""
             )
           )}
+          {/* Usuario Responsable */}
+          <Buscar_usuarios
+            usuarios={usuarios}
+            onSelect={(usuario) => setUsuarioResponsable(usuario)} // Recibe el usuario seleccionado
+          />
+          {/* FARMA O VET */}
+          <CheckSerie onChange={setSerie} />
         </div>
         {/* Asignar Etapas */}
         <div className="w-full mb-8 mt-12 md:mt-16 flex flex-col items-center">

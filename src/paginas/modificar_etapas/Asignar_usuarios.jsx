@@ -92,18 +92,18 @@ function Asignar_usuarios() {
         />
       </div>
       {/* Usuarios para agergar */}
-      <div className="sm:mr-12">
+      <div className="md:mr-12">
         <h2 className="mb-5 text-center text-lg sm:text-xl font-bold uppercase drop-shadow-[2px_1px_1px_black]">
           Resultados de búsqueda
         </h2>
-        <ul className="flex flex-col">
+        <ul className="flex flex-col max-h-96 overflow-auto pr-2 overscroll-none [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-300">
           {usuariosFiltrados.map((usuario) => (
             <div className="w-full" key={usuario.CodigoEmpleado}>
-              <li className="bg-white text-xs md:text-sm text-black rounded-2xl py-2 text-center">
-                {usuario.Nombres}
+              <li className="bg-white text-xs md:text-sm text-black rounded-2xl text-center uppercase font-semibold py-3">
+                {usuario.Nombres} {usuario.Apellidos}
               </li>
               <button
-                className="mt-1 mb-7 rounded-2xl bg-green-500 font-semibold w-full"
+                className="mt-1 mb-7 p-1 rounded-2xl bg-green-500 font-semibold w-full"
                 onClick={() => agregarUsuario(usuario)} // Doble clic para agregar
               >
                 Agregar
@@ -113,7 +113,7 @@ function Asignar_usuarios() {
         </ul>
       </div>
       {/* Lista de usuarios seleccionados */}
-      <div className="sm:ml-12">
+      <div className="md:ml-12">
         <h2 className="mb-5 text-center text-lg sm:text-xl font-bold uppercase drop-shadow-[2px_1px_1px_black]">
           Usuarios Seleccionados
         </h2>
@@ -121,13 +121,13 @@ function Asignar_usuarios() {
           {seleccionados.map((usuario) => (
             <div className="w-full" key={usuario.CodigoEmpleado}>
               <li
-                className="bg-white text-xs md:text-sm text-black rounded-2xl py-2 text-center"
+                className="bg-white text-xs md:text-sm text-black rounded-2xl text-center uppercase font-semibold py-3"
                 key={usuario.CodigoEmpleado}
               >
-                {usuario.Nombres}
+                {usuario.Nombres} {usuario.Apellidos}
               </li>
               <button
-                className="mt-1 mb-7 rounded-2xl bg-red-500 font-semibold w-full"
+                className="mt-1 mb-7 p-1 rounded-2xl bg-red-500 font-semibold w-full"
                 onClick={() => eliminarUsuario(usuario)}
               >
                 Eliminar
@@ -137,7 +137,7 @@ function Asignar_usuarios() {
         </ul>
       </div>
       {/* Actualizar etapa */}
-      <div className="w-full pt-12 flex justify-center">
+      <div className="w-full pt-2 md:pt-4 flex justify-center">
         <div className="w-full max-w-xs">
           <button
             typeof="submit"

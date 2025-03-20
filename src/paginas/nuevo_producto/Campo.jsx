@@ -6,7 +6,7 @@ function Campo({ valor, keyName, onChange, hasError }) {
   return (
     <div className="w-full max-w-sm mb-6 md:mb-0 text-white ">
       <label
-        className="block uppercase text-xs font-bold mb-2 md:text-sm lg:text-lg drop-shadow-[1px_1px_1px_black]"
+        className="block uppercase text-lg font-bold mb-2 md:text-xl lg:text-xl drop-shadow-[1px_1px_1px_black]"
         htmlFor="nombreProducto"
       >
         {keyName}
