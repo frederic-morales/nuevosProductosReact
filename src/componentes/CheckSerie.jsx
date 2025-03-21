@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const CheckSerie = ({ onChange, hasError }) => {
+const CheckSerie = ({ onChange, hasError, serie }) => {
   // Estado para controlar cuál checkbox está seleccionado
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -18,6 +18,10 @@ const CheckSerie = ({ onChange, hasError }) => {
       console.log(option);
     }
   };
+
+  useEffect(() => {
+    setSelectedOption(serie);
+  }, [serie]);
 
   return (
     <div className="w-full max-w-sm mb-6 md:mb-0 text-white text-start">

@@ -17,6 +17,7 @@ const fetchProducto = ({ productoId }) => {
           axios.get(`${api}/producto/${productoId}/etapas`)
         ])
         // Actualiza los estados con los datos obtenidos
+        // console.log(await infoResponse.data)
         setInfo(await infoResponse.data)
         setEtapas(await etapasResponse.data)
       } catch (err) {

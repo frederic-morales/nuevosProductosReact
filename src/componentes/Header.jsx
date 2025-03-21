@@ -67,7 +67,7 @@ function Header() {
         </div>
         {/* items de abajo */}
         <div className="mt-4 py-1 flex gap items-center justify-center">
-          <div className="flex gap-x-8 w-full justify-start text-white">
+          <div className="flex flex-wrap gap-x-8 gap-y-4 w-full justify-between lg:justify-start text-white">
             <Link to={"/"}>
               <span className="cursor-pointer rounded-sm py-1 px-2  font-medium hover:bg-gray-100 hover:text-black hover:shadow-xl hover:shadow-blue-300">
                 Productos en Proceso

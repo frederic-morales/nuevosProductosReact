@@ -1,4 +1,4 @@
-function Campo({ valor, keyName, onChange, hasError }) {
+function Campo({ valor, keyName, onChange, hasError, placeholder }) {
   const handleChange = (e) => {
     onChange(e.target.value);
   };
@@ -12,10 +12,14 @@ function Campo({ valor, keyName, onChange, hasError }) {
         {keyName}
       </label>
       <input
-        className="w-full bg-gray-50 text-black focus:bg-blue-50 rounded py-3 px-4 mb-3 focus:outline-none focus:shadow-xl focus:shadow-blue-300"
+        className={`w-full bg-gray-50 text-black focus:bg-blue-50 rounded py-3 px-4 mb-3 focus:outline-none focus:shadow-xl focus:shadow-blue-300 ${
+          placeholder && "placeholder:text-black"
+        }`}
         id="nombreProducto"
         type="text"
-        placeholder="Ingrese el nombre del producto"
+        placeholder={`${
+          placeholder ? placeholder : "Ingrese el nombre del producto"
+        }`}
         value={valor}
         onChange={handleChange}
       />

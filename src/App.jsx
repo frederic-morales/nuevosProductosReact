@@ -13,6 +13,7 @@ import EtapasUsuario from "./paginas/etapas_usuario/EtapasUsuario";
 import Iniciar from "./paginas/etapa/Iniciar";
 import Modificar_etapas from "./paginas/modificar_etapas/modificar_etapas";
 import Asignar_usuarios from "./paginas/modificar_etapas/Asignar_usuarios";
+import Actualizar_Producto from "./paginas/producto/Actualizar_producto";
 import "./App.css";
 
 const router = createBrowserRouter([
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
           {
             path: "Reasignar Etapas",
             element: <ReasignarEtapas />,
+          },
+          {
+            path: "Actualizar",
+            element: <Actualizar_Producto />,
           },
         ],
       },

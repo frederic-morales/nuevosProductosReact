@@ -2,16 +2,17 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 const fetch_all_etapas = () => {
-  const [etapas, setEtapas] = useState([]) // Etapas a mostrar
+  const [allEtapas, setAllEtapas] = useState([]) // Etapas a mostrar
   const [loading, setLoading] = useState(true) // Estado de carga
   const [error, setError] = useState(null) // Manejo de errores
+
   const api = import.meta.env.VITE_API_URL
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${api}/etapa/getAll`)
-        setEtapas(response.data)
+        setAllEtapas(await response.data)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Ocurrió un error')
       } finally {
@@ -22,7 +23,7 @@ const fetch_all_etapas = () => {
     fetchData()
   }, [])
 
-  return { etapas, loading, error }
+  return { allEtapas, loading, error }
 }
 
 export default fetch_all_etapas

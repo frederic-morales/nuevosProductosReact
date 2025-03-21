@@ -20,7 +20,6 @@ function CampoLleno(props) {
 function ReasignarEtapas() {
   const [datosConfirmados, setDatosConfirmados] = useState();
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState();
-
   const etapas = [
     {
       EtapaId: 1,

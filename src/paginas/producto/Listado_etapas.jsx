@@ -3,10 +3,7 @@ import { useOutletContext } from "react-router-dom";
 import EtapaDescripcion from "../../componentes/EtapaDescripcion";
 
 function ListadoEtapas() {
-  //"Estados:" 1 = aprobado, 2 = rechazado, 3 = iniciado
-
   const etapas = useOutletContext();
-  console.log(etapas);
 
   // Estado que permirte mostrar las etapas rechazadas
   const [mostrarRechazos, setMostrarRechazos] = useState();

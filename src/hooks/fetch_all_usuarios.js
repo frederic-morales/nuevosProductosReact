@@ -3,25 +3,26 @@ import axios from 'axios'
 
 const fetch_all_usuarios = () => {
   const [usuarios, setUsuarios] = useState([]) // Etapas a mostrar
-  const [loading, setLoading] = useState(true) // Estado de carga
-  const [error, setError] = useState(null) // Manejo de errores
+  const [loadingUsuarios, setLoadingUsuarios] = useState(true) // Estado de carga
+  const [errorUsuarios, setErrorUsuario] = useState(null) // Manejo de errores
   const api = import.meta.env.VITE_API_URL
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [resUsuarios] = await Promise.all([axios.get(`${api}/usuarios`)])
+        const resUsuarios = await axios.get(`${api}/usuarios`)
+        // console.log(resUsuarios.data)
         setUsuarios(await resUsuarios.data)
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Ocurrió un error')
+        setErrorUsuario(err instanceof Error ? err.message : 'Ocurrió un error')
       } finally {
-        setLoading(false)
+        setLoadingUsuarios(false)
       }
     }
     fetchData()
   }, [])
 
-  return { usuarios, loading, error }
+  return { usuarios, loadingUsuarios, errorUsuarios }
 }
 
 export default fetch_all_usuarios

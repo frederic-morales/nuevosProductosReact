@@ -1,16 +1,17 @@
 import { Outlet } from "react-router";
 import { useParams } from "react-router-dom";
 import fetchProducto from "../../hooks/fetch_producto";
+import { Link } from "react-router";
 
 function Producto() {
   const params = useParams();
   const productoId = params.id;
-  // const productoId = params.productoId;
   const { info, etapas, loading, error } = fetchProducto({ productoId });
 
-  console.log(productoId);
-  console.log(info);
-  console.log(etapas);
+  // const productoId = params.productoId;
+  // console.log(productoId);
+  // console.log(info);
+  // console.log(etapas);
 
   if (loading) {
     return <div>Cargando...</div>;
@@ -22,7 +23,7 @@ function Producto() {
 
   return (
     <div className="flex flex-col items-center mt-12 mb-8">
-      <div className="text-center text-gray-50 flex flex-col gap-1">
+      <div className="text-center text-gray-50 flex flex-col gap-1 items-center">
         <p className="text-xl md:text-2xl lg:text-4xl font-black uppercase drop-shadow-[1px_2px_0px_black]">
           {info.productoInfo[0].Nombre}
         </p>
@@ -33,6 +34,12 @@ function Producto() {
           <br />
           Total de rechazos: {info.productoInfo[0].Rechazos || "0"}
         </p>
+        <Link
+          to={"Actualizar"}
+          className="w-full max-w-3xs bg-blue-600 hover:bg-blue-800 text-white mt-3 py-3 px-8 rounded-2xl focus:outline-none focus:shadow-outline font-bold sm:text-lg lg:text-"
+        >
+          Actualizar
+        </Link>
       </div>
       <Outlet context={etapas.productoEtapas} />
     </div>

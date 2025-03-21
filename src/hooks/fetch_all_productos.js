@@ -15,8 +15,8 @@ const fetchAllProductos = () => {
           axios.get(`${api}/producto/getAll`)
         ])
         // Actualiza los estados con los datos obtenidos
+        // console.log(await productosResponse.data)
         setProductos(await productosResponse.data)
-        console.log(await productosResponse.data)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Ocurrió un error')
       } finally {
