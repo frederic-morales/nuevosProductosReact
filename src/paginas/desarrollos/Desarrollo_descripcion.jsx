@@ -12,7 +12,7 @@ function DesarrolloDescripcion({ classCSS, desarrollo, link }) {
         <p className="text-xs md:text-sm text-black font-semibold">
           <b>{desarrollo.Nombre}</b>
           <br />
-          Fecha de Inicio: <b>01 01 2025</b>
+          Fecha de Inicio: <b>{desarrollo.FechaInicio}</b>
           <br /> Desarrollo Aprobado
           <br /> Fecha de Aprobacion: <b>06 03 2025</b>
           <br /> Desarrollo Rechzado

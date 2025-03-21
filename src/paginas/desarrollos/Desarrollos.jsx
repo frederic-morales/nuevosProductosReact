@@ -1,24 +1,63 @@
 import DesarrolloDescripcion from "./Desarrollo_descripcion";
 import Button from "../../componentes/Button";
 import fetchAllProductos from "../../hooks/fetch_all_productos";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Desarrollos() {
   // const [productosFiltrados, setProductosFiltrados] = useState([]);
   const { productos, loading, error } = fetchAllProductos();
   const [busqueda, setBusqueda] = useState(""); // Estado para el texto de búsqueda
+  const [fechaDesde, setFechaDesde] = useState(""); // Estado para la fecha de inicio
+  const [fechaHasta, setFechaHasta] = useState(""); // Estado para la fecha de fin
+  const [productosFiltrados, setProductosFiltrados] = useState([]);
+
+  // Actualiza los productos filtrados
+  useEffect(() => {
+    setProductosFiltrados(productos);
+  }, [productos]);
 
   // Función para manejar la búsqueda
   const handleBusqueda = (event) => {
     setBusqueda(event.target.value);
+
+    setProductosFiltrados(
+      productos.filter((producto) => {
+        return producto.Nombre.toLocaleLowerCase().includes(
+          event.target.value.toLocaleLowerCase()
+        );
+      })
+    );
+
+    setFechaDesde("");
+    setFechaHasta("");
   };
 
-  // Filtrar productos según la búsqueda
-  const productosFiltrados = productos.filter((producto) => {
-    return producto.Nombre.toLocaleLowerCase().includes(
-      busqueda.toLocaleLowerCase()
+  const filtrarPorFecha = (fechaDe, fechaHasta) => {
+    console.log(fechaDe, fechaHasta);
+
+    setProductosFiltrados(
+      productos.filter((producto) => {
+        const fechaProducto = producto.FechaInicio; // Convertir la fecha ISO a objeto Date
+        const fechaInicio = fechaDe ? fechaDe : null; // Convertir la fecha "de" a objeto Date
+        const fechaFin = fechaHasta ? fechaHasta : null; // Convertir la fecha "hasta" a objeto Date
+
+        console.log("FechaProducto", fechaProducto);
+        console.log("Fecha Inicio", fechaInicio);
+        console.log("Fecha Final", fechaFin);
+
+        // Verificar si la fecha del producto está dentro del rango
+        if (fechaInicio && fechaFin) {
+          return fechaProducto >= fechaInicio && fechaProducto <= fechaFin;
+        } else if (fechaInicio) {
+          return fechaProducto >= fechaInicio;
+        } else if (fechaFin) {
+          return fechaProducto <= fechaFin;
+        } else {
+          return true; // Si no hay fechas seleccionadas, mostrar todos los productos
+        }
+      })
     );
-  });
+  };
 
   // console.log(productos, loading, error);
   const [listarDesarrollos, setListarDesarrollos] = useState(3);
@@ -63,24 +102,29 @@ function Desarrollos() {
         </div>
         {/* Filtrar por fecha */}
         <div className="w-full max-w-xs flex flex-col items-center justify-start">
-          <label className="w-full bg-white uppercase text-center font-semibold mb-2 drop-shadow-[1px_1px_0px_black]">
+          <label className="w-full bg-white text-center font-semibold mb-2 rounded-2xl drop-shadow-[1px_1px_0px_black]">
             De:
             <input
               type="date"
-              // value={fechaDe}
-              // onChange={handleFechaDeChange}
+              value={fechaDesde}
+              className="ml-2"
+              onChange={(e) => {
+                setFechaDesde(e.target.value);
+              }}
             />
           </label>
-          <label className="w-full max-w-xs bg-white text-center uppercase font-semibold mb-2 drop-shadow-[1px_1px_0px_black]">
+          <label className="w-full max-w-xs bg-white text-center font-semibold mb-2 rounded-2xl drop-shadow-[1px_1px_0px_black]">
             Hasta:
             <input
               type="date"
-              // value={fechaHasta}
-              // onChange={handleFechaHastaChange}
+              value={fechaHasta}
+              className="ml-2"
+              onChange={(e) => setFechaHasta(e.target.value)}
             />
           </label>
           <button
-          //  onClick={filtrarPorFecha}
+            className="w-full bg-blue-500 hover:bg-blue-700 text-white py-2 rounded-2xl focus:outline-none focus:shadow-outline"
+            onClick={() => filtrarPorFecha(fechaDesde, fechaHasta)}
           >
             Filtrar
           </button>
@@ -91,6 +135,7 @@ function Desarrollos() {
           if (desarrollo.Estado == listarDesarrollos) {
             return (
               <DesarrolloDescripcion
+                scripcion
                 key={desarrollo.DesarrolloProductoId}
                 desarrollo={desarrollo}
                 link={
