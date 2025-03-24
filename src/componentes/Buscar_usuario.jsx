@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 
-function Buscar_usuarios({ usuarios, onSelect, hasError }) {
+function Buscar_usuarios({ usuarios, onSelect, hasError, usuarioAnterior }) {
   const [searchTerm, setSearchTerm] = useState(""); // Estado para almacenar el término de búsqueda
   const [selectedUser, setSelectedUser] = useState(""); // Estado para almacenar el usuario seleccionado
+
   const filteredUsuarios = usuarios.filter(
     (usuario) =>
       usuario.Nombres.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -58,13 +59,19 @@ function Buscar_usuarios({ usuarios, onSelect, hasError }) {
               usuarios.find(
                 (usuario) => usuario.CodigoEmpleado === parseInt(selectedUser)
               ).Nombres
-            }
+            }{" "}
             {
               usuarios.find(
                 (usuario) => usuario.CodigoEmpleado === parseInt(selectedUser)
               ).Apellidos
             }
           </b>
+        </p>
+      )}
+      {/* Si existia un usuario asignado anteriormente se mostrará acá */}
+      {usuarioAnterior && (
+        <p className="w-full bg-gray-50 text-black focus:bg-blue-50 rounded py-3 text-xs px-4 mb-3 focus:outline-none focus:shadow-xl focus:shadow-blue-300 uppercase font-semibold">
+          Usuario Actual Asignado: <br /> <b>{usuarioAnterior}</b>
         </p>
       )}
       {hasError && (

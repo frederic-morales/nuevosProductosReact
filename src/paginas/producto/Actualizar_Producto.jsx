@@ -13,7 +13,7 @@ import CheckSerie from "../../componentes/CheckSerie";
 import fetch_all_usuarios from "../../hooks/fetch_all_usuarios";
 import fetchDataProductos from "../../hooks/fetch_data_productos";
 import fetch_all_etapas from "../../hooks/fetch_all_etapas";
-import fetch_Producto_Info from "../../hooks/feth_producto_info";
+import fetch_Producto_Info from "../../hooks/fetch_producto_info";
 
 function Actualizar_Producto() {
   const params = useParams();
@@ -75,19 +75,36 @@ function Actualizar_Producto() {
     }
   });
 
-  const handleChange = (campoNombre, valor) => {
+  const handleChange = (campoNombre, valor, valorAnterior) => {
     setCamposNuevos((prevCampos) => ({
       ...prevCampos,
       [campoNombre]: valor,
     }));
-    validateField();
+
+    setValidarCampos(valor != valorAnterior ? true : false);
+    console.log(usuarioResponsable);
+    console.log(validarCampos);
   };
 
-  const validateField = () => {
-    const camposCompletos = Object.values(camposNuevos).every(
-      (val) => val.trim() != ""
-    );
-    setValidarCampos(camposCompletos);
+  const actualizarDatos = async () => {
+    const API = import.meta.env.VITE_API_URL;
+    const resActualizacion = await axios.patch(`${API}/producto/actualizar`, {
+      desarrolloProductoId: info.productoInfo[0].DesarrolloProductoId,
+      updates: {
+        nombre: camposNuevos.Nombre
+          ? camposNuevos.Nombre
+          : info.productoInfo[0].Nombre,
+        descripcion: camposNuevos.Descripcion
+          ? camposNuevos.Descripcion
+          : info.productoInfo[0].Descripcion,
+        codigoEmpleado: usuarioResponsable.CodigoEmpleado
+          ? usuarioResponsable.CodigoEmpleado
+          : info.productoInfo[0].CodigoEmpleado,
+        serie: serie ? serie : info.productoInfo[0].Serie,
+      }, // se le pasan solamante los parametros que se desean actualizar
+      // Si el usuario no actualiza ningun campo se enviaran la actualizacion con los valores anteriores
+    });
+    console.log(resActualizacion);
   };
 
   // console.log(etapas);
@@ -122,7 +139,13 @@ function Actualizar_Producto() {
               <Campo
                 key={campo.ordinalPosition}
                 keyName={campo.columnName}
-                onChange={(valor) => handleChange(campo.columnName, valor)}
+                onChange={(valor) =>
+                  handleChange(
+                    campo.columnName,
+                    valor,
+                    info.productoInfo[0][campo.columnName]
+                  )
+                }
                 hasError={false} // Verifica que cada campo no esté vacío
                 placeholder={`${
                   info ? info.productoInfo[0][campo.columnName] : ""
@@ -137,9 +160,14 @@ function Actualizar_Producto() {
             usuarios={usuarios}
             onSelect={(usuario) => setUsuarioResponsable(usuario)} // Recibe el usuario seleccionado
             hasError={false}
+            usuarioAnterior={`${info.productoInfo[0].Nombres} ${info.productoInfo[0].Apellidos}`}
           />
           {/* FARMA O VET */}
-          <CheckSerie onChange={setSerie} hasError={false} serie={"F"} />
+          <CheckSerie
+            onChange={setSerie}
+            hasError={false}
+            serie={info.productoInfo[0].Serie}
+          />
         </div>
         {/* Asignar Etapas */}
         <div className="w-full mb-8 mt-12 md:mt-16 flex flex-col items-center">
@@ -160,41 +188,48 @@ function Actualizar_Producto() {
                     (etapa.Estado == 3 || etapa.Estado == null) && "text-white"
                   }`}
                 >
-                  {etapa.Nombre}
+                  No.{etapa.EtapaId} - {etapa.Nombre}
                 </p>
               </div>
             ))}
           </div>
-          <p className="mt-8 w-full max-w-sm md:max-w-xl font-black sm:text-center text-lg md:text-xl lg:text-3xl uppercase text-white drop-shadow-[1px_2px_0px_black]">
-            Asignar más etapas
-          </p>
-          <div className="mt-5 flex flex-wrap gap-4 justify-center items-center w-full"></div>
-          {mostrarNuevasEtapas.length > 0 &&
-            mostrarNuevasEtapas.map((etapa) => {
-              return (
-                <CheckEtapa
-                  key={etapa.EtapaId}
-                  etapa={etapa}
-                  onToggle={handleToggleEtapa}
-                  classCSS={"text-white"}
-                  showCheck={true}
-                />
-              );
-            })}
+          <div className="w-full mb-8 mt-12 md:mt-16 flex flex-col items-center">
+            <p className="mt-8 w-full max-w-sm md:max-w-xl font-black sm:text-center text-lg md:text-xl lg:text-3xl uppercase text-white drop-shadow-[1px_2px_0px_black]">
+              Asignar más etapas
+            </p>
+            <div className="mt-5 flex flex-wrap gap-4 justify-center items-center w-full">
+              {mostrarNuevasEtapas.length > 0 &&
+                mostrarNuevasEtapas.map((etapa) => {
+                  return (
+                    <CheckEtapa
+                      key={etapa.EtapaId}
+                      etapa={etapa}
+                      onToggle={handleToggleEtapa}
+                      classCSS={"text-white"}
+                      showCheck={true}
+                    />
+                  );
+                })}
+            </div>
+          </div>
         </div>
         {/* Botón */}
-        {validarCampos && etapasAsignadas.length > 0 && (
+        {/* Se mostrará el boton solamente si alguno de los campos cambia */}
+        {(validarCampos ||
+          etapasAsignadas.length > 0 ||
+          usuarioResponsable ||
+          serie) && (
           <div className="w-full pt-12 flex justify-center">
             <div className="w-full max-w-sm">
               <button
                 typeof="submit"
-                className="w-full bg-blue-500 hover:bg-blue-700 text-white py-3 px-8 rounded focus:outline-none focus:shadow-outline"
+                className="w-full bg-blue-500 hover:bg-blue-700 text-white py-3 px-8 font-semibold rounded focus:outline-none focus:shadow-outline"
                 type="button"
                 onClick={() => {
                   setMostrarConfirmacion(true);
                 }}
               >
-                Guardar
+                Actualizar Producto
               </button>
             </div>
           </div>
@@ -207,7 +242,7 @@ function Actualizar_Producto() {
             setDatosConfirmados(value);
             setMostrarConfirmacion(false);
           }}
-          // onSubmit={handleEnviarDatos}
+          onSubmit={actualizarDatos}
         />
       )}
       {datosConfirmados != null && datosConfirmados && (

@@ -1,10 +1,3 @@
-// interface ButtonProps {
-//   text: string;
-//   estado?: number;
-//   setEstado?: (etapa: number) => void;
-//   classCSS: string;
-// }
-
 function Button({ text, estado, setEstado, classCSS }) {
   return (
     <button

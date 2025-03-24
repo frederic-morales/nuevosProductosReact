@@ -49,7 +49,7 @@ function CheckEtapa({ etapa, onToggle, classCSS, showCheck }) {
         className={`font-bold md:text-lg drop-shadow-[1px_1px_1px_black] ${classCSS}`}
       >
         {/* {etapa.EtapaId}  */}
-        {etapa.Nombre}
+        No.{etapa.EtapaId} - {etapa.Nombre}
       </span>
     </label>
   );

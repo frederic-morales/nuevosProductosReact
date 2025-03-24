@@ -15,7 +15,7 @@ const CheckSerie = ({ onChange, hasError, serie }) => {
       // Seleccionar el nuevo checkbox
       setSelectedOption(option);
       onChange(option);
-      console.log(option);
+      // console.log(option);
     }
   };
 
