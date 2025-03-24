@@ -18,9 +18,9 @@ import fetch_Producto_Info from "../../hooks/fetch_producto_info";
 function Actualizar_Producto() {
   const params = useParams();
   const productoId = params.id; // Obtiene el id del producto a Actualizar
-  const etapas = useOutletContext();
+  const etapas = useOutletContext(); // Obtiene las etapas asignadas anteriormente
 
-  // Obtiene los datos de los productos
+  // Obteniendo los datos para mostrar en la actualizacion
   const { campos, loadingCampos, errorCampos } = fetchDataProductos();
   const { usuarios, loadingUsuarios, errorUsuarios } = fetch_all_usuarios(); // Usa el custom hook para obtener los usuarios
   const { allEtapas, loading, error } = fetch_all_etapas(); // Usa el custom hook para obtener las etapas
@@ -88,23 +88,37 @@ function Actualizar_Producto() {
 
   const actualizarDatos = async () => {
     const API = import.meta.env.VITE_API_URL;
+    const updates = {
+      nombre: camposNuevos.Nombre
+        ? camposNuevos.Nombre
+        : info.productoInfo[0].Nombre,
+      descripcion: camposNuevos.Descripcion
+        ? camposNuevos.Descripcion
+        : info.productoInfo[0].Descripcion,
+      codigoEmpleado: usuarioResponsable.CodigoEmpleado
+        ? usuarioResponsable.CodigoEmpleado
+        : info.productoInfo[0].CodigoEmpleado,
+      serie: serie ? serie : info.productoInfo[0].Serie,
+    }; // se le pasan solamante los parametros que se desean actualizar
+    // Si el usuario no actualiza ningun campo se enviaran la actualizacion con los valores anteriores
+
     const resActualizacion = await axios.patch(`${API}/producto/actualizar`, {
       desarrolloProductoId: info.productoInfo[0].DesarrolloProductoId,
-      updates: {
-        nombre: camposNuevos.Nombre
-          ? camposNuevos.Nombre
-          : info.productoInfo[0].Nombre,
-        descripcion: camposNuevos.Descripcion
-          ? camposNuevos.Descripcion
-          : info.productoInfo[0].Descripcion,
-        codigoEmpleado: usuarioResponsable.CodigoEmpleado
-          ? usuarioResponsable.CodigoEmpleado
-          : info.productoInfo[0].CodigoEmpleado,
-        serie: serie ? serie : info.productoInfo[0].Serie,
-      }, // se le pasan solamante los parametros que se desean actualizar
-      // Si el usuario no actualiza ningun campo se enviaran la actualizacion con los valores anteriores
+      updates: updates,
     });
-    console.log(resActualizacion);
+    console.log("Actualizando el Producto...", resActualizacion.data);
+
+    // Si el usuario asigno nuevas etapas
+    if (etapasAsignadas.length > 0) {
+      const resAsignarEtapasNuevas = await axios.post(
+        `${API}/producto/asignarEtapas`,
+        {
+          desarrolloProducto: info.productoInfo[0].DesarrolloProductoId,
+          etapas: etapasAsignadas,
+        }
+      );
+      console.log("Asignado etapas nuevas...", resAsignarEtapasNuevas.data);
+    }
   };
 
   // console.log(etapas);

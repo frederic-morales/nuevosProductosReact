@@ -68,7 +68,7 @@ function NuevoProducto() {
       serie: serie,
     });
 
-    const nuevoProducto = await resProducto.data.nuevoProductoId;
+    const nuevoProducto = await resProducto.data.nuevoProductoId; // Obtiene el Id generado del Producto nuevo
     const resAsignarEtapas = await axios.post(`${API}/producto/asignarEtapas`, {
       desarrolloProducto: nuevoProducto,
       etapas: etapasAsignadas,
