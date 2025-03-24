@@ -11,13 +11,6 @@ function Actualizar() {
   const [msjCancelacion, setMsjCancelacion] = useState(); // Mensaje de cancelacion, cambia su estado dependiendo si es "Actualizar", "Aprobar" o "Rechazar"
   const [rutaRedireccion, setRutaRedireccion] = useState(); // Ruta de confirmacion, cambia su estado dependiendo si es "Actualizar", "Aprobar" o "Rechazar"
 
-  // funcion que permite subir el archivo
-  // const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   if (e.target.files) {
-  //     setFile(e.target.files[0]);
-  //   }
-  // };
-
   const handleFileChange = (e) => {
     if (e.target.files) {
       setFile(e.target.files[0]);

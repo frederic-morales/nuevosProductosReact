@@ -2,16 +2,12 @@ import { Outlet } from "react-router";
 import { useParams } from "react-router-dom";
 import fetchProducto from "../../hooks/fetch_producto";
 import { Link } from "react-router";
+import { useEffect, useState } from "react";
 
 function Producto() {
   const params = useParams();
   const productoId = params.id;
   const { info, etapas, loading, error } = fetchProducto({ productoId });
-
-  // const productoId = params.productoId;
-  // console.log(productoId);
-  // console.log(info);
-  // console.log(etapas);
 
   if (loading) {
     return <div>Cargando...</div>;
@@ -20,6 +16,8 @@ function Producto() {
   if (error) {
     return <div>Error: {error}</div>;
   }
+  // console.log(infoProducto);
+  console.log(info);
 
   return (
     <div className="flex flex-col items-center mt-12 mb-8">
@@ -28,11 +26,13 @@ function Producto() {
           {info.productoInfo[0].Nombre}
         </p>
         <p className="font-bold text-lg sm:text-xl lg:text-2xl drop-shadow-[2px_1px_1px_black]">
-          Desarrollo Iniciado el {info.productoInfo[0].FechaInicio}
+          Desarrollo Iniciado el
+          {info.productoInfo[0].FechaInicio}
           <br />
           Tiempo total estimado 24 meses
           <br />
-          Total de rechazos: {info.productoInfo[0].Rechazos || "0"}
+          Total de rechazos:
+          {info.productoInfo[0].Rechazos || "0"}
         </p>
         <Link
           to={"Actualizar"}

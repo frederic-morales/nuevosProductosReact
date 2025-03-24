@@ -27,9 +27,9 @@ function ListadoEtapas() {
               {etapas?.map((etapa) => {
                 if (etapa.Estado != 2) {
                   let ruta = "";
-                  if (etapa.Estado == 1) ruta = "/Etapas/1/Historial";
-                  if (etapa.Estado == 3) ruta = "/Etapas/1/Actualizar";
-                  if (etapa.Estado == null) ruta = "/Etapas/1/Actualizar";
+                  if (etapa.Estado == 1) ruta = "/ProgresoEtapa/1/Iniciar";
+                  if (etapa.Estado == 3) ruta = "/ProgresoEtapa/1/Iniciar";
+                  if (etapa.Estado == null) ruta = "ProgresoEtapa/1/Iniciar";
                   return (
                     <EtapaDescripcion
                       key={etapa.EtapaId}
@@ -53,7 +53,7 @@ function ListadoEtapas() {
                       key={etapa.id}
                       etapa={etapa}
                       classCSS="bg-red-400"
-                      link="/Etapas/1/Historial"
+                      link="ProgresoEtapa/1/Iniciar"
                     />
                   );
                 }
