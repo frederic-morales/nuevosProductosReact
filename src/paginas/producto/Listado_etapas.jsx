@@ -28,17 +28,24 @@ function ListadoEtapas() {
               {etapas?.map((etapa) => {
                 if (etapa.Estado != 2) {
                   let ruta = "";
-                  if (etapa.Estado == 1) ruta = `${etapa.EtapaId}/Historial`;
-                  if (etapa.Estado == 3) ruta = `${etapa.EtapaId}/Actualizar`;
-                  if (etapa.Estado == null) ruta = `${etapa.EtapaId}/Iniciar`;
+                  if (etapa.ProgresoEstado == 1)
+                    ruta = `${etapa.EtapaId}/Historial`;
+                  if (etapa.ProgresoEstado == 3)
+                    ruta = `${etapa.EtapaId}/Actualizar`;
+                  if (etapa.ProgresoEstado == null)
+                    ruta = `${etapa.EtapaId}/Iniciar`;
                   return (
                     <EtapaDescripcion
                       key={etapa.EtapaId}
                       etapa={etapa}
                       link={ruta}
-                      classCSS={`${etapa.Estado == 1 && "bg-[#affdce]"} 
-                                ${etapa.Estado == 3 && "bg-[#879efc]"}          
-                                ${etapa.Estado == null && "bg-gray-100"}`}
+                      classCSS={`${etapa.ProgresoEstado == 1 && "bg-[#affdce]"} 
+                                ${
+                                  etapa.ProgresoEstado == 3 && "bg-[#879efc]"
+                                }          
+                                ${
+                                  etapa.ProgresoEstado == null && "bg-gray-100"
+                                }`}
                     />
                   );
                 }
@@ -54,7 +61,7 @@ function ListadoEtapas() {
                       key={etapa.id}
                       etapa={etapa}
                       classCSS="bg-red-400"
-                      link={`${etapa.EtapaId}/Historial`}
+                      link={`${etapa.ProgresoEstado}/Historial`}
                     />
                   );
                 }

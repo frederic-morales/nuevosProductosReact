@@ -21,6 +21,8 @@ function Producto() {
   console.log(showBotonActualizar);
   console.log(location.pathname);
 
+  // console.log(etapas);
+
   return (
     <div className="flex flex-col items-center mt-12 mb-8">
       <div className="text-center text-gray-50 flex flex-col gap-1 items-center">

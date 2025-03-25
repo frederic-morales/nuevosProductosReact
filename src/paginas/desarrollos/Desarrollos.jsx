@@ -11,7 +11,6 @@ function Desarrollos() {
   const [fechaHasta, setFechaHasta] = useState(""); // Estado para la fecha de fin
   const [productosFiltrados, setProductosFiltrados] = useState([]);
 
-  // Actualiza los productos filtrados
   useEffect(() => {
     setProductosFiltrados(productos);
   }, [productos]);

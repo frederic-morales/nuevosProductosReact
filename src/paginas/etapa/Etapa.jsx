@@ -17,7 +17,6 @@ function Etapa() {
     <div>Error...</div>;
   }
 
-  const validacion = true;
   console.log(errorProgreso, loadingProgreso);
   console.log(etapaProgreso);
   // console.log(etapaProgreso.infoEtapa[0]);
