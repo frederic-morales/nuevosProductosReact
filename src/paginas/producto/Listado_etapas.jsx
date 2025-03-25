@@ -3,14 +3,15 @@ import { useOutletContext } from "react-router-dom";
 import EtapaDescripcion from "../../componentes/EtapaDescripcion";
 
 function ListadoEtapas() {
-  const etapas = useOutletContext();
-
   // Estado que permirte mostrar las etapas rechazadas
+  const etapas = useOutletContext();
   const [mostrarRechazos, setMostrarRechazos] = useState();
 
   const handleClick = () => {
     setMostrarRechazos(!mostrarRechazos);
   };
+
+  // console.log(etapas);
 
   return (
     <>
@@ -27,9 +28,9 @@ function ListadoEtapas() {
               {etapas?.map((etapa) => {
                 if (etapa.Estado != 2) {
                   let ruta = "";
-                  if (etapa.Estado == 1) ruta = "/ProgresoEtapa/1/Iniciar";
-                  if (etapa.Estado == 3) ruta = "/ProgresoEtapa/1/Iniciar";
-                  if (etapa.Estado == null) ruta = "ProgresoEtapa/1/Iniciar";
+                  if (etapa.Estado == 1) ruta = `${etapa.EtapaId}/Iniciar`;
+                  if (etapa.Estado == 3) ruta = `${etapa.EtapaId}/Iniciar`;
+                  if (etapa.Estado == null) ruta = `${etapa.EtapaId}/Iniciar`;
                   return (
                     <EtapaDescripcion
                       key={etapa.EtapaId}
@@ -53,7 +54,7 @@ function ListadoEtapas() {
                       key={etapa.id}
                       etapa={etapa}
                       classCSS="bg-red-400"
-                      link="ProgresoEtapa/1/Iniciar"
+                      link={`${etapa.EtapaId}/Iniciar`}
                     />
                   );
                 }

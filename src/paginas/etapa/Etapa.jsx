@@ -1,7 +1,26 @@
 import { Outlet, Link } from "react-router";
 import { useParams } from "react-router";
+import fetch_etapa_progreso from "../../hooks/fetch_etapa_progreso";
 
 function Etapa() {
+  const params = useParams();
+  const desarrolloProductoId = params.productoId;
+  const etapaId = params.etapaId;
+  const { etapaProgreso, errorProgreso, loadingProgreso } =
+    fetch_etapa_progreso({ desarrolloProductoId, etapaId });
+
+  if (loadingProgreso || !etapaProgreso) {
+    <div>Cargando...</div>;
+  }
+
+  if (errorProgreso || !etapaProgreso) {
+    <div>Error...</div>;
+  }
+
+  console.log(errorProgreso, loadingProgreso);
+  console.log(etapaProgreso);
+  // console.log(etapaProgreso.infoEtapa[0]);
+
   return (
     <div className="flex flex-col items-center mt-12 mb-16">
       {/* Titutlo del producto y de la etapa correspondiente */}
@@ -28,7 +47,7 @@ function Etapa() {
           </button>
         </Link>
       </div>
-      <Outlet />
+      <Outlet context={etapaProgreso} />
     </div>
   );
 }

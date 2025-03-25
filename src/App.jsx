@@ -1,10 +1,10 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Desarrollos from "./paginas/desarrollos/Desarrollos";
 import Login from "./paginas/login/Login";
 import Layout from "./router/Layout";
 import Etapa from "./paginas/etapa/Etapa";
 import NuevoProducto from "./paginas/nuevo_producto/Nuevo_producto";
 import Producto from "./paginas/producto/Producto";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Actualizar from "./paginas/etapa/Actualizar";
 import Historial from "./paginas/etapa/Historial";
 import ListadoEtapas from "./paginas/producto/Listado_etapas";
@@ -14,6 +14,7 @@ import Iniciar from "./paginas/etapa/Iniciar";
 import Modificar_etapas from "./paginas/modificar_etapas/modificar_etapas";
 import Asignar_usuarios from "./paginas/modificar_etapas/Asignar_usuarios";
 import Actualizar_Producto from "./paginas/producto/Actualizar_producto";
+
 import "./App.css";
 
 const router = createBrowserRouter([
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
         element: <NuevoProducto />,
       },
       {
-        path: "Producto/:id",
+        path: "Producto/:productoId",
         element: <Producto />,
         children: [
           {
@@ -42,23 +43,23 @@ const router = createBrowserRouter([
             path: "Actualizar",
             element: <Actualizar_Producto />,
           },
-        ],
-      },
-      {
-        path: "ProgresoEtapa/:id",
-        element: <Etapa />,
-        children: [
           {
-            path: "Actualizar",
-            element: <Actualizar />,
-          },
-          {
-            path: "Historial",
-            element: <Historial />,
-          },
-          {
-            path: "Iniciar",
-            element: <Iniciar />,
+            path: "Etapas/:etapaId",
+            element: <Etapa />,
+            children: [
+              {
+                path: "Actualizar",
+                element: <Actualizar />,
+              },
+              {
+                path: "Historial",
+                element: <Historial />,
+              },
+              {
+                path: "Iniciar",
+                element: <Iniciar />,
+              },
+            ],
           },
         ],
       },

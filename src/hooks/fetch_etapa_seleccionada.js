@@ -24,3 +24,5 @@ const fetchEtapaSeleccionada = () => {
 
   return { etapa, error, loading }
 }
+
+export default fetchEtapaSeleccionada

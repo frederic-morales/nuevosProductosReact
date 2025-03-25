@@ -12,7 +12,6 @@ function Asignar_usuarios() {
   const { usuarios } = fetch_all_usuarios();
   const { usuariosEtapa } = fetch_etapa_usuarios({ EtapaId });
   const [busqueda, setBusqueda] = useState(""); // Estado para el texto de búsqueda
-
   const [seleccionados, setSeleccionados] = useState([]); // Estado para los usuarios seleccionados
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false); // Estado para mostrar la confirmación de guardado
   const [datosConfirmados, setDatosConfirmados] = useState(); // Confirmación del envío del formulario
@@ -73,8 +72,8 @@ function Asignar_usuarios() {
     }
   };
 
-  console.log(usuarios);
-  console.log(usuariosEtapa);
+  // console.log(usuarios);
+  // console.log(usuariosEtapa);
 
   return (
     <div className="flex flex-col flex-wrap sm:flex-row items-center sm:items-start justify-center mt-8 md:mt-16 text-white gap-8 md:gap-14">
