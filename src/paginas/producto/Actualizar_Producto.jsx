@@ -17,7 +17,7 @@ import fetch_Producto_Info from "../../hooks/fetch_producto_info";
 
 function Actualizar_Producto() {
   const params = useParams();
-  const productoId = params.id; // Obtiene el id del producto a Actualizar
+  const productoId = params.productoId; // Obtiene el id del producto a Actualizar
   const etapas = useOutletContext(); // Obtiene las etapas asignadas anteriormente
 
   // Obteniendo los datos para mostrar en la actualizacion
@@ -124,7 +124,7 @@ function Actualizar_Producto() {
   // console.log(etapas);
   // console.log(allEtapas);
   // console.log(mostrarNuevasEtapas);
-  // console.log(info);
+  console.log(info);
 
   if (loading || loadingCampos || loadingUsuarios || loadingInfo) {
     return <div>Cargando...</div>;

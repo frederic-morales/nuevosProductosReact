@@ -11,7 +11,7 @@ function ListadoEtapas() {
     setMostrarRechazos(!mostrarRechazos);
   };
 
-  // console.log(etapas);
+  console.log(etapas);
 
   return (
     <>
@@ -28,8 +28,8 @@ function ListadoEtapas() {
               {etapas?.map((etapa) => {
                 if (etapa.Estado != 2) {
                   let ruta = "";
-                  if (etapa.Estado == 1) ruta = `${etapa.EtapaId}/Iniciar`;
-                  if (etapa.Estado == 3) ruta = `${etapa.EtapaId}/Iniciar`;
+                  if (etapa.Estado == 1) ruta = `${etapa.EtapaId}/Historial`;
+                  if (etapa.Estado == 3) ruta = `${etapa.EtapaId}/Actualizar`;
                   if (etapa.Estado == null) ruta = `${etapa.EtapaId}/Iniciar`;
                   return (
                     <EtapaDescripcion
@@ -54,7 +54,7 @@ function ListadoEtapas() {
                       key={etapa.id}
                       etapa={etapa}
                       classCSS="bg-red-400"
-                      link={`${etapa.EtapaId}/Iniciar`}
+                      link={`${etapa.EtapaId}/Historial`}
                     />
                   );
                 }

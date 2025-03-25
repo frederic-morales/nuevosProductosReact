@@ -72,9 +72,6 @@ function Asignar_usuarios() {
     }
   };
 
-  // console.log(usuarios);
-  // console.log(usuariosEtapa);
-
   return (
     <div className="flex flex-col flex-wrap sm:flex-row items-center sm:items-start justify-center mt-8 md:mt-16 text-white gap-8 md:gap-14">
       {/* Buscador de usuarios */}
@@ -96,19 +93,20 @@ function Asignar_usuarios() {
           Resultados de búsqueda
         </h2>
         <ul className="flex flex-col max-h-[425px] overflow-auto pr-2 overscroll-none [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-300">
-          {usuariosFiltrados.map((usuario) => (
-            <div className="w-full" key={usuario.CodigoEmpleado}>
-              <li className="bg-white text-xs md:text-sm text-black rounded-2xl text-center uppercase font-semibold py-3">
-                {usuario.Nombres} {usuario.Apellidos}
-              </li>
-              <button
-                className="mt-1 mb-7 p-1 rounded-2xl bg-green-500 font-semibold w-full"
-                onClick={() => agregarUsuario(usuario)} // Doble clic para agregar
-              >
-                Agregar
-              </button>
-            </div>
-          ))}
+          {busqueda != "" &&
+            usuariosFiltrados.map((usuario) => (
+              <div className="w-full" key={usuario.CodigoEmpleado}>
+                <li className="bg-white text-xs md:text-sm text-black rounded-2xl text-center uppercase font-semibold py-3">
+                  {usuario.Nombres} {usuario.Apellidos}
+                </li>
+                <button
+                  className="mt-1 mb-7 p-1 rounded-2xl bg-green-500 font-semibold w-full"
+                  onClick={() => agregarUsuario(usuario)} // Doble clic para agregar
+                >
+                  Agregar
+                </button>
+              </div>
+            ))}
         </ul>
       </div>
       {/* Lista de usuarios seleccionados */}

@@ -1,19 +1,21 @@
 import { Outlet, useMatch } from "react-router";
 import { useParams } from "react-router-dom";
 import fetchProducto from "../../hooks/fetch_producto";
+import fetch_Producto_Info from "../../hooks/fetch_producto_info";
 import { Link } from "react-router";
 
 function Producto() {
   const params = useParams();
   const productoId = params.productoId;
-  const { info, etapas, loading, error } = fetchProducto({ productoId });
+  const { etapas, loading, error } = fetchProducto({ productoId });
+  const { info, errorInfo, loadingInfo } = fetch_Producto_Info({ productoId });
 
   const showBotonActualizar = useMatch("/Producto/:productoId/Etapas");
 
-  if (loading) {
+  if (loading || loadingInfo) {
     return <div>Cargando...</div>;
   }
-  if (error) {
+  if (error || errorInfo) {
     return <div>Error: {error}</div>;
   }
   console.log(showBotonActualizar);

@@ -17,6 +17,7 @@ function Etapa() {
     <div>Error...</div>;
   }
 
+  const validacion = true;
   console.log(errorProgreso, loadingProgreso);
   console.log(etapaProgreso);
   // console.log(etapaProgreso.infoEtapa[0]);
@@ -31,21 +32,39 @@ function Etapa() {
         <h4 className="text-lg font-black text-center text-white md:text-xl mb-6 sm:mb-8 drop-shadow-[1px_1px_0px_black] uppercase">
           Etapa en Proceso
         </h4>
-        <Link to={"Actualizar"}>
-          <button className="text-sm md:text-base text-start m-1 md:mr-4 cursor-pointer rounded-lg py-1 px-3 font-medium bg-gray-100 hover:shadow-xl hover:shadow-blue-300 w-fit">
-            Actualizar Etapa
-          </button>
-        </Link>
-        <Link to={"Historial"}>
-          <button className="text-sm md:text-base text-start m-1 md:mr-4 cursor-pointer rounded-lg py-1 px-3 font-medium bg-gray-100 hover:shadow-xl hover:shadow-blue-300 w-fit">
-            Historial de la Etapa
-          </button>
-        </Link>
-        <Link to={"Iniciar"}>
-          <button className="text-sm md:text-base text-start m-1 md:mr-4 cursor-pointer rounded-lg py-1 px-3 font-medium bg-gray-100 hover:shadow-xl hover:shadow-blue-300 w-fit">
-            Iniciar Etapa
-          </button>
-        </Link>
+        {etapaProgreso && (
+          <>
+            {etapaProgreso.infoEtapa[0].AsignacionEstado != null && (
+              <Link to={"Actualizar"}>
+                <button className="text-sm md:text-base text-start m-1 md:mr-4 cursor-pointer rounded-lg py-1 px-3 font-medium bg-gray-100 hover:shadow-xl hover:shadow-blue-300 w-fit">
+                  Actualizar Etapa
+                </button>
+              </Link>
+            )}
+          </>
+        )}
+        {etapaProgreso && (
+          <>
+            {etapaProgreso.infoEtapa[0].AsignacionEstado != null && (
+              <Link to={"Historial"}>
+                <button className="text-sm md:text-base text-start m-1 md:mr-4 cursor-pointer rounded-lg py-1 px-3 font-medium bg-gray-100 hover:shadow-xl hover:shadow-blue-300 w-fit">
+                  Historial de la Etapa
+                </button>
+              </Link>
+            )}
+          </>
+        )}
+        {etapaProgreso && (
+          <>
+            {etapaProgreso.infoEtapa[0].AsignacionEstado === null && (
+              <Link to={"Iniciar"}>
+                <button className="text-sm md:text-base text-start m-1 md:mr-4 cursor-pointer rounded-lg py-1 px-3 font-medium bg-gray-100 hover:shadow-xl hover:shadow-blue-300 w-fit">
+                  Iniciar Etapa
+                </button>
+              </Link>
+            )}
+          </>
+        )}
       </div>
       <Outlet context={etapaProgreso} />
     </div>

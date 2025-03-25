@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const fetchProducto = ({ productoId }) => {
   const [etapas, setEtapas] = useState()
-  const [info, setInfo] = useState()
+  // const [info, setInfo] = useState()
   const [error, setError] = useState(null) // Manejo de errores
   const [loading, setLoading] = useState(true) // Estado de carga
 
@@ -12,11 +12,9 @@ const fetchProducto = ({ productoId }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [infoResponse, etapasResponse] = await Promise.all([
-          axios.get(`${api}/producto/${productoId}`),
+        const [etapasResponse] = await Promise.all([
           axios.get(`${api}/producto/${productoId}/etapas`)
         ])
-        setInfo(await infoResponse.data)
         setEtapas(await etapasResponse.data)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Ocurrió un error')
@@ -27,6 +25,6 @@ const fetchProducto = ({ productoId }) => {
     fetchData()
   }, [])
 
-  return { info, etapas, error, loading }
+  return { etapas, error, loading }
 }
 export default fetchProducto
