@@ -1,43 +1,79 @@
 import { useState } from "react";
 import Confirmacion from "../../componentes/Confirmacion";
 import Alert from "../../componentes/Alert";
+import { useOutletContext } from "react-router-dom";
+import { useEffect } from "react";
+import post_etapa_actualizar from "../../hooks/post_etapa_actualizar";
 
 function Actualizar() {
+  //Traemos la informacion de la etapa pasada desde el elemento padre
+  const etapa = useOutletContext();
+
   const [showConfirmacion, setShowConfirmacion] = useState(); //Estado que maneja si se debe de mostrar el mensaje de confirmacion
   const [showAlert, setShowAlert] = useState(); // Estado que maneja si se debe de mostrar la alerta o no, se setea al valor "false" despues de cada renderizacion
-  const [datosConfirmados, setDatosConfirmados] = useState(); // Estado que guarda la eleccion del usuario "si" o "no" - Servira para enviar los datos a la DB
-  const [file, setFile] = useState(); // Estado que guarda el archivo subido
   const [msjConfirmacion, setMsjConfirmacion] = useState(); // Mensaje de confirmacion, cambia su estado dependiendo si es "Actualizar", "Aprobar" o "Rechazar"
   const [msjCancelacion, setMsjCancelacion] = useState(); // Mensaje de cancelacion, cambia su estado dependiendo si es "Actualizar", "Aprobar" o "Rechazar"
   const [rutaRedireccion, setRutaRedireccion] = useState(); // Ruta de confirmacion, cambia su estado dependiendo si es "Actualizar", "Aprobar" o "Rechazar"
+  const [datosConfirmados, setDatosConfirmados] = useState(); // Estado que guarda la eleccion del usuario "si" o "no" - Servira para enviar los datos a la DB
 
+  //Datos a enviar
+  const [file, setFile] = useState(null); // Estado que guarda el archivo subido
+  const [enviarEstado, setEnviarEstado] = useState(null); // "Estados:" 1 = aprobado, 2 = rechazado, 3 = actualizacion"
+  const [descripcion, setDescripcion] = useState(null);
+
+  //Informacion del progreso de la etapa
+  const [etapaInfo, setEtapaInfo] = useState({});
+
+  useEffect(() => {
+    if (etapa) {
+      setEtapaInfo(etapa.infoEtapa[0]);
+    }
+  });
+
+  // console.log(etapaInfo);
   const handleFileChange = (e) => {
     if (e.target.files) {
       setFile(e.target.files[0]);
     }
   };
+
+  const handleDescripcionChange = (e) => {
+    if (e.target.value) {
+      setDescripcion(e.target.value);
+    }
+  };
+
   //Funcion que maneja los estados de renderizacion "Confirmacion" y "Alert"
   const handleConfirmedResponse = (isConfirmed) => {
     setShowConfirmacion(false);
     setShowAlert(true);
     setDatosConfirmados(isConfirmed);
   };
-  const handleSubmit = () => {
-    console.log("Subiendo archivo...");
+  const handleSubmit = async () => {
+    console.log("Actualizando la etapa...");
+
+    const response = await post_etapa_actualizar({
+      ProgresoEtapaId: etapaInfo.ProgresoEtapaId,
+      Estado: enviarEstado,
+      RutaDoc: file,
+      Descripcion: descripcion,
+    });
+
+    console.log(response);
   };
+
+  console.log(enviarEstado);
+  console.log(descripcion);
 
   return (
     <div className={`grid grid-cols-4 gap-4 mt-4 sm:mt-8 sm:w-9/12`}>
       {/* Descripcion de la etapa */}
-      <div className="h-48 flex flex-col px-6 py-4 col-start-1 col-end-5 sm:col-end-4 rounded-3xl shadow-md shadow-gray-500 bg-gray-100 opacity-95 hover:shadow-lg hover:shadow-blue-300">
-        <p className="text-base mb-2 font-bold">Nombre de la Etapa</p>
-        <div className="h-[80%] flex-col overflow-auto text-xs [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-300">
+      <div className="h-42 flex flex-col px-6 py-4 col-start-1 col-end-5 sm:col-end-4 rounded-3xl shadow-md shadow-gray-500 bg-gray-100 opacity-95 hover:shadow-lg hover:shadow-blue-300">
+        <p className="text-base mb-2 font-bold">{etapaInfo.Nombre}</p>
+        <div className="h-[80%] flex-col overflow-auto text-xs md:text-sm [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-300">
           <p className="sm:text-sm text-justify">
-            Descripcion etapa: Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Vitae reiciendis exercitationem voluptatem fuga
-            pariatur quasi. A tenetur officiis aliquam sapiente rem et, aliquid
-            dolores, error ratione fugit eius repudiandae! Eveniet. Lorem ipsum
-            dolor sit amet consectetur adipisicing elit.
+            {etapaInfo.Descripcion ||
+              `Descripcion de ejemplo de la etapa ${etapaInfo.Nombre} - agregar descripcion de las etapas`}
           </p>
         </div>
         <p className="text-xs sm:text-sm mt-3 font-semibold ">
@@ -90,7 +126,8 @@ function Actualizar() {
         <div className="w-full h-60 p-8 rounded-3xl shadow-md shadow-gray-500 bg-gray-100 opacity-95 hover:shadow-lg hover:shadow-blue-300">
           <textarea
             className="w-full h-full focus:outline-none overflow-x-hidden overflow-y-auto whitespace-normal break-words text-sm md:text-md"
-            // type="text"
+            type="text"
+            onChange={handleDescripcionChange}
           />
         </div>
       </div>
@@ -103,7 +140,8 @@ function Actualizar() {
               setShowConfirmacion(true);
               setMsjConfirmacion("Se ha actualizado la etapa correctamente!!");
               setMsjCancelacion("Se ha cancelado la actualizacion!!");
-              setRutaRedireccion("");
+              setRutaRedireccion("/");
+              setEnviarEstado(3);
             }}
           >
             Actualizar
@@ -117,6 +155,7 @@ function Actualizar() {
               setMsjConfirmacion("Se ha aprobado la etapa correctamente!!");
               setMsjCancelacion("Se ha cancelado la aprobacion de la etapa!!");
               setRutaRedireccion("");
+              setEnviarEstado(1);
             }}
           >
             Aprobar
@@ -130,6 +169,7 @@ function Actualizar() {
               setMsjConfirmacion("Se ha rechazado la etapa correctamente!!");
               setMsjCancelacion("Se ha cancelado el rechazo de la etapa!!");
               setRutaRedireccion("");
+              setEnviarEstado(2);
             }}
           >
             Rechazar

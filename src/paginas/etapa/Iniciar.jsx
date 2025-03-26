@@ -51,7 +51,7 @@ function Iniciar() {
           </p>
         </div>
       </div>
-      <div className="mt-6 flex gap-6 w-full  sm:w-9/12 items-center justify-center">
+      <div className="mt-6 flex gap-6 w-full sm:w-9/12 items-center justify-center">
         <button
           className="text-center md:text-start text-xs md:text-lg cursor-pointer rounded-lg py-2 px-8 font-medium hover:shadow-xl hover:shadow-blue-300 w-fit 
               border-2 shadow-sm bg-green-300"
