@@ -22,7 +22,7 @@ function Buscar_usuarios({ usuarios, onSelect, hasError, usuarioAnterior }) {
   return (
     <div className="w-full max-w-sm mb-6 md:mb-0 text-white ">
       <label className="block uppercase text-lg font-bold mb-2 md:text-xl lg:text-2xl drop-shadow-[1px_1px_1px_black]">
-        Usuario Responsable
+        Usuario responsable
       </label>
       {/* Campo de búsqueda */}
       <input

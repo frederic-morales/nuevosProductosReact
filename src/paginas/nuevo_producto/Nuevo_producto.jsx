@@ -9,12 +9,14 @@ import Buscar_usuarios from "../../componentes/Buscar_usuario";
 import CheckSerie from "../../componentes/CheckSerie";
 //Hooks
 import fetchDataProductos from "../../hooks/fetch_data_productos";
-import fetch_all_usuarios from "../../hooks/fetch_all_usuarios";
 import fetch_all_etapas from "../../hooks/fetch_all_etapas";
+import fetch_usuarios_grupo from "../../hooks/fetch_usuarios_grupo";
 
 function NuevoProducto() {
   const { campos, loadingCampos, errorCampos } = fetchDataProductos(); // Usa el custom hook para obtener las etapas y los campos
-  const { usuarios, loadingUsuarios, errorUsuarios } = fetch_all_usuarios(); // Usa el custom hook para obtener los usuarios
+  const { grupoUsuarios, loadingGrupo, errorGrupo } = fetch_usuarios_grupo({
+    CodigoGrupo: 35, // INVESTIGACION
+  });
   const { allEtapas, loading, error } = fetch_all_etapas(); // Usa el custom hook para obtener las etapas
 
   const [validarCampos, setValidarCampos] = useState(false); // Validar que los campos requeridos no estén vacíos
@@ -84,11 +86,11 @@ function NuevoProducto() {
     setValidarCampos(camposCompletos);
   };
 
-  if (loadingCampos || loading || loadingUsuarios) {
+  if (loadingCampos || loading || loadingGrupo) {
     return <div>Cargando...</div>;
   }
 
-  if (errorCampos || error || errorUsuarios) {
+  if (errorCampos || error || errorGrupo) {
     return <div>Error: {errorCampos}</div>;
   }
 
@@ -114,9 +116,9 @@ function NuevoProducto() {
             )
           )}
           {/* Usuario Responsable */}
-          {usuarios.length > 0 && (
+          {grupoUsuarios?.length > 0 && (
             <Buscar_usuarios
-              usuarios={usuarios}
+              usuarios={grupoUsuarios}
               onSelect={(usuario) => setUsuarioResponsable(usuario)} // Recibe el usuario seleccionado
               hasError={!usuarioResponsable}
             />
@@ -129,13 +131,13 @@ function NuevoProducto() {
           <p className="w-full max-w-sm md:max-w-xl font-black sm:text-center md:text-xl lg:text-3xl uppercase text-white drop-shadow-[1px_2px_0px_black]">
             Etapas que llevará el producto
           </p>
-          <div className="mt-5 flex flex-wrap gap-4 justify-center items-center w-full">
+          <div className="mt-5 md:mt-10 lg:mt-12 lg:px-6 p-3 sm:pt-6 sm:pb-10 sm:px-4 w-full max-w-lg lg:max-w-7xl flex flex-wrap gap-4 justify-evenly items-center bg-white rounded-2xl opacity-85">
             {allEtapas.map((etapa) => (
               <CheckEtapa
                 key={etapa.EtapaId}
                 etapa={etapa}
                 onToggle={handleToggleEtapa}
-                classCSS={"text-white"}
+                classCSS={"text-black"}
                 showCheck={true}
               />
             ))}

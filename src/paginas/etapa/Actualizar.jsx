@@ -66,12 +66,12 @@ function Actualizar() {
   console.log(descripcion);
 
   return (
-    <div className={`grid grid-cols-4 gap-4 mt-4 sm:mt-8 sm:w-9/12`}>
+    <div className={`grid grid-cols-4 gap-4 mt-4 sm:mt-8`}>
       {/* Descripcion de la etapa */}
-      <div className="h-42 flex flex-col px-6 py-4 col-start-1 col-end-5 sm:col-end-4 rounded-3xl shadow-md shadow-gray-500 bg-gray-100 opacity-95 hover:shadow-lg hover:shadow-blue-300">
+      <div className="h-42 flex flex-col px-6 py-4 col-start-1 col-end-5 sm:col-end-4 sm:min-w-[450px] rounded-3xl shadow-md shadow-gray-500 bg-gray-100 opacity-95 hover:shadow-lg hover:shadow-blue-300">
         <p className="text-base mb-2 font-bold">{etapaInfo.Nombre}</p>
         <div className="h-[80%] flex-col overflow-auto text-xs md:text-sm [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-300">
-          <p className="sm:text-sm text-justify">
+          <p className="sm:text-sm text-justify w-full">
             {etapaInfo.Descripcion ||
               `Descripcion de ejemplo de la etapa ${etapaInfo.Nombre} - agregar descripcion de las etapas`}
           </p>

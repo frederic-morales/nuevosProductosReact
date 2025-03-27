@@ -30,9 +30,7 @@ function Asignar_usuarios() {
 
   // Función para agregar un usuario al hacer Click en el boton agregar
   const agregarUsuario = (usuario) => {
-    if (
-      !seleccionados.some((u) => u.CodigoEmpleado === usuario.CodigoEmpleado)
-    ) {
+    if (!seleccionados.some((u) => u.Usuario === usuario.Usuario)) {
       setSeleccionados([...seleccionados, usuario]);
     }
   };
@@ -40,7 +38,7 @@ function Asignar_usuarios() {
   // Función para eliminar un usuario al hacer Click en el boton eliminar
   const eliminarUsuario = (usuario) => {
     setSeleccionados(
-      seleccionados.filter((u) => u.CodigoEmpleado !== usuario.CodigoEmpleado)
+      seleccionados.filter((u) => u.Usuario !== usuario.Usuario)
     );
   };
 
@@ -71,6 +69,8 @@ function Asignar_usuarios() {
       setDatosConfirmados(false);
     }
   };
+
+  console.log(usuarios);
 
   return (
     <div className="flex flex-col flex-wrap sm:flex-row items-center sm:items-start justify-center mt-8 md:mt-16 text-white gap-8 md:gap-14">

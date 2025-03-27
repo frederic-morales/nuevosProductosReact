@@ -10,19 +10,22 @@ import CheckEtapa from "../../componentes/CheckEtapa";
 import Buscar_usuarios from "../../componentes/Buscar_usuario";
 import CheckSerie from "../../componentes/CheckSerie";
 //Hooks
-import fetch_all_usuarios from "../../hooks/fetch_all_usuarios";
 import fetchDataProductos from "../../hooks/fetch_data_productos";
 import fetch_all_etapas from "../../hooks/fetch_all_etapas";
 import fetch_Producto_Info from "../../hooks/fetch_producto_info";
+import fetch_usuarios_grupo from "../../hooks/fetch_usuarios_grupo";
 
 function Actualizar_Producto() {
   const params = useParams();
   const productoId = params.productoId; // Obtiene el id del producto a Actualizar
   const etapas = useOutletContext(); // Obtiene las etapas asignadas anteriormente
+  const { grupoUsuarios, loadingGrupo, errorGrupo } = fetch_usuarios_grupo({
+    CodigoGrupo: 35,
+  });
 
   // Obteniendo los datos para mostrar en la actualizacion
   const { campos, loadingCampos, errorCampos } = fetchDataProductos();
-  const { usuarios, loadingUsuarios, errorUsuarios } = fetch_all_usuarios(); // Usa el custom hook para obtener los usuarios
+  // const { usuarios, loadingUsuarios, errorUsuarios } = fetch_all_usuarios(); // Usa el custom hook para obtener los usuarios
   const { allEtapas, loading, error } = fetch_all_etapas(); // Usa el custom hook para obtener las etapas
   const { info, errorInfo, loadingInfo } = fetch_Producto_Info({
     productoId,
@@ -126,10 +129,10 @@ function Actualizar_Producto() {
   // console.log(mostrarNuevasEtapas);
   console.log(info);
 
-  if (loading || loadingCampos || loadingUsuarios || loadingInfo) {
+  if (loading || loadingCampos || loadingGrupo || loadingInfo) {
     return <div>Cargando...</div>;
   }
-  if (error || errorCampos || errorUsuarios || errorInfo) {
+  if (error || errorCampos || errorGrupo || errorInfo) {
     return (
       <>
         <div>Error allEtapas: {error}</div>
@@ -171,7 +174,7 @@ function Actualizar_Producto() {
           )}
           {/* Usuario Responsable */}
           <Buscar_usuarios
-            usuarios={usuarios}
+            usuarios={grupoUsuarios}
             onSelect={(usuario) => setUsuarioResponsable(usuario)} // Recibe el usuario seleccionado
             hasError={false}
             usuarioAnterior={`${info.productoInfo[0].Nombres} ${info.productoInfo[0].Apellidos}`}
@@ -188,18 +191,18 @@ function Actualizar_Producto() {
           <p className="w-full max-w-sm md:max-w-xl font-black sm:text-center text-lg md:text-xl lg:text-3xl uppercase text-white drop-shadow-[1px_2px_0px_black]">
             Etapas Asignadas Actualmente
           </p>
-          <div className="mt-5 flex flex-wrap gap-4 justify-center items-center w-full">
+          <div className="mt-5 md:mt-10 lg:mt-12 lg:px-6 p-3 sm:pt-6 sm:pb-10 sm:px-4 w-full max-w-lg lg:max-w-7xl flex flex-wrap gap-4 justify-evenly items-center bg-white rounded-2xl opacity-85">
             {etapas.map((etapa) => (
               <div
                 key={etapa.EtapaId}
                 className="w-full max-w-sm flex items-center space-x-3 cursor-pointer group mt-3"
               >
                 <p
-                  className={`font-bold md:text-lg drop-shadow-[1px_1px_1px_black] ${
+                  className={`font-bold md:text-lg drop-shadow-[2px_1px_2px_white] ${
                     etapa.Estado == 1 && "text-green-300"
                   } ${etapa.Estado == 2 && "text-red-300"} 
                   ${
-                    (etapa.Estado == 3 || etapa.Estado == null) && "text-white"
+                    (etapa.Estado == 3 || etapa.Estado == null) && "text-black"
                   }`}
                 >
                   No.{etapa.EtapaId} - {etapa.Nombre}
@@ -211,7 +214,7 @@ function Actualizar_Producto() {
             <p className="mt-8 w-full max-w-sm md:max-w-xl font-black sm:text-center text-lg md:text-xl lg:text-3xl uppercase text-white drop-shadow-[1px_2px_0px_black]">
               Asignar más etapas
             </p>
-            <div className="mt-5 flex flex-wrap gap-4 justify-center items-center w-full">
+            <div className="mt-5 md:mt-10 lg:mt-12 lg:px-6 p-3 sm:pt-6 sm:pb-10 sm:px-4 w-full max-w-lg lg:max-w-7xl flex flex-wrap gap-4 justify-evenly items-center bg-white rounded-2xl opacity-85">
               {mostrarNuevasEtapas.length > 0 &&
                 mostrarNuevasEtapas.map((etapa) => {
                   return (
@@ -219,7 +222,7 @@ function Actualizar_Producto() {
                       key={etapa.EtapaId}
                       etapa={etapa}
                       onToggle={handleToggleEtapa}
-                      classCSS={"text-white"}
+                      classCSS={"text-black"}
                       showCheck={true}
                     />
                   );

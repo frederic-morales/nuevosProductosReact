@@ -20,13 +20,12 @@ function Producto() {
   }
   console.log(showBotonActualizar);
   console.log(location.pathname);
-
   // console.log(etapas);
 
   return (
     <div className="flex flex-col items-center mt-12 mb-8">
       <div className="text-center text-gray-50 flex flex-col gap-1 items-center">
-        <p className="text-xl md:text-2xl lg:text-4xl font-black uppercase drop-shadow-[1px_2px_0px_black]">
+        <p className="text-xl md:text-4xl lg:text-5xl font-black uppercase drop-shadow-[1px_2px_0px_black] mb-4">
           {info.productoInfo[0].Nombre || ""}
         </p>
         <p className="font-bold text-lg sm:text-xl lg:text-2xl drop-shadow-[2px_1px_1px_black]">

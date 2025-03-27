@@ -42,12 +42,11 @@ function Iniciar() {
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <div className="w-[100%] sm:w-9/12 mt-8 flex flex-col px-6 py-4 rounded-3xl shadow-md shadow-gray-500 bg-gray-100 opacity-95 hover:shadow-lg hover:shadow-blue-300">
-        <p className="text-base mb-2 font-bold">Nombre de la Etapa</p>
+      <div className="w-[100%] sm:min-w-[450px] lg:min-w-xl mt-8 flex flex-col px-6 py-4 rounded-3xl shadow-md shadow-gray-500 bg-gray-100 opacity-95 hover:shadow-lg hover:shadow-blue-300">
+        <p className="text-base mb-2 font-bold">{etapaInfo.Nombre}</p>
         <div className="flex-col text-xs [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-300">
           <p className="sm:text-sm text-justify ">
-            Descripcion etapa: Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Vitae reiciendis exercitationem voluptatem fuga
+            Descripcion {etapaInfo.Descripcion}
           </p>
         </div>
       </div>

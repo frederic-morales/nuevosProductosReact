@@ -1,11 +1,11 @@
 import Alert from "../../componentes/Alert";
 import Confirmacion from "../../componentes/Confirmacion";
-import { useOutletContext } from "react-router-dom";
+// import { useOutletContext } from "react-router-dom";
 import { useState } from "react";
 import fetch_etapa_historial from "../../hooks/fetch_etapa_historial";
 import { useParams } from "react-router";
 import { useEffect } from "react";
-import { useNavigate } from "react-router";
+// import { useNavigate } from "react-router";
 
 function Historial() {
   const params = useParams();
@@ -60,10 +60,10 @@ function Historial() {
   return (
     <>
       <div
-        className={`w-[100%] sm:w-9/12 mt-4 sm:mt-8 flex flex-col gap-6 sm:gap-8`}
+        className={`mt-4 sm:mt-8 flex flex-col gap-6 sm:gap-8 sm:max-w-[850px]`}
       >
         {historial &&
-          historial.map((actualizacion) => (
+          historial?.map((actualizacion) => (
             <div
               key={actualizacion.id}
               className="flex flex-col sm:flex-row gap-3 text-xs sm:text-sm rounded-2xl"
@@ -85,24 +85,8 @@ function Historial() {
                   <br /> Fecha 05 03 2025
                   <br /> Usuario FSOC
                 </p>
-                <div className="max-h-24 overflow-auto pr-2 overscroll-none [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-300">
+                <div className="max-h-24 sm:min-w-[350px] lg:min-w-[400px] overflow-auto pr-2 overscroll-none [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-300">
                   <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Quisquam praesentium, omnis ex expedita dicta animi ullam
-                    eaque modi. Est quas beatae ut adipisci natus harum
-                    assumenda sunt magnam provident neque. Lorem ipsum dolor sit
-                    amet consectetur adipisicing elit. Obcaecati autem
-                    architecto, magni maiores harum quibusdam nulla est ab
-                    voluptates dolor ullam molestias aspernatur aliquid nobis
-                    dolores fuga odit culpa quam? Lorem ipsum dolor sit amet
-                    consectetur adipisicing elit. Ipsa molestiae at delectus rem
-                    praesentium numquam molestias eligendi sint nemo! Quisquam
-                    quia voluptatum vel accusantium architecto mollitia
-                    exercitationem amet totam enim! Lorem ipsum dolor sit amet
-                    consectetur adipisicing elit. Ea soluta doloribus nobis aut
-                    aliquid. Accusamus iusto vel aperiam nesciunt labore modi?
-                    Pariatur, explicabo iusto. Iure quibusdam similique error
-                    dolorem facere.
                     <br />
                   </p>
                 </div>
