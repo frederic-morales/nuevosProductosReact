@@ -25,6 +25,7 @@ function Actualizar_Producto() {
 
   // Obteniendo los datos para mostrar en la actualizacion
   const { campos, loadingCampos, errorCampos } = fetchDataProductos();
+
   // const { usuarios, loadingUsuarios, errorUsuarios } = fetch_all_usuarios(); // Usa el custom hook para obtener los usuarios
   const { allEtapas, loading, error } = fetch_all_etapas(); // Usa el custom hook para obtener las etapas
   const { info, errorInfo, loadingInfo } = fetch_Producto_Info({

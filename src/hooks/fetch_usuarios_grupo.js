@@ -11,7 +11,7 @@ const fetch_usuarios_grupo = ({ CodigoGrupo }) => {
     const fetchData = async () => {
       try {
         const resUsuarios = await axios.get(`${api}/usuarios/${CodigoGrupo}`)
-        console.log(await resUsuarios?.data.usuarios)
+        // console.log(await resUsuarios?.data.usuarios)
         setUsuariosGrupo(await resUsuarios?.data.usuarios)
       } catch (err) {
         setErrorGrupo(err instanceof Error ? err.message : 'Ocurrió un error')

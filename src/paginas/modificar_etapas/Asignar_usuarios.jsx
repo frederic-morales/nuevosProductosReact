@@ -70,8 +70,6 @@ function Asignar_usuarios() {
     }
   };
 
-  console.log(usuarios);
-
   return (
     <div className="flex flex-col flex-wrap sm:flex-row items-center sm:items-start justify-center mt-8 md:mt-16 text-white gap-8 md:gap-14">
       {/* Buscador de usuarios */}

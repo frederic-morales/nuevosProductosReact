@@ -1,23 +1,33 @@
-import { Outlet, useMatch } from "react-router";
+import { Outlet, useMatch, useNavigate } from "react-router";
 import { useParams } from "react-router-dom";
 import fetchProducto from "../../hooks/fetch_producto";
 import fetch_Producto_Info from "../../hooks/fetch_producto_info";
 import { Link } from "react-router";
+import { useAuth } from "../../auth/AuthContext";
 
 function Producto() {
   const params = useParams();
   const productoId = params.productoId;
   const { etapas, loading, error } = fetchProducto({ productoId });
   const { info, errorInfo, loadingInfo } = fetch_Producto_Info({ productoId });
-
   const showBotonActualizar = useMatch("/Producto/:productoId/Etapas");
+
+  // useEffect(() => {
+  //   if (useMatch("/Producto/:productoId")) {
+  //     useNavigate("/Producto/:productoId/Etapas");
+  //   }
+  // });
+
+  const { user } = useAuth();
 
   if (loading || loadingInfo) {
     return <div>Cargando...</div>;
   }
+
   if (error || errorInfo) {
     return <div>Error: {error}</div>;
   }
+
   console.log(showBotonActualizar);
   console.log(location.pathname);
   // console.log(etapas);
@@ -37,7 +47,7 @@ function Producto() {
           Total de rechazos:
           {info.productoInfo[0].Rechazos || "0"}
         </p>
-        {showBotonActualizar && (
+        {showBotonActualizar && user.role == "admin" && (
           <Link
             to={"Actualizar"}
             className="w-full max-w-3xs bg-blue-600 hover:bg-blue-800 text-white mt-3 py-3 px-8 rounded-2xl focus:outline-none focus:shadow-outline font-bold sm:text-lg lg:text-"

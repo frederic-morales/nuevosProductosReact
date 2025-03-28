@@ -2,6 +2,7 @@ import DesarrolloDescripcion from "./Desarrollo_descripcion";
 import Button from "../../componentes/Button";
 import fetchAllProductos from "../../hooks/fetch_all_productos";
 import { useEffect, useState } from "react";
+import { useAuth } from "../../auth/AuthContext";
 
 function Desarrollos() {
   // const [productosFiltrados, setProductosFiltrados] = useState([]);

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const CheckSerie = ({ onChange, hasError, serie }) => {
+const CheckSerie = ({ onChange, hasError, serie, message, classCss }) => {
   // Estado para controlar cuál checkbox está seleccionado
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -24,12 +24,12 @@ const CheckSerie = ({ onChange, hasError, serie }) => {
   }, [serie]);
 
   return (
-    <div className="w-full max-w-sm mb-6 md:mb-0 text-white text-start">
+    <div className="w-full max-w-sm md:mb-0 text-white text-start">
       <h2 className="block uppercase text-lg font-bold mb-2 md:text-xl lg:text-2xl drop-shadow-[1px_1px_1px_black] text-white lg:mb-5">
-        SERIE PRODUCTO
+        {message && "SERIE PRODUCTO"}
       </h2>
       {/* Primer checkbox */}
-      <label className="w-full max-w-sm flex items-center space-x-3 cursor-pointer group">
+      <label className="w-full max-w-sm flex items-center space-x-3 cursor-pointer group mt-4">
         <input
           type="checkbox"
           className="absolute opacity-0 h-0 w-0"
@@ -60,13 +60,11 @@ const CheckSerie = ({ onChange, hasError, serie }) => {
             />
           </svg>
         </span>
-        <span className="font-bold md:text-lg text-white drop-shadow-[1px_1px_1px_black]">
-          FARMA
-        </span>
+        <span className={`font-bold md:text-lg ${classCss}`}>FARMA</span>
       </label>
       <br />
       {/* Segundo checkbox */}
-      <label className="w-full max-w-sm flex items-center space-x-3 cursor-pointer group">
+      <label className="w-full max-w-sm flex items-center space-x-3 cursor-pointer group mb-4">
         <input
           type="checkbox"
           className="absolute opacity-0 h-0 w-0"
@@ -97,12 +95,10 @@ const CheckSerie = ({ onChange, hasError, serie }) => {
             />
           </svg>
         </span>
-        <span className="font-bold md:text-lg text-white drop-shadow-[1px_1px_1px_black]">
-          VET
-        </span>
+        <span className={`font-bold md:text-lg ${classCss}`}>VET</span>
       </label>
       {hasError && (
-        <p className="text-[#ff247f] text-xs font-bold md:text-sm drop-shadow-[0px_1px_0x_black] mt-4">
+        <p className="text-[#ff247f] text-xs font-bold md:text-sm drop-shadow-[0px_1px_0x_black] mb-2">
           Campo Obligatorio
         </p>
       )}

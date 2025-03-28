@@ -14,18 +14,35 @@ import Iniciar from "./paginas/etapa/Iniciar";
 import Modificar_etapas from "./paginas/modificar_etapas/modificar_etapas";
 import Asignar_usuarios from "./paginas/modificar_etapas/Asignar_usuarios";
 import Actualizar_Producto from "./paginas/producto/Actualizar_producto";
+import { AuthProvider } from "./auth/AuthContext";
+import ProtectedRouteAdmins from "./auth/ProtectedRouteAdmins";
 
 import "./App.css";
 
 const router = createBrowserRouter([
   {
+    path: "Login",
+    element: <Login />,
+  },
+  {
     path: "/",
     element: <Layout />,
     children: [
-      { path: "", element: <Desarrollos /> },
+      {
+        path: "Producto/All",
+        element: (
+          <ProtectedRouteAdmins>
+            <Desarrollos />
+          </ProtectedRouteAdmins>
+        ),
+      },
       {
         path: "NuevoProducto",
-        element: <NuevoProducto />,
+        element: (
+          <ProtectedRouteAdmins>
+            <NuevoProducto />,
+          </ProtectedRouteAdmins>
+        ),
       },
       {
         path: "Producto/:productoId",
@@ -37,11 +54,19 @@ const router = createBrowserRouter([
           },
           {
             path: "Reasignar Etapas",
-            element: <ReasignarEtapas />,
+            element: (
+              <ProtectedRouteAdmins>
+                <ReasignarEtapas />,
+              </ProtectedRouteAdmins>
+            ),
           },
           {
             path: "Actualizar",
-            element: <Actualizar_Producto />,
+            element: (
+              <ProtectedRouteAdmins>
+                <Actualizar_Producto />,
+              </ProtectedRouteAdmins>
+            ),
           },
           {
             path: "Etapas/:etapaId",
@@ -64,27 +89,35 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "EtapasUsuario",
-        element: <EtapasUsuario />,
-      },
-      {
         path: "Modificar_Etapas",
-        element: <Modificar_etapas />,
+        element: (
+          <ProtectedRouteAdmins>
+            <Modificar_etapas />,
+          </ProtectedRouteAdmins>
+        ),
       },
       {
         path: "Modificar_Etapas/:id/asignar_usuarios",
-        element: <Asignar_usuarios />,
+        element: (
+          <ProtectedRouteAdmins>
+            <Asignar_usuarios />,
+          </ProtectedRouteAdmins>
+        ),
+      },
+      {
+        path: "EtapasUsuario",
+        element: <EtapasUsuario />,
       },
     ],
-  },
-  {
-    path: "Login",
-    element: <Login />,
   },
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <AuthProvider>
+      <RouterProvider router={router} />;
+    </AuthProvider>
+  );
 }
 
 export default App;

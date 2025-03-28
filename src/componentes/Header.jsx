@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
 import headerImage from "C:\\Frederic\\ProductosNuevos\\ProductosNuevos\\frontend\\img\\Logo-Wellco.png";
+import { useAuth } from "../auth/AuthContext";
 
 function Header() {
+  const { user, logout, grupoUsuario } = useAuth();
+
+  console.log(grupoUsuario);
+
   return (
     <div className="text-[12px] sm:text-base">
       <div className="w-full">
@@ -53,12 +58,17 @@ function Header() {
                     d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
                   />
                 </svg>
-                <span className="font-medium sm:text-base">FSOC</span>
+                <span className="font-medium sm:text-base uppercase">
+                  {user?.usuario}
+                </span>
               </div>
             </div>
             <div className="flex items-center">
               <div className="flex cursor-pointer items-center max-h-14 px-1 sm:w-36 rounded-md border h-full hover:bg-gray-100 hover:shadow-xl hover:shadow-blue-300 text-white hover:text-black">
-                <span className="font-medium text-center w-full">
+                <span
+                  onClick={logout}
+                  className="font-medium text-center w-full"
+                >
                   Cerrar Sesion
                 </span>
               </div>
@@ -68,24 +78,30 @@ function Header() {
         {/* items de abajo */}
         <div className="mt-4 py-1 flex gap items-center justify-center">
           <div className="flex flex-wrap gap-x-8 gap-y-4 w-full justify-between lg:justify-start text-white">
-            <Link to={"/"}>
-              <span className="cursor-pointer rounded-sm py-1 px-2  font-medium hover:bg-gray-100 hover:text-black hover:shadow-xl hover:shadow-blue-300">
-                Productos en Proceso
-              </span>
-            </Link>
-            <Link to={"NuevoProducto"}>
-              <span className="cursor-pointer rounded-sm py-1 px-2 font-medium hover:bg-gray-100 hover:text-black hover:shadow-xl hover:shadow-blue-300">
-                Iniciar Producto nuevo
-              </span>
-            </Link>
+            {(grupoUsuario == 35 || grupoUsuario == 44) && (
+              <Link to={"/Producto/All"}>
+                <span className="cursor-pointer rounded-sm py-1 px-2  font-medium hover:bg-gray-100 hover:text-black hover:shadow-xl hover:shadow-blue-300">
+                  Productos en Proceso
+                </span>
+              </Link>
+            )}
+            {(grupoUsuario == 35 || grupoUsuario == 44) && (
+              <Link to={"NuevoProducto"}>
+                <span className="cursor-pointer rounded-sm py-1 px-2 font-medium hover:bg-gray-100 hover:text-black hover:shadow-xl hover:shadow-blue-300">
+                  Iniciar Producto nuevo
+                </span>
+              </Link>
+            )}
+            {(grupoUsuario == 35 || grupoUsuario == 44) && (
+              <Link to={"Modificar_Etapas"}>
+                <span className="cursor-pointer rounded-sm py-1 px-2 font-medium hover:bg-gray-100 hover:text-black hover:shadow-xl hover:shadow-blue-300">
+                  Actualizar Etapas
+                </span>
+              </Link>
+            )}
             <Link to={"EtapasUsuario"}>
               <span className="cursor-pointer rounded-sm py-1 px-2 font-medium hover:bg-gray-100 hover:text-black hover:shadow-xl hover:shadow-blue-300">
                 Mis Etapas
-              </span>
-            </Link>
-            <Link to={"Modificar_Etapas"}>
-              <span className="cursor-pointer rounded-sm py-1 px-2 font-medium hover:bg-gray-100 hover:text-black hover:shadow-xl hover:shadow-blue-300">
-                Actualizar Etapas
               </span>
             </Link>
           </div>

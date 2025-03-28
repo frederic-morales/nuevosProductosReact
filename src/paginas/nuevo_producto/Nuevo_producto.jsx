@@ -35,7 +35,7 @@ function NuevoProducto() {
         column.columnName === "Nombre" ||
         column.columnName === "Descripcion"
       ) {
-        camposNuevos[column.columnName] = "";
+        camposNuevos[column.columnName] != "";
       }
     });
   }
@@ -144,7 +144,7 @@ function NuevoProducto() {
           </div>
         </div>
         {/* Botón */}
-        {validarCampos && etapasAsignadas.length > 0 && (
+        {validarCampos && etapasAsignadas?.length > 0 && (
           <div className="w-full pt-12 flex justify-center">
             <div className="w-full max-w-sm">
               <button
