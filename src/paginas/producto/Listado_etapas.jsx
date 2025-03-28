@@ -26,7 +26,7 @@ function ListadoEtapas() {
           {!mostrarRechazos && (
             <div className="w-full flex flex-wrap items-center justify-center gap-8 mt-8">
               {etapas?.map((etapa) => {
-                if (etapa.Estado != 2) {
+                if (etapa.ProgresoEstado != 2) {
                   let ruta = "";
                   if (etapa.ProgresoEstado == 1)
                     ruta = `${etapa.EtapaId}/Historial`;
@@ -42,7 +42,7 @@ function ListadoEtapas() {
                       classCSS={`${etapa.ProgresoEstado == 1 && "bg-[#affdce]"} 
                                 ${
                                   etapa.ProgresoEstado == 3 && "bg-[#879efc]"
-                                }          
+                                }   
                                 ${
                                   etapa.ProgresoEstado == null && "bg-gray-100"
                                 }`}
@@ -55,7 +55,7 @@ function ListadoEtapas() {
           {mostrarRechazos && (
             <div className="w-full flex flex-wrap items-center justify-center gap-8 mt-8">
               {etapas?.map((etapa) => {
-                if (etapa.Estado == 2) {
+                if (etapa.ProgresoEstado == 2) {
                   return (
                     <EtapaDescripcion
                       key={etapa.id}

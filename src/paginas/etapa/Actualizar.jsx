@@ -8,7 +8,6 @@ import post_etapa_actualizar from "../../hooks/post_etapa_actualizar";
 function Actualizar() {
   //Traemos la informacion de la etapa pasada desde el elemento padre
   const etapa = useOutletContext();
-
   const [showConfirmacion, setShowConfirmacion] = useState(); //Estado que maneja si se debe de mostrar el mensaje de confirmacion
   const [showAlert, setShowAlert] = useState(); // Estado que maneja si se debe de mostrar la alerta o no, se setea al valor "false" despues de cada renderizacion
   const [msjConfirmacion, setMsjConfirmacion] = useState(); // Mensaje de confirmacion, cambia su estado dependiendo si es "Actualizar", "Aprobar" o "Rechazar"
@@ -140,7 +139,7 @@ function Actualizar() {
               setShowConfirmacion(true);
               setMsjConfirmacion("Se ha actualizado la etapa correctamente!!");
               setMsjCancelacion("Se ha cancelado la actualizacion!!");
-              setRutaRedireccion("/");
+              setRutaRedireccion("/Producto/All");
               setEnviarEstado(3);
             }}
           >
@@ -154,7 +153,7 @@ function Actualizar() {
               setShowConfirmacion(true);
               setMsjConfirmacion("Se ha aprobado la etapa correctamente!!");
               setMsjCancelacion("Se ha cancelado la aprobacion de la etapa!!");
-              setRutaRedireccion("");
+              setRutaRedireccion("/Producto/All");
               setEnviarEstado(1);
             }}
           >
@@ -168,7 +167,7 @@ function Actualizar() {
               setShowConfirmacion(true);
               setMsjConfirmacion("Se ha rechazado la etapa correctamente!!");
               setMsjCancelacion("Se ha cancelado el rechazo de la etapa!!");
-              setRutaRedireccion("");
+              setRutaRedireccion("/Producto/All");
               setEnviarEstado(2);
             }}
           >
