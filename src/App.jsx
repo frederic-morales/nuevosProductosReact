@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { AuthProvider } from "./auth/AuthContext";
 import Desarrollos from "./paginas/desarrollos/Desarrollos";
 import Login from "./paginas/login/Login";
 import Layout from "./router/Layout";
@@ -14,7 +15,6 @@ import Iniciar from "./paginas/etapa/Iniciar";
 import Modificar_etapas from "./paginas/modificar_etapas/modificar_etapas";
 import Asignar_usuarios from "./paginas/modificar_etapas/Asignar_usuarios";
 import Actualizar_Producto from "./paginas/producto/Actualizar_producto";
-import { AuthProvider } from "./auth/AuthContext";
 import ProtectedRouteAdmins from "./auth/ProtectedRouteAdmins";
 
 import "./App.css";

@@ -2,14 +2,14 @@ import axios from 'axios'
 
 const post_iniciar_etapa = async ({
   EtapaId,
-  CodigoEmpleado,
+  Usuario,
   DesarrolloProductoId
 }) => {
   try {
     const API = import.meta.env.VITE_API_URL
     const response = await axios.post(`${API}/etapa/iniciar`, {
       EtapaId: EtapaId,
-      CodigoEmpleado: CodigoEmpleado,
+      Usuario: Usuario,
       DesarrolloProductoId: DesarrolloProductoId
     })
 

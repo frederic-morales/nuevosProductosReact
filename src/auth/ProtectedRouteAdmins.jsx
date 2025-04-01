@@ -4,8 +4,6 @@ import { Navigate } from "react-router-dom";
 
 const ProtectedRouteAdmins = ({ children }) => {
   const { grupoUsuario } = useAuth();
-  const { user } = useAuth();
-
   //   console.log(user);
   //   console.log(user.role);
   //   console.log(grupoUsuario);

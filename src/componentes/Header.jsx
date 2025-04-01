@@ -3,7 +3,7 @@ import headerImage from "C:\\Frederic\\ProductosNuevos\\ProductosNuevos\\fronten
 import { useAuth } from "../auth/AuthContext";
 
 function Header() {
-  const { user, logout, grupoUsuario } = useAuth();
+  const { user, logout, grupoUsuario, serieProductos } = useAuth();
 
   console.log(grupoUsuario);
 
@@ -36,7 +36,7 @@ function Header() {
                 />
               </svg>
               <span className="text-center font-semibold ">
-                Productos Nuevos
+                Productos Nuevos {serieProductos === "V" ? " VET" : " FARMA"}
               </span>
             </div>
           </div>

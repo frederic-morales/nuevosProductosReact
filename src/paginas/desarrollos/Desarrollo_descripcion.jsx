@@ -1,25 +1,47 @@
 import { NavLink } from "react-router";
 
 function DesarrolloDescripcion({ classCSS, desarrollo, link }) {
+  console.log(desarrollo);
+
+  const fecha = new Date(desarrollo.FechaInicio);
+  const opciones = { day: "numeric", month: "long", year: "numeric" };
+  const fechaInicio = new Intl.DateTimeFormat("es-ES", opciones).format(fecha);
+  // Formatear en español
+
   return (
-    <NavLink
-      to={link}
-      className="w-full min-w-[200px] max-w-[250px] md:max-w-[350px] lg:max-w-[380px]"
-    >
+    <NavLink to={link} className="w-full min-w-[200px] max-w-[400px]">
       <div
-        className={`w-full px-4 md:px-6 py-4 md:py-6 flex items-center justify-start rounded-2xl shadow-lg hover:shadow-cyan-200 hover:shadow-xl opacity-95 bg-gray-50 ${classCSS}`}
+        className={`w-full px-4 md:px-6 py-4 md:py-6 gap-2 rounded-2xl shadow-lg hover:shadow-cyan-200 hover:shadow opacity-95 bg-gray-50 ${classCSS}`}
       >
-        <p className="text-xs md:text-sm text-black font-semibold">
-          <b>{desarrollo.Nombre}</b>
-          <br />
-          Fecha de Inicio: <b>{desarrollo.FechaInicio}</b>
-          <br /> Desarrollo Aprobado
-          <br /> Fecha de Aprobacion: <b>06 03 2025</b>
-          <br /> Desarrollo Rechzado
-          <br /> Etapa Pendiente
-          <br /> Tiempo estimado: <b>25 meses</b>
-          <br /> Tiempo total del Desarrollo: <b>20 meses</b>
-        </p>
+        <ul className="text-xs md:text-sm text-black font-semibold uppercase flex flex-col">
+          <li className="font-black mb-2 text-sm md:text-[16px]">
+            {desarrollo.Nombre}
+          </li>
+          <li className="font-bold">Responsables:</li>
+          <li>
+            {desarrollo.Responsable} {desarrollo.Apellidos}
+          </li>
+          <li className="mt-2 font-bold">Fecha de Inicio: </li>
+          {desarrollo?.FechaInicio ? (
+            <li>{fechaInicio}</li>
+          ) : (
+            <li>No iniciado</li>
+          )}
+          {(desarrollo.Estado === 1 || desarrollo.Estado === 2) && (
+            <li>{`Fecha final ${desarrollo.FechaFin}`}</li>
+          )}
+          <li className="mt-2 font-bold">Tiempo total en Desarrollo:</li>
+          {<li>25 meses</li>}
+          <li className="mt-2 ">
+            <b className="font-bold"> Serie:</b>
+            {desarrollo.serie == "F" ? " Farma" : " VET"}
+          </li>
+          <li className="font-black mt-2 text-[14px] h-full flex items-end">
+            {desarrollo.Estado === 1 && "Desarrollo Aprobado"}
+            {desarrollo.Estado === 2 && "Desarrollo Rechazado"}
+            {desarrollo.Estado === 3 && "Desarrollo en Proceso"}
+          </li>
+        </ul>
       </div>
     </NavLink>
   );

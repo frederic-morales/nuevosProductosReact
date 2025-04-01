@@ -24,7 +24,7 @@ function ListadoEtapas() {
             {mostrarRechazos ? "Etapas Rechazadas" : "Etapas Totales"}
           </button>
           {!mostrarRechazos && (
-            <div className="w-full flex flex-wrap items-center justify-center gap-8 mt-8">
+            <div className="w-full flex flex-wrap justify-center gap-8 mt-8">
               {etapas?.map((etapa) => {
                 if (etapa.ProgresoEstado != 2) {
                   let ruta = "";

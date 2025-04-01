@@ -14,6 +14,7 @@ function Actualizar() {
   const [msjCancelacion, setMsjCancelacion] = useState(); // Mensaje de cancelacion, cambia su estado dependiendo si es "Actualizar", "Aprobar" o "Rechazar"
   const [rutaRedireccion, setRutaRedireccion] = useState(); // Ruta de confirmacion, cambia su estado dependiendo si es "Actualizar", "Aprobar" o "Rechazar"
   const [datosConfirmados, setDatosConfirmados] = useState(); // Estado que guarda la eleccion del usuario "si" o "no" - Servira para enviar los datos a la DB
+  const [estadoDescripcion, setEstadoDescripcion] = useState();
 
   //Datos a enviar
   const [file, setFile] = useState(null); // Estado que guarda el archivo subido
@@ -56,6 +57,7 @@ function Actualizar() {
       Estado: enviarEstado,
       RutaDoc: file,
       Descripcion: descripcion,
+      EstadoDescripcion: estadoDescripcion,
     });
 
     console.log(response);
@@ -141,6 +143,7 @@ function Actualizar() {
               setMsjCancelacion("Se ha cancelado la actualizacion!!");
               setRutaRedireccion("/Producto/All");
               setEnviarEstado(3);
+              setEstadoDescripcion("Iniciado");
             }}
           >
             Actualizar
@@ -155,6 +158,7 @@ function Actualizar() {
               setMsjCancelacion("Se ha cancelado la aprobacion de la etapa!!");
               setRutaRedireccion("/Producto/All");
               setEnviarEstado(1);
+              setEstadoDescripcion("Aprobado");
             }}
           >
             Aprobar
@@ -169,6 +173,7 @@ function Actualizar() {
               setMsjCancelacion("Se ha cancelado el rechazo de la etapa!!");
               setRutaRedireccion("/Producto/All");
               setEnviarEstado(2);
+              setEstadoDescripcion("Rechazado");
             }}
           >
             Rechazar

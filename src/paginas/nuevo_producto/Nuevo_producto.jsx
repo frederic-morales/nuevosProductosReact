@@ -1,4 +1,4 @@
-import { use, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 //Componentes
 import Confirmacion from "../../componentes/Confirmacion";
@@ -66,9 +66,11 @@ function NuevoProducto() {
     const resProducto = await axios.post(`${API}/producto/create`, {
       nombre: camposNuevos.Nombre,
       descripcion: camposNuevos.Descripcion,
-      codigoEmpleado: usuarioResponsable.CodigoEmpleado,
+      usuario: usuarioResponsable.Usuario,
       serie: serie,
     });
+
+    console.log(usuarioResponsable.Usuario);
 
     const nuevoProducto = await resProducto.data.nuevoProductoId; // Obtiene el Id generado del Producto nuevo
     const resAsignarEtapas = await axios.post(`${API}/producto/asignarEtapas`, {
@@ -119,7 +121,11 @@ function NuevoProducto() {
           {grupoUsuarios?.length > 0 && (
             <Buscar_usuarios
               usuarios={grupoUsuarios}
-              onSelect={(usuario) => setUsuarioResponsable(usuario)} // Recibe el usuario seleccionado
+              onSelect={(usuario) => {
+                setUsuarioResponsable(usuario);
+                console.log(usuario);
+                console.log(usuario.Usuario);
+              }} // Recibe el usuario seleccionado
               hasError={!usuarioResponsable}
             />
           )}

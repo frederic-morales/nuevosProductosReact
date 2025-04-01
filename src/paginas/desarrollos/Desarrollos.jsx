@@ -1,29 +1,57 @@
 import DesarrolloDescripcion from "./Desarrollo_descripcion";
 import Button from "../../componentes/Button";
-import fetchAllProductos from "../../hooks/fetch_all_productos";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../auth/AuthContext";
+import fetch_productos_por_serie from "../../hooks/fetch_producto_por_serie";
 
 function Desarrollos() {
   // const [productosFiltrados, setProductosFiltrados] = useState([]);
-  const { productos, loading, error } = fetchAllProductos();
-  const [busqueda, setBusqueda] = useState(""); // Estado para el texto de búsqueda
+  const { serieProductos } = useAuth(); // Trae la serie seleccionada en el login
+  const [busquedaProducto, setBusquedaProducto] = useState(""); // Estado para el texto de búsqueda por producto
+  const [busquedaPorResponsable, setBusquedaPorResponsable] = useState(""); // Estado para el texto de búsqueda por usuario responsable
   const [fechaDesde, setFechaDesde] = useState(""); // Estado para la fecha de inicio
   const [fechaHasta, setFechaHasta] = useState(""); // Estado para la fecha de fin
   const [productosFiltrados, setProductosFiltrados] = useState([]);
+  const [listarDesarrollos, setListarDesarrollos] = useState(3);
+  const { productosPorSerie, loadingProductosSerie, errorProductosSerie } =
+    fetch_productos_por_serie(serieProductos); // Trae los productos a mostrar
+
+  console.log(productosPorSerie);
 
   useEffect(() => {
-    setProductosFiltrados(productos);
-  }, [productos]);
+    setProductosFiltrados(productosPorSerie);
+  }, [productosPorSerie]);
 
   // Función para manejar la búsqueda
-  const handleBusqueda = (event) => {
-    setBusqueda(event.target.value);
+  const handleBusquedaProducto = (event) => {
+    setBusquedaProducto(event.target.value);
 
     setProductosFiltrados(
-      productos.filter((producto) => {
+      productosPorSerie.filter((producto) => {
         return producto.Nombre.toLocaleLowerCase().includes(
           event.target.value.toLocaleLowerCase()
+        );
+      })
+    );
+
+    setFechaDesde("");
+    setFechaHasta("");
+  };
+
+  const handleBusquedaPorResponsable = (event) => {
+    setBusquedaPorResponsable(event.target.value);
+
+    console.log(event.target.value);
+
+    setProductosFiltrados(
+      productosPorSerie.filter((producto) => {
+        return (
+          producto.Responsable.toLocaleLowerCase().includes(
+            event.target.value.toLocaleLowerCase()
+          ) ||
+          producto.Apellidos.toLocaleLowerCase().includes(
+            event.target.value.toLocaleLowerCase()
+          )
         );
       })
     );
@@ -36,7 +64,7 @@ function Desarrollos() {
     console.log(fechaDe, fechaHasta);
 
     setProductosFiltrados(
-      productos.filter((producto) => {
+      productosPorSerie.filter((producto) => {
         const fechaProducto = producto.FechaInicio; // Convertir la fecha ISO a objeto Date
         const fechaInicio = fechaDe ? fechaDe : null; // Convertir la fecha "de" a objeto Date
         const fechaFin = fechaHasta ? fechaHasta : null; // Convertir la fecha "hasta" a objeto Date
@@ -59,8 +87,15 @@ function Desarrollos() {
     );
   };
 
+  if (loadingProductosSerie) {
+    return <div>Cargando...</div>;
+  }
+
+  if (errorProductosSerie) {
+    return <div>Error...</div>;
+  }
+
   // console.log(productos, loading, error);
-  const [listarDesarrollos, setListarDesarrollos] = useState(3);
   return (
     <>
       <h2 className="font-black text-2xl md:text-4xl mt-5 md:mt-8 lg:mt-12 tracking-tight text-center uppercase text-white drop-shadow-[1px_1px_0px_black]">
@@ -87,16 +122,29 @@ function Desarrollos() {
         ></Button>
       </div>
       <div className="w-full flex-col gap-8 md:gap-20 md:flex-row flex items-center md:justify-center justify-between mt-8 md:mt-12">
-        {/* Filtrar por nombre */}
+        {/* Filtrar por nombre del producto */}
         <div className="w-full max-w-xs flex flex-col items-center justify-start">
           <label className="text-white uppercase font-bold text-lg md:text-xl mb-2 drop-shadow-[1px_1px_0px_black]">
-            Buscar por nombre:
+            Filtrar por producto:
           </label>
           <input
             type="text"
             placeholder="Buscar por nombre..."
-            value={busqueda}
-            onChange={handleBusqueda}
+            value={busquedaProducto}
+            onChange={handleBusquedaProducto}
+            className="max-w-xs placeholder-white block w-full p-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
+          />{" "}
+        </div>
+        {/* Filtrar por responsable*/}
+        <div className="w-full max-w-xs flex flex-col items-center justify-start flex-wrap">
+          <label className="text-white uppercase font-bold text-lg md:text-xl mb-2 drop-shadow-[1px_1px_0px_black]">
+            Filtrar por responsable:
+          </label>
+          <input
+            type="text"
+            placeholder="Buscar por nombre..."
+            value={busquedaPorResponsable}
+            onChange={handleBusquedaPorResponsable}
             className="max-w-xs placeholder-white block w-full p-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
           />{" "}
         </div>
@@ -130,7 +178,7 @@ function Desarrollos() {
           </button>
         </div>
       </div>
-      <div className="w-full flex flex-wrap items-center justify-center gap-6 mt-8 md:mt-12 ">
+      <div className="w-full flex flex-wrap items-center justify-center gap-5 mt-8 md:mt-12 ">
         {productosFiltrados.map((desarrollo) => {
           if (desarrollo.Estado == listarDesarrollos) {
             return (

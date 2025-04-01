@@ -4,10 +4,13 @@ import Confirmacion from "../../componentes/Confirmacion";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import post_iniciar_etapa from "../../hooks/post_etapa_iniciar";
+//use auth
+import { useAuth } from "../../auth/AuthContext";
 
 function Iniciar() {
-  const etapa = useOutletContext();
+  const { user } = useAuth();
 
+  const etapa = useOutletContext();
   const [showConfirmacion, setShowConfirmacion] = useState();
   const [datosConfirmados, setDatosConfirmados] = useState(); // Estado que guarda la eleccion del usuario "si" o "no" - Servira para enviar los datos a la DB
   const [etapaInfo, setEtapaInfo] = useState({});
@@ -20,15 +23,16 @@ function Iniciar() {
   const iniciarEtapa = async () => {
     const response = await post_iniciar_etapa({
       EtapaId: etapaInfo.EtapaId,
-      CodigoEmpleado: 826,
+      Usuario: user.usuario,
       DesarrolloProductoId: etapaInfo.DesarrolloProducto,
     });
 
     console.log({
       EtapaId: etapaInfo.EtapaId,
-      CodigoEmpleado: 826,
+      Usuario: user.usuario,
       DesarrolloProductoId: etapaInfo.DesarrolloProducto,
     });
+
     console.log(response);
   };
 
@@ -84,7 +88,7 @@ function Iniciar() {
           duracion={3000}
           bgColor="bg-green-300"
           mensaje="Etapa iniciada exitosamente!!"
-          redirigir="/"
+          redirigir="/Producto/All"
         />
       )}
       {datosConfirmados != null && !datosConfirmados && (

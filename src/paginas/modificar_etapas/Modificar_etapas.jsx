@@ -4,7 +4,15 @@ import EtapaDescripcion from "../../componentes/EtapaDescripcion";
 function Modificar_etapas() {
   const { allEtapas, loading, error } = fetch_all_etapas();
 
-  // console.log(etapas);
+  console.log(allEtapas);
+
+  if (loading) {
+    return <div>Cargando...</div>;
+  }
+
+  if (error) {
+    return <di>Error al traer las etapas...</di>;
+  }
 
   return (
     <>
@@ -14,7 +22,7 @@ function Modificar_etapas() {
         </h1>
         {/* Etapas */}
         <div className="w-w-full flex flex-wrap items-center justify-center gap-8 mt-8">
-          {allEtapas.map((etapa) => (
+          {allEtapas?.map((etapa) => (
             <EtapaDescripcion
               key={etapa.EtapaId}
               etapa={etapa}

@@ -44,23 +44,23 @@ export function AuthProvider({ children }) {
         role = "user";
       }
 
-      const mockUser = {
+      const currentUser = {
         usuario: Usuario,
         password: Password,
         role: role,
       };
-      setUser(mockUser);
+      setUser(currentUser);
       setGrupoUsuario(grupoUsuario);
       setSerieProductos(Serie);
 
       //Guardar los elementos para acceder desde toda la aplicación
-      localStorage.setItem("user", JSON.stringify(mockUser));
+      localStorage.setItem("user", JSON.stringify(currentUser));
       localStorage.setItem("grupoUsuario", JSON.stringify(grupoUsuario));
       localStorage.setItem("serieProductos", JSON.stringify(Serie));
 
       console.log(grupoUsuario);
       console.log(result);
-      console.log(mockUser);
+      console.log(currentUser);
 
       return result;
     } catch (error) {

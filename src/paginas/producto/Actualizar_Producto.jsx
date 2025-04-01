@@ -42,6 +42,8 @@ function Actualizar_Producto() {
   const [usuarioResponsable, setUsuarioResponsable] = useState(""); // Usuario responsable del producto
   const [serie, setSerie] = useState(""); // Serie del producto
 
+  console.log(info);
+
   // Etapas a mostrar
   const mostrarNuevasEtapas = [];
 
@@ -99,12 +101,12 @@ function Actualizar_Producto() {
       descripcion: camposNuevos.Descripcion
         ? camposNuevos.Descripcion
         : info.productoInfo[0].Descripcion,
-      codigoEmpleado: usuarioResponsable.CodigoEmpleado
-        ? usuarioResponsable.CodigoEmpleado
-        : info.productoInfo[0].CodigoEmpleado,
+      usuario: usuarioResponsable.Usuario
+        ? usuarioResponsable.Usuario
+        : info.productoInfo[0].Usuario,
       serie: serie ? serie : info.productoInfo[0].Serie,
     }; // se le pasan solamante los parametros que se desean actualizar
-    // Si el usuario no actualiza ningun campo se enviaran la actualizacion con los valores anteriores
+    // Si el usuario no actualiza ningun campo se enviaran la actualizacion con el valor anterior de ese campo
 
     const resActualizacion = await axios.patch(`${API}/producto/actualizar`, {
       desarrolloProductoId: info.productoInfo[0].DesarrolloProductoId,
@@ -267,7 +269,7 @@ function Actualizar_Producto() {
         <Alert // Cuando el usuario haga clic en guardar y confirme la acción
           duracion={4000}
           bgColor="bg-green-300"
-          redirigir="/"
+          redirigir="/Producto/All"
           mensaje="Se ha iniciado un nuevo desarrollo"
         ></Alert>
       )}

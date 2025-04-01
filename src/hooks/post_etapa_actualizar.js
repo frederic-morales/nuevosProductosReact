@@ -4,7 +4,8 @@ const post_etapa_actualizar = async ({
   ProgresoEtapaId,
   Estado,
   RutaDoc,
-  Descripcion
+  Descripcion,
+  EstadoDescripcion
 }) => {
   try {
     const API = import.meta.env.VITE_API_URL
@@ -12,7 +13,8 @@ const post_etapa_actualizar = async ({
       ProgresoEtapaId: ProgresoEtapaId,
       Estado: Estado,
       RutaDoc: RutaDoc,
-      Descripcion: Descripcion
+      Descripcion: Descripcion,
+      EstadoDescripcion: EstadoDescripcion
     })
 
     console.log(await response.data)

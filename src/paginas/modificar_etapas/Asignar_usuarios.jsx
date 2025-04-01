@@ -63,7 +63,7 @@ function Asignar_usuarios() {
     );
 
     if (resEtapaActualizada.status === 200) {
-      console.log(resEtapaActualizada.mensaje);
+      console.log(resEtapaActualizada);
       setDatosConfirmados(true);
     } else {
       setDatosConfirmados(false);
@@ -114,7 +114,7 @@ function Asignar_usuarios() {
         </h2>
         <ul className="flex flex-col">
           {seleccionados.map((usuario) => (
-            <div className="w-full" key={usuario.CodigoEmpleado}>
+            <div className="w-full" key={usuario.Usuario}>
               <li
                 className="bg-white text-xs md:text-sm text-black rounded-2xl text-center uppercase font-semibold py-3"
                 key={usuario.CodigoEmpleado}
@@ -160,7 +160,7 @@ function Asignar_usuarios() {
         <Alert // Cuando el usuario haga clic en guardar y confirme la acción
           duracion={4000}
           bgColor="bg-green-300"
-          redirigir="/"
+          redirigir="/Modificar_Etapas"
           mensaje="Se ha actualizado la etapa correctamente!!"
         ></Alert>
       )}

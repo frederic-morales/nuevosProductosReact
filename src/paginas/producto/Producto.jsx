@@ -11,14 +11,15 @@ function Producto() {
   const { etapas, loading, error } = fetchProducto({ productoId });
   const { info, errorInfo, loadingInfo } = fetch_Producto_Info({ productoId });
   const showBotonActualizar = useMatch("/Producto/:productoId/Etapas");
-
-  // useEffect(() => {
-  //   if (useMatch("/Producto/:productoId")) {
-  //     useNavigate("/Producto/:productoId/Etapas");
-  //   }
-  // });
-
   const { user } = useAuth();
+
+  let fechaInicio = new Date();
+
+  if (info?.productoInfo[0].FechaInicio) {
+    const fecha = new Date(info?.productoInfo[0].FechaInicio);
+    const opciones = { day: "numeric", month: "long", year: "numeric" };
+    fechaInicio = new Intl.DateTimeFormat("es-ES", opciones).format(fecha);
+  }
 
   if (loading || loadingInfo) {
     return <div>Cargando...</div>;
@@ -28,9 +29,7 @@ function Producto() {
     return <div>Error: {error}</div>;
   }
 
-  console.log(showBotonActualizar);
-  console.log(location.pathname);
-  // console.log(etapas);
+  console.log(info);
 
   return (
     <div className="flex flex-col items-center mt-12 mb-8">
@@ -40,12 +39,12 @@ function Producto() {
         </p>
         <p className="font-bold text-lg sm:text-xl lg:text-2xl drop-shadow-[2px_1px_1px_black]">
           Desarrollo Iniciado el
-          {info.productoInfo[0].FechaInicio}
+          {` ${fechaInicio}`}
           <br />
           Tiempo total estimado 24 meses
           <br />
           Total de rechazos:
-          {info.productoInfo[0].Rechazos || "0"}
+          {info.productoInfo[0].Rechazos || " 0"}
         </p>
         {showBotonActualizar && user.role == "admin" && (
           <Link
