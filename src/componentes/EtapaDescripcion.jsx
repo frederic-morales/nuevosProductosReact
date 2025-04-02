@@ -1,8 +1,7 @@
-import { useState } from "react";
 import { NavLink } from "react-router";
 
 function EtapaDescripcion({ etapa, classCSS, link }) {
-  console.log(etapa);
+  // console.log(etapa);
 
   const setFecha = (fechaInicio) => {
     const fecha = new Date(fechaInicio);
@@ -14,6 +13,8 @@ function EtapaDescripcion({ etapa, classCSS, link }) {
     return fechaFormated;
   };
 
+  // console.log(etapa);
+
   return (
     <NavLink to={link}>
       <div
@@ -21,9 +22,9 @@ function EtapaDescripcion({ etapa, classCSS, link }) {
       >
         <ul className="text-xs md:text-sm text-black font-semibold uppercase flex flex-col ">
           <li className="font-black mb-2 text-sm md:text-[16px] lg:text-[18px]">
-            {etapa.EtapaId}
+            {etapa?.EtapaId}
             {" - "}
-            {etapa.Nombre}
+            {etapa?.Nombre}
           </li>
           <li className="font-bold mt-2">Procesos Responsables:</li>
           {etapa?.procesosResponsables?.map((proceso) => (

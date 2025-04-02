@@ -22,15 +22,15 @@ function Iniciar() {
 
   const iniciarEtapa = async () => {
     const response = await post_iniciar_etapa({
-      EtapaId: etapaInfo.EtapaId,
-      Usuario: user.usuario,
-      DesarrolloProductoId: etapaInfo.DesarrolloProducto,
+      EtapaId: etapaInfo?.EtapaId,
+      Usuario: user?.usuario,
+      DesarrolloProductoId: etapaInfo?.DesarrolloProductoId,
     });
 
     console.log({
-      EtapaId: etapaInfo.EtapaId,
-      Usuario: user.usuario,
-      DesarrolloProductoId: etapaInfo.DesarrolloProducto,
+      EtapaId: etapaInfo?.EtapaId,
+      Usuario: user?.usuario,
+      DesarrolloProductoId: etapaInfo?.DesarrolloProducto,
     });
 
     console.log(response);

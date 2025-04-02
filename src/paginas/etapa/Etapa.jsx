@@ -29,7 +29,7 @@ function Etapa() {
   }
 
   console.log(etapaProgreso);
-  console.log(etapaHistorial);
+  // console.log(etapaHistorial);
 
   return (
     <div className="flex flex-col items-center mt-12 mb-16">

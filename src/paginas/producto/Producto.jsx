@@ -1,4 +1,4 @@
-import { Outlet, useMatch, useNavigate } from "react-router";
+import { Outlet, useMatch } from "react-router";
 import { useParams } from "react-router-dom";
 import fetchProducto from "../../hooks/fetch_producto";
 import fetch_Producto_Info from "../../hooks/fetch_producto_info";
@@ -55,7 +55,7 @@ function Producto() {
           </Link>
         )}
       </div>
-      <Outlet context={etapas.productoEtapas} />
+      <Outlet context={etapas?.productoEtapas} />
     </div>
   );
 }

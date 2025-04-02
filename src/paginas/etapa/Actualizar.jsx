@@ -15,6 +15,7 @@ function Actualizar() {
   const [rutaRedireccion, setRutaRedireccion] = useState(); // Ruta de confirmacion, cambia su estado dependiendo si es "Actualizar", "Aprobar" o "Rechazar"
   const [datosConfirmados, setDatosConfirmados] = useState(); // Estado que guarda la eleccion del usuario "si" o "no" - Servira para enviar los datos a la DB
   const [estadoDescripcion, setEstadoDescripcion] = useState();
+  const [rechazosProducto, setRechazosProducto] = useState(0); // Suma 1 si el usuario rechaza la etapa
 
   //Datos a enviar
   const [file, setFile] = useState(null); // Estado que guarda el archivo subido
@@ -51,30 +52,33 @@ function Actualizar() {
   };
   const handleSubmit = async () => {
     console.log("Actualizando la etapa...");
-
     const response = await post_etapa_actualizar({
-      ProgresoEtapaId: etapaInfo.ProgresoEtapaId,
+      ProgresoEtapaId: etapaInfo?.ProgresoEtapaId,
       Estado: enviarEstado,
       RutaDoc: file,
       Descripcion: descripcion,
       EstadoDescripcion: estadoDescripcion,
+      DesarrolloProductoId: etapaInfo?.DesarrolloProductoId,
+      EtapaId: etapaInfo?.EtapaId,
+      Rechazos: rechazosProducto,
     });
 
     console.log(response);
   };
 
-  console.log(enviarEstado);
-  console.log(descripcion);
+  // console.log(enviarEstado);
+  // console.log(descripcion);
+  console.log(etapaInfo);
 
   return (
     <div className={`grid grid-cols-4 gap-4 mt-4 sm:mt-8`}>
       {/* Descripcion de la etapa */}
       <div className="h-42 flex flex-col px-6 py-4 col-start-1 col-end-5 sm:col-end-4 sm:min-w-[450px] rounded-3xl shadow-md shadow-gray-500 bg-gray-100 opacity-95 hover:shadow-lg hover:shadow-blue-300">
-        <p className="text-base mb-2 font-bold">{etapaInfo.Nombre}</p>
+        <p className="text-base mb-2 font-bold">{etapaInfo?.NombreEtapa}</p>
         <div className="h-[80%] flex-col overflow-auto text-xs md:text-sm [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-300">
           <p className="sm:text-sm text-justify w-full">
             {etapaInfo.Descripcion ||
-              `Descripcion de ejemplo de la etapa ${etapaInfo.Nombre} - agregar descripcion de las etapas`}
+              `Descripcion de ejemplo de la etapa ${etapaInfo?.NombreEtapa} - agregar descripcion de las etapas`}
           </p>
         </div>
         <p className="text-xs sm:text-sm mt-3 font-semibold ">
@@ -142,7 +146,7 @@ function Actualizar() {
               setMsjConfirmacion("Se ha actualizado la etapa correctamente!!");
               setMsjCancelacion("Se ha cancelado la actualizacion!!");
               setRutaRedireccion("/Producto/All");
-              setEnviarEstado(3);
+              setEnviarEstado(3); // ACTUALIZAR - NO CAMBIA EL ESTADO DEL PROGRESO DE LA ETAPA
               setEstadoDescripcion("Iniciado");
             }}
           >
@@ -157,7 +161,7 @@ function Actualizar() {
               setMsjConfirmacion("Se ha aprobado la etapa correctamente!!");
               setMsjCancelacion("Se ha cancelado la aprobacion de la etapa!!");
               setRutaRedireccion("/Producto/All");
-              setEnviarEstado(1);
+              setEnviarEstado(1); // APROBACION - CAMBIA EL ESTADO DEL PROGRESO DE LA ETAPA A 1
               setEstadoDescripcion("Aprobado");
             }}
           >
@@ -172,8 +176,9 @@ function Actualizar() {
               setMsjConfirmacion("Se ha rechazado la etapa correctamente!!");
               setMsjCancelacion("Se ha cancelado el rechazo de la etapa!!");
               setRutaRedireccion("/Producto/All");
-              setEnviarEstado(2);
+              setEnviarEstado(2); // RECHAZAR - CAMBIA EL ESTADO DEL PROGRESO DE LA ETAPA A 2
               setEstadoDescripcion("Rechazado");
+              setRechazosProducto(etapaInfo?.Rechazos + 1); // Suma 1 si el usuario rechaza la etapa
             }}
           >
             Rechazar
