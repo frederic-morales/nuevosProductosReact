@@ -26,7 +26,7 @@ function Modificar_etapas() {
             <EtapaDescripcion
               key={etapa.EtapaId}
               etapa={etapa}
-              classCSS={"bg-gray-100"}
+              classCSS={"bg-white"}
               link={`${etapa.EtapaId}/asignar_usuarios`}
             />
           ))}

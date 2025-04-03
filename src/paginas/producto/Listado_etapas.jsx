@@ -11,8 +11,7 @@ function ListadoEtapas() {
     setMostrarRechazos(!mostrarRechazos);
   };
 
-  console.log(etapas);
-
+  // console.log(etapas);
   return (
     <>
       <div className="flex flex-wrap items-start justify-center gap-6 mt-6 w-full lg:mt-12">
@@ -28,24 +27,21 @@ function ListadoEtapas() {
               {etapas?.map((etapa) => {
                 if (etapa.ProgresoEstado != 2) {
                   let ruta = "";
-                  if (etapa.ProgresoEstado == 1)
+                  if (etapa?.ProgresoEstado == 1)
                     ruta = `${etapa.EtapaId}/Historial`;
-                  if (etapa.ProgresoEstado == 3)
+                  if (etapa?.ProgresoEstado == 3)
                     ruta = `${etapa.EtapaId}/Actualizar`;
-                  if (etapa.ProgresoEstado == null)
+                  if (etapa?.ProgresoEstado == null)
                     ruta = `${etapa.EtapaId}/Iniciar`;
+
                   return (
                     <EtapaDescripcion
                       key={etapa.EtapaId}
                       etapa={etapa}
                       link={ruta}
                       classCSS={`${etapa.ProgresoEstado == 1 && "bg-[#affdce]"} 
-                                ${
-                                  etapa.ProgresoEstado == 3 && "bg-[#879efc]"
-                                }   
-                                ${
-                                  etapa.ProgresoEstado == null && "bg-gray-100"
-                                }`}
+                                ${etapa.ProgresoEstado == 3 && "bg-[#879efc]"}
+                                ${etapa.ProgresoEstado == null && "bg-white"}`}
                     />
                   );
                 }
@@ -61,7 +57,7 @@ function ListadoEtapas() {
                       key={etapa.id}
                       etapa={etapa}
                       classCSS="bg-red-400"
-                      link={`${etapa.ProgresoEstado}/Historial`}
+                      link={`${etapa.EtapaId}/Historial`}
                     />
                   );
                 }

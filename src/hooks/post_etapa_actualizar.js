@@ -3,7 +3,7 @@ import axios from 'axios'
 const post_etapa_actualizar = async ({
   ProgresoEtapaId,
   Estado,
-  RutaDoc,
+  UploadFile,
   Descripcion,
   EstadoDescripcion,
   DesarrolloProductoId,
@@ -15,7 +15,7 @@ const post_etapa_actualizar = async ({
     const response = await axios.post(`${API}/etapa/progreso/actualizacion`, {
       ProgresoEtapaId: ProgresoEtapaId,
       Estado: Estado,
-      RutaDoc: RutaDoc,
+      UploadFile: UploadFile,
       Descripcion: Descripcion,
       EstadoDescripcion: EstadoDescripcion,
       DesarrolloProductoId: DesarrolloProductoId,

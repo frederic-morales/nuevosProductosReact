@@ -16,29 +16,6 @@ function Historial() {
   const [datosConfirmados, setDatosConfirmados] = useState(); // Estado que guarda la eleccion del usuario "si" o "no" - Servira para enviar los datos a la DB
   const [historial, setHistorial] = useState([]);
 
-  const actualizaciones = [
-    {
-      id: 1,
-      descripcion: "Aprobacion",
-      estado: 1,
-    },
-    {
-      id: 1,
-      descripcion: "Rechazo",
-      estado: 3,
-    },
-    {
-      id: 2,
-      descripcion: "Actualizacion",
-      estado: 2,
-    },
-    {
-      id: 3,
-      descripcion: "Actualizacion",
-      estado: 2,
-    },
-  ];
-
   const { etapaHistorial } = fetch_etapa_historial({
     desarrolloProductoId,
     etapaId,

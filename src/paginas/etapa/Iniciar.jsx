@@ -9,11 +9,10 @@ import { useAuth } from "../../auth/AuthContext";
 
 function Iniciar() {
   const { user } = useAuth();
-
   const etapa = useOutletContext();
+
   const [showConfirmacion, setShowConfirmacion] = useState();
   const [datosConfirmados, setDatosConfirmados] = useState(); // Estado que guarda la eleccion del usuario "si" o "no" - Servira para enviar los datos a la DB
-  const [etapaInfo, setEtapaInfo] = useState({});
 
   const handleConfirmacion = (valor) => {
     setDatosConfirmados(valor);
@@ -22,35 +21,30 @@ function Iniciar() {
 
   const iniciarEtapa = async () => {
     const response = await post_iniciar_etapa({
-      EtapaId: etapaInfo?.EtapaId,
+      EtapaId: etapa?.EtapaId,
       Usuario: user?.usuario,
-      DesarrolloProductoId: etapaInfo?.DesarrolloProductoId,
+      DesarrolloProductoId: etapa?.DesarrolloProductoId,
     });
 
     console.log({
-      EtapaId: etapaInfo?.EtapaId,
+      EtapaId: etapa?.EtapaId,
       Usuario: user?.usuario,
-      DesarrolloProductoId: etapaInfo?.DesarrolloProducto,
+      DesarrolloProductoId: etapa?.DesarrolloProducto,
     });
 
     console.log(response);
   };
 
-  useEffect(() => {
-    if (etapa) {
-      setEtapaInfo(etapa.infoEtapa[0]);
-    }
-  });
-
-  console.log(etapaInfo);
-
   return (
     <div className="flex flex-col justify-center items-center">
+      <h1 className="text-sm md:text-base text-start m-1 md:mr-4 cursor-pointer rounded-lg py-1 px-3 font-medium bg-gray-100 hover:shadow-xl hover:shadow-blue-300 w-fit">
+        Iniciar Etapa
+      </h1>
       <div className="w-[100%] sm:min-w-[450px] lg:min-w-xl mt-8 flex flex-col px-6 py-4 rounded-3xl shadow-md shadow-gray-500 bg-gray-100 opacity-95 hover:shadow-lg hover:shadow-blue-300">
-        <p className="text-base mb-2 font-bold">{etapaInfo.Nombre}</p>
+        <p className="text-base mb-2 font-bold">{etapa?.NombreEtapa}</p>
         <div className="flex-col text-xs [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-300">
           <p className="sm:text-sm text-justify ">
-            Descripcion {etapaInfo.Descripcion}
+            Descripcion {etapa?.Descripcion}
           </p>
         </div>
       </div>

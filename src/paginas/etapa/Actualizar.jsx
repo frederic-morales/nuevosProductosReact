@@ -16,23 +16,14 @@ function Actualizar() {
   const [datosConfirmados, setDatosConfirmados] = useState(); // Estado que guarda la eleccion del usuario "si" o "no" - Servira para enviar los datos a la DB
   const [estadoDescripcion, setEstadoDescripcion] = useState();
   const [rechazosProducto, setRechazosProducto] = useState(0); // Suma 1 si el usuario rechaza la etapa
-
   //Datos a enviar
   const [file, setFile] = useState(null); // Estado que guarda el archivo subido
   const [enviarEstado, setEnviarEstado] = useState(null); // "Estados:" 1 = aprobado, 2 = rechazado, 3 = actualizacion"
   const [descripcion, setDescripcion] = useState(null);
 
-  //Informacion del progreso de la etapa
-  const [etapaInfo, setEtapaInfo] = useState({});
-
-  useEffect(() => {
-    if (etapa) {
-      setEtapaInfo(etapa.infoEtapa[0]);
-    }
-  });
-
   // console.log(etapaInfo);
   const handleFileChange = (e) => {
+    console.log(e.target.files[0]);
     if (e.target.files) {
       setFile(e.target.files[0]);
     }
@@ -50,35 +41,60 @@ function Actualizar() {
     setShowAlert(true);
     setDatosConfirmados(isConfirmed);
   };
+
   const handleSubmit = async () => {
-    console.log("Actualizando la etapa...");
     const response = await post_etapa_actualizar({
-      ProgresoEtapaId: etapaInfo?.ProgresoEtapaId,
+      ProgresoEtapaId: etapa?.ProgresoEtapaId,
       Estado: enviarEstado,
-      RutaDoc: file,
+      UploadFile: file.name,
       Descripcion: descripcion,
       EstadoDescripcion: estadoDescripcion,
-      DesarrolloProductoId: etapaInfo?.DesarrolloProductoId,
-      EtapaId: etapaInfo?.EtapaId,
+      DesarrolloProductoId: etapa?.DesarrolloProductoId,
+      EtapaId: etapa?.EtapaId,
       Rechazos: rechazosProducto,
     });
 
     console.log(response);
   };
 
+  //Enviando archivos
+  const handleSubmit2 = async () => {
+    const API = import.meta.env.VITE_API_URL;
+    const formData = new FormData();
+    formData.append("archivo", file);
+    formData.append("Estado", enviarEstado);
+    formData.append("Descripcion", descripcion);
+    formData.append("EstadoDescripcion", estadoDescripcion);
+    formData.append("DesarrolloProductoId", etapa?.DesarrolloProductoId);
+    formData.append("EtapaId", etapa?.EtapaId);
+    formData.append("Rechazos", rechazosProducto);
+
+    try {
+      const response = await fetch(`${API}/etapa/progreso/actualizacion`, {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+      console.log(data);
+    } catch (err) {
+      console.error("Error al subir el archivo", err);
+    }
+  };
+
   // console.log(enviarEstado);
   // console.log(descripcion);
-  console.log(etapaInfo);
+  console.log(etapa);
 
   return (
     <div className={`grid grid-cols-4 gap-4 mt-4 sm:mt-8`}>
       {/* Descripcion de la etapa */}
       <div className="h-42 flex flex-col px-6 py-4 col-start-1 col-end-5 sm:col-end-4 sm:min-w-[450px] rounded-3xl shadow-md shadow-gray-500 bg-gray-100 opacity-95 hover:shadow-lg hover:shadow-blue-300">
-        <p className="text-base mb-2 font-bold">{etapaInfo?.NombreEtapa}</p>
+        <p className="text-base mb-2 font-bold">{etapa?.NombreEtapa}</p>
         <div className="h-[80%] flex-col overflow-auto text-xs md:text-sm [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-300">
           <p className="sm:text-sm text-justify w-full">
-            {etapaInfo.Descripcion ||
-              `Descripcion de ejemplo de la etapa ${etapaInfo?.NombreEtapa} - agregar descripcion de las etapas`}
+            {etapa?.Descripcion ||
+              `Descripcion de ejemplo de la etapa ${etapa?.NombreEtapa} - agregar descripcion de las etapas`}
           </p>
         </div>
         <p className="text-xs sm:text-sm mt-3 font-semibold ">
@@ -178,7 +194,7 @@ function Actualizar() {
               setRutaRedireccion("/Producto/All");
               setEnviarEstado(2); // RECHAZAR - CAMBIA EL ESTADO DEL PROGRESO DE LA ETAPA A 2
               setEstadoDescripcion("Rechazado");
-              setRechazosProducto(etapaInfo?.Rechazos + 1); // Suma 1 si el usuario rechaza la etapa
+              setRechazosProducto(etapa?.Rechazos + 1); // Suma 1 si el usuario rechaza la etapa
             }}
           >
             Rechazar
@@ -190,7 +206,7 @@ function Actualizar() {
           key={Date.now()}
           mensaje="Esta seguro de realizar esta accion?"
           handleConfirm={handleConfirmedResponse}
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit2}
         />
       )}
       {showAlert &&

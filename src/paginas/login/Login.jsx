@@ -36,7 +36,7 @@ function Login() {
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-center"
+      className="h-screen flex flex-col items-center justify-center"
       style={{
         backgroundImage: `linear-gradient(rgba(40, 40, 40, 0.5), rgba(60, 60, 60, 0.5)),  url("https://images.unsplash.com/photo-1579165466991-467135ad3110?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGFib3JhdG9yaW98ZW58MHx8MHx8fDA%3D")`,
         backgroundPosition: "center",

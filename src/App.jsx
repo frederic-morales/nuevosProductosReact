@@ -53,7 +53,7 @@ const router = createBrowserRouter([
             element: <ListadoEtapas />,
           },
           {
-            path: "Reasignar Etapas",
+            path: "Reasignar_Etapas",
             element: (
               <ProtectedRouteAdmins>
                 <ReasignarEtapas />,
@@ -115,7 +115,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <AuthProvider>
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
     </AuthProvider>
   );
 }

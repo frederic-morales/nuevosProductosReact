@@ -16,7 +16,7 @@ function Producto() {
   let fechaInicio = new Date();
 
   if (info?.productoInfo[0].FechaInicio) {
-    const fecha = new Date(info?.productoInfo[0].FechaInicio);
+    const fecha = new Date(info?.productoInfo[0]?.FechaInicio);
     const opciones = { day: "numeric", month: "long", year: "numeric" };
     fechaInicio = new Intl.DateTimeFormat("es-ES", opciones).format(fecha);
   }
@@ -35,7 +35,7 @@ function Producto() {
     <div className="flex flex-col items-center mt-12 mb-8">
       <div className="text-center text-gray-50 flex flex-col gap-1 items-center">
         <p className="text-xl md:text-4xl lg:text-5xl font-black uppercase drop-shadow-[1px_2px_0px_black] mb-4">
-          {info.productoInfo[0].Nombre || ""}
+          {info?.productoInfo[0]?.Nombre || ""}
         </p>
         <p className="font-bold text-lg sm:text-xl lg:text-2xl drop-shadow-[2px_1px_1px_black]">
           Desarrollo Iniciado el
@@ -44,7 +44,7 @@ function Producto() {
           Tiempo total estimado 24 meses
           <br />
           Total de rechazos:
-          {info.productoInfo[0].Rechazos || " 0"}
+          {info?.productoInfo[0]?.Rechazos || " 0"}
         </p>
         {showBotonActualizar && user.role == "admin" && (
           <Link

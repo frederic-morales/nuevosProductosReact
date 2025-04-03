@@ -14,7 +14,7 @@ const fetch_etapa_progreso = ({ desarrolloProductoId, etapaId }) => {
         const response = await axios.get(
           `${api}/etapas/${desarrolloProductoId}/${etapaId}`
         )
-        setEtapaProgreso(await response.data)
+        setEtapaProgreso(await response?.data)
       } catch (err) {
         setErrorProgreso(
           err instanceof Error ? err.message : 'Ocurrió un error...'
