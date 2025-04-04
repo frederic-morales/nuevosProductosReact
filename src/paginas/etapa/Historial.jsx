@@ -1,11 +1,13 @@
 import Alert from "../../componentes/Alert";
 import Confirmacion from "../../componentes/Confirmacion";
 // import { useOutletContext } from "react-router-dom";
-import { act, useState } from "react";
+import { useState } from "react";
 import fetch_etapa_historial from "../../hooks/fetch_etapa_historial";
 import { useParams } from "react-router";
 import { useEffect } from "react";
 import descargarArchivo from "../../hooks/fetch_download_file";
+import post_delete_historial_etapa from "../../hooks/post_delete_historial_etapa";
+
 // import { useNavigate } from "react-router";
 
 function Historial() {
@@ -16,6 +18,7 @@ function Historial() {
   const [showConfirmacion, setShowConfirmacion] = useState();
   const [datosConfirmados, setDatosConfirmados] = useState(); // Estado que guarda la eleccion del usuario "si" o "no" - Servira para enviar los datos a la DB
   const [historial, setHistorial] = useState([]);
+  const [ProEtapaHistorialId, setProEtapaHistorialId] = useState(null);
 
   const { etapaHistorial } = fetch_etapa_historial({
     desarrolloProductoId,
@@ -46,8 +49,16 @@ function Historial() {
     return fechaInicio;
   };
 
+  //Eliminando una actualizacion de la etapa
+  const handleDeleteHistorial = async (ProEtapaHistorialId) => {
+    console.log(ProEtapaHistorialId);
+    const response = await post_delete_historial_etapa(ProEtapaHistorialId);
+    console.log(response);
+    console.log("Eliminando historial de la etapa...");
+  };
+
   // console.log(etapaHistorial);
-  console.log(historial);
+  // console.log(historial);
 
   return (
     <>
@@ -127,7 +138,10 @@ function Historial() {
                 {/* Eliminar actualizacion */}
                 <div
                   className="w-[50%] flex sm:flex-col justify-center items-center gap-2 bg-[#f66c79] p-4 rounded-2xl shadow-xl hover:shadow-red-300"
-                  onClick={() => setShowConfirmacion(true)}
+                  onClick={() => {
+                    setShowConfirmacion(true);
+                    setProEtapaHistorialId(actualizacion?.ProEtapaHistorialId);
+                  }}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -157,7 +171,7 @@ function Historial() {
           mensaje="Esta seguro de elimninar esta actualización!!"
           handleConfirm={handleConfirmacion}
           onSubmit={() => {
-            console.log("Eliminando...");
+            handleDeleteHistorial(ProEtapaHistorialId);
           }}
         />
       )}

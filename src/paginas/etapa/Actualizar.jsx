@@ -2,7 +2,6 @@ import { useState } from "react";
 import Confirmacion from "../../componentes/Confirmacion";
 import Alert from "../../componentes/Alert";
 import { useOutletContext } from "react-router-dom";
-import { useEffect } from "react";
 import post_etapa_actualizar from "../../hooks/post_etapa_actualizar";
 
 function Actualizar() {
@@ -43,8 +42,7 @@ function Actualizar() {
   };
 
   //Enviando archivos y datos a la API
-  const handleSubmit2 = async () => {
-    const API = import.meta.env.VITE_API_URL;
+  const handleSubmit = async () => {
     const formData = new FormData();
     formData.append("Archivo", file);
     formData.append("ProgresoEtapaId", etapa?.ProgresoEtapaId);
@@ -61,8 +59,7 @@ function Actualizar() {
     console.log(response);
   };
 
-  console.log(etapa);
-
+  // console.log(etapa);
   return (
     <div className={`grid grid-cols-4 gap-4 mt-4 sm:mt-8`}>
       {/* Descripcion de la etapa */}
@@ -183,7 +180,7 @@ function Actualizar() {
           key={Date.now()}
           mensaje="Esta seguro de realizar esta accion?"
           handleConfirm={handleConfirmedResponse}
-          onSubmit={handleSubmit2}
+          onSubmit={handleSubmit}
         />
       )}
       {showAlert &&
