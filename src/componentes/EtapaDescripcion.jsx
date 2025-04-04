@@ -51,7 +51,7 @@ function EtapaDescripcion({ etapa, classCSS, link }) {
           <li className="font-black mt-6 text-[14px] h-full flex items-end">
             {etapa?.ProgresoEstado === 1 && "Etapa Aprobada"}
             {etapa?.ProgresoEstado === 2 && "Etapa Rechazada"}
-            {etapa?.ProgresoEstado === 3 && "Etapa en Procesa"}
+            {etapa?.ProgresoEstado === 3 && "Etapa en Proceso"}
             {etapa?.ProgresoEstado === null &&
               etapa?.PermitirInicio &&
               "Etapa siguiente"}

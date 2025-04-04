@@ -1,28 +1,17 @@
 import axios from 'axios'
 
-const post_etapa_actualizar = async ({
-  ProgresoEtapaId,
-  Estado,
-  UploadFile,
-  Descripcion,
-  EstadoDescripcion,
-  DesarrolloProductoId,
-  EtapaId,
-  Rechazos
-}) => {
+const post_etapa_actualizar = async ({ formData }) => {
   try {
     const API = import.meta.env.VITE_API_URL
-    const response = await axios.post(`${API}/etapa/progreso/actualizacion`, {
-      ProgresoEtapaId: ProgresoEtapaId,
-      Estado: Estado,
-      UploadFile: UploadFile,
-      Descripcion: Descripcion,
-      EstadoDescripcion: EstadoDescripcion,
-      DesarrolloProductoId: DesarrolloProductoId,
-      EtapaId: EtapaId,
-      Rechazos: Rechazos
-    })
-
+    const response = await axios.post(
+      `${API}/etapa/progreso/actualizacion`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    )
     console.log(await response.data)
     return await response
   } catch (err) {

@@ -1,10 +1,11 @@
 import Alert from "../../componentes/Alert";
 import Confirmacion from "../../componentes/Confirmacion";
 // import { useOutletContext } from "react-router-dom";
-import { useState } from "react";
+import { act, useState } from "react";
 import fetch_etapa_historial from "../../hooks/fetch_etapa_historial";
 import { useParams } from "react-router";
 import { useEffect } from "react";
+import descargarArchivo from "../../hooks/fetch_download_file";
 // import { useNavigate } from "react-router";
 
 function Historial() {
@@ -21,17 +22,31 @@ function Historial() {
     etapaId,
   });
 
+  useEffect(() => {
+    if (etapaHistorial) {
+      setHistorial(etapaHistorial?.response);
+    }
+  });
+
   const handleConfirmacion = (valor) => {
     setDatosConfirmados(valor);
     setShowConfirmacion(false);
   };
 
-  useEffect(() => {
-    if (etapaHistorial) {
-      setHistorial(etapaHistorial.response);
-    }
-  });
-  console.log(etapaHistorial);
+  const handleDownloadFile = (file) => {
+    descargarArchivo(file);
+  };
+
+  const formatFecha = (date) => {
+    const fecha = new Date(date);
+    const opciones = { day: "numeric", month: "long", year: "numeric" };
+    const fechaInicio = new Intl.DateTimeFormat("es-ES", opciones).format(
+      fecha
+    );
+    return fechaInicio;
+  };
+
+  // console.log(etapaHistorial);
   console.log(historial);
 
   return (
@@ -42,7 +57,7 @@ function Historial() {
         {historial &&
           historial?.map((actualizacion) => (
             <div
-              key={actualizacion.id}
+              key={actualizacion?.ProEtapaHistorialId}
               className="flex flex-col sm:flex-row gap-3 text-xs sm:text-sm rounded-2xl"
             >
               {/* Descripcion de la actualizacion */}
@@ -58,8 +73,12 @@ function Historial() {
                   }`}
               >
                 <p className="mb-2 font-semibold">
-                  Fecha de {actualizacion.descripcion}
-                  <br /> Fecha 05 03 2025
+                  Fecha{" "}
+                  {actualizacion?.FechaActualizacion && (
+                    <>{formatFecha(actualizacion?.FechaActualizacion)}</>
+                  )}
+                  <br />
+                  {actualizacion?.Descripcion}
                   <br /> Usuario FSOC
                 </p>
                 <div className="max-h-24 sm:min-w-[350px] lg:min-w-[400px] overflow-auto pr-2 overscroll-none [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-300">
@@ -68,15 +87,20 @@ function Historial() {
                   </p>
                 </div>
               </div>
-              <div className="w-full sm:w-[40%] flex gap-4 font-semibold">
+              <div className="w-full sm:w-[40%] flex gap-4 font-semibold overflow-scroll">
                 {/* Documento */}
                 <a
-                  download="algo"
-                  href="descarga.pdf"
+                  href={actualizacion?.rutaArchivo}
                   className="w-[50%] flex sm:flex-col bg-[#affdce] p-4 rounded-2xl shadow-xl hover:shadow-green-300"
+                  onClick={() => {
+                    if (actualizacion.RutaDoc) {
+                      console.log(actualizacion?.rutaArchivo);
+                      handleDownloadFile(actualizacion?.rutaArchivo);
+                    }
+                  }}
                 >
                   <label
-                    className="w-full h-full flex sm:flex-col gap-2 justify-center items-center relative"
+                    className="w-full h-full flex sm:flex-col gap-2 justify-center items-center relative overflow-scroll"
                     htmlFor="fileDownload"
                   >
                     <svg
@@ -93,8 +117,10 @@ function Historial() {
                         d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
                       />
                     </svg>
-                    <p className="text-[10px] sm:text-xs italic text-center">
-                      Nombre ultimo archivo...pdf
+                    <p className="text-[10px] sm:text-xs italic max-w-16 flex flex-wrap">
+                      {actualizacion?.RutaDoc && (
+                        <>{actualizacion?.RutaDoc.split("\\").pop()}</>
+                      )}
                     </p>
                   </label>
                 </a>

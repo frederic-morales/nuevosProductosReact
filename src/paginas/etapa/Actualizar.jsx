@@ -42,48 +42,25 @@ function Actualizar() {
     setDatosConfirmados(isConfirmed);
   };
 
-  const handleSubmit = async () => {
-    const response = await post_etapa_actualizar({
-      ProgresoEtapaId: etapa?.ProgresoEtapaId,
-      Estado: enviarEstado,
-      UploadFile: file.name,
-      Descripcion: descripcion,
-      EstadoDescripcion: estadoDescripcion,
-      DesarrolloProductoId: etapa?.DesarrolloProductoId,
-      EtapaId: etapa?.EtapaId,
-      Rechazos: rechazosProducto,
-    });
-
-    console.log(response);
-  };
-
-  //Enviando archivos
+  //Enviando archivos y datos a la API
   const handleSubmit2 = async () => {
     const API = import.meta.env.VITE_API_URL;
     const formData = new FormData();
-    formData.append("archivo", file);
+    formData.append("Archivo", file);
+    formData.append("ProgresoEtapaId", etapa?.ProgresoEtapaId);
     formData.append("Estado", enviarEstado);
-    formData.append("Descripcion", descripcion);
     formData.append("EstadoDescripcion", estadoDescripcion);
     formData.append("DesarrolloProductoId", etapa?.DesarrolloProductoId);
     formData.append("EtapaId", etapa?.EtapaId);
     formData.append("Rechazos", rechazosProducto);
-
-    try {
-      const response = await fetch(`${API}/etapa/progreso/actualizacion`, {
-        method: "POST",
-        body: formData,
-      });
-
-      const data = await response.json();
-      console.log(data);
-    } catch (err) {
-      console.error("Error al subir el archivo", err);
+    if (descripcion) {
+      formData.append("Descripcion", descripcion);
     }
+
+    const response = await post_etapa_actualizar({ formData });
+    console.log(response);
   };
 
-  // console.log(enviarEstado);
-  // console.log(descripcion);
   console.log(etapa);
 
   return (
