@@ -1,7 +1,7 @@
 import Alert from "../../componentes/Alert";
 import { useOutletContext } from "react-router-dom";
 import Confirmacion from "../../componentes/Confirmacion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router";
 import post_iniciar_etapa from "../../hooks/post_etapa_iniciar";
 //use auth

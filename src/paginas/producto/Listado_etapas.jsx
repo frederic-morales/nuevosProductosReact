@@ -26,20 +26,28 @@ function ListadoEtapas() {
           {!mostrarRechazos && (
             <div className="w-full flex flex-wrap justify-center gap-8 mt-8">
               {etapas?.map((etapa) => {
-                if (etapa.ProgresoEstado != 2) {
+                if (
+                  etapa.ProgresoEstado != 2 &&
+                  etapa?.Correlativo != 1 &&
+                  etapa.AsignacionEstado != 2
+                ) {
                   let ruta = "";
                   if (etapa?.ProgresoEstado == 1)
                     ruta = `${etapa.EtapaId}/Historial`;
-                  if (etapa?.ProgresoEstado == 3 && producto?.Rechazos == 0)
+                  if (etapa?.ProgresoEstado == 3 && producto?.Estado != 2)
                     ruta = `${etapa.EtapaId}/Actualizar`;
-                  if (etapa?.ProgresoEstado == null && producto?.Rechazos == 0)
+                  if (etapa?.ProgresoEstado == null && producto?.Estado != 2)
                     ruta = `${etapa.EtapaId}/Iniciar`;
                   return (
                     <EtapaDescripcion
                       key={etapa.EtapaId}
                       etapa={etapa}
                       link={ruta}
-                      classCSS={`${etapa.ProgresoEstado == 1 && "bg-[#affdce]"} 
+                      classCSS={`${
+                        etapa.ProgresoEstado == 1 &&
+                        etapa.Correlativo != 1 &&
+                        "bg-[#affdce]"
+                      } 
                                 ${etapa.ProgresoEstado == 3 && "bg-[#879efc]"}
                                 ${
                                   etapa.ProgresoEstado == null && "bg-[#ffa470]"

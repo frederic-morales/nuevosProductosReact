@@ -1,36 +1,25 @@
-import { useState, useEffect } from "react";
-// import { useOutletContext } from "react-router-dom";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 //Componentes
 import Confirmacion from "../../componentes/Confirmacion";
 import Alert from "../../componentes/Alert";
 import CheckEtapa from "../../componentes/CheckEtapa";
 //Hooks
-import fetch_Producto_Info from "../../hooks/fetch_producto_info";
-
 import { useOutletData } from "./OutletProductoContexts";
+import post_etapas_reasignar from "../../hooks/post_etapas_reasignar";
 
 function Actualizar_Producto() {
   const params = useParams();
   const productoId = params.productoId; // Obtiene el id del producto a Actualizar
-  const { etapas } = useOutletData(); // Obtiene las etapas asignadas anteriormente
+  const { etapas, producto } = useOutletData(); // Obtiene las etapas asignadas anteriormente
 
-  // const { usuarios, loadingUsuarios, errorUsuarios } = fetch_all_usuarios(); // Usa el custom hook para obtener los usuarios
-  const { info, errorInfo, loadingInfo } = fetch_Producto_Info({
-    productoId,
-  });
-
-  const [validarCampos, setValidarCampos] = useState(false); // Validar que los campos requeridos no estén vacíos
   const [datosConfirmados, setDatosConfirmados] = useState(); // Confirmación del envío del formulario
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(); // Mostrar confirmación
-
-  // Estados para manejar los datos ingresados en el formulario
-  const [etapasAsignadas, setEtapasAsignadas] = useState([]); // Manejar las etapas a enviar
+  const [etapasAReasignar, setEtapasAReasignar] = useState([]); // Etapas a actualizar
 
   // se modifica etapasAsignadas cada vez que el usuario de check o uncheck en cada etapa
   const handleToggleEtapa = (etapa, isChecked) => {
-    setEtapasAsignadas(
+    setEtapasAReasignar(
       (prevEtapas) =>
         isChecked
           ? [...prevEtapas, etapa] // Agregar si se marca
@@ -38,9 +27,18 @@ function Actualizar_Producto() {
     );
   };
 
-  console.log(info);
-  console.log(etapas);
+  const actualizarEtapas = async () => {
+    const response = await post_etapas_reasignar({
+      DesarrolloProductoId: productoId,
+      Etapas: etapasAReasignar,
+    });
+    console.log(response);
+  };
 
+  console.log(etapas);
+  console.log(producto);
+
+  // console.log(etapasAReasignar);
   return (
     <div className="flex flex-col items-center mt-8 md:mt-12">
       <form className="w-full h-full">
@@ -52,17 +50,22 @@ function Actualizar_Producto() {
           <div className="w-fit mt-5 md:mt-10 lg:mt-12 lg:px-6 p-3 sm:pt-6 sm:pb-10 sm:px-4 justify-center flex flex-wrap gap-4 rounded-2xl opacity-95">
             {etapas.length > 0 &&
               etapas.map((etapa) => {
-                if (etapa.ProgresoEstado !== null) {
+                if (
+                  (etapa?.AsignacionEstado == 1 ||
+                    etapa?.AsignacionEstado == 2) &&
+                  producto?.Estado == 2 &&
+                  !etapa?.Correlativo
+                ) {
                   return (
                     <CheckEtapa
                       key={etapa.EtapaId}
                       etapa={etapa}
                       onToggle={handleToggleEtapa}
                       classCSS={`${
-                        etapa.ProgresoEstado == 1 && "text-green-600 "
+                        etapa.AsignacionEstado == 1 && "text-green-600 "
                       }
-                        ${etapa.ProgresoEstado == 2 && "text-red-500"}
-                        ${etapa.ProgresoEstado == 3 && "text-[#879efc]"}
+                        ${etapa.AsignacionEstado == 2 && "text-red-500"}
+                        ${etapa.AsignacionEstado == 3 && "text-[#879efc]"}
                         `}
                       showCheck={true}
                     />
@@ -73,7 +76,7 @@ function Actualizar_Producto() {
         </div>
         {/* Botón */}
         {/* Se mostrará el boton solamente si alguno de los campos cambia */}
-        {(validarCampos || etapasAsignadas.length > 0) && (
+        {etapasAReasignar?.length > 0 && (
           <div className="w-full pt-12 flex justify-center">
             <div className="w-full max-w-sm">
               <button
@@ -97,7 +100,7 @@ function Actualizar_Producto() {
             setDatosConfirmados(value);
             setMostrarConfirmacion(false);
           }}
-          // onSubmit={actualizarDatos}
+          onSubmit={actualizarEtapas}
         />
       )}
       {datosConfirmados != null && datosConfirmados && (

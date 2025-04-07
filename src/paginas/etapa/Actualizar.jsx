@@ -51,6 +51,7 @@ function Actualizar() {
     formData.append("DesarrolloProductoId", etapa?.DesarrolloProductoId);
     formData.append("EtapaId", etapa?.EtapaId);
     formData.append("Rechazos", rechazosProducto);
+    formData.append("Correlativo", etapa?.Correlativo);
     if (descripcion) {
       formData.append("Descripcion", descripcion);
     }
@@ -59,7 +60,7 @@ function Actualizar() {
     console.log(response);
   };
 
-  // console.log(etapa);
+  console.log(etapa);
   return (
     <div className={`grid grid-cols-4 gap-4 mt-4 sm:mt-8`}>
       {/* Descripcion de la etapa */}
