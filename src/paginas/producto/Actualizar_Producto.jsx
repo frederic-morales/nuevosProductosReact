@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useOutletContext } from "react-router-dom";
+// import { useOutletContext } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 //Componentes
@@ -15,10 +15,12 @@ import fetch_all_etapas from "../../hooks/fetch_all_etapas";
 import fetch_Producto_Info from "../../hooks/fetch_producto_info";
 import fetch_usuarios_grupo from "../../hooks/fetch_usuarios_grupo";
 
+import { useOutletData } from "./OutletProductoContexts";
+
 function Actualizar_Producto() {
   const params = useParams();
   const productoId = params.productoId; // Obtiene el id del producto a Actualizar
-  const etapas = useOutletContext(); // Obtiene las etapas asignadas anteriormente
+  const { etapas } = useOutletData(); // Obtiene las etapas asignadas anteriormente
   const { grupoUsuarios, loadingGrupo, errorGrupo } = fetch_usuarios_grupo({
     CodigoGrupo: 35,
   });
@@ -194,11 +196,11 @@ function Actualizar_Producto() {
           <p className="w-full max-w-sm md:max-w-xl font-black sm:text-center text-lg md:text-xl lg:text-3xl uppercase text-white drop-shadow-[1px_2px_0px_black]">
             Etapas Asignadas Actualmente
           </p>
-          <div className="mt-5 md:mt-10 lg:mt-12 lg:px-6 p-3 sm:pt-6 sm:pb-10 sm:px-4 w-full max-w-lg lg:max-w-7xl flex flex-wrap gap-4 justify-evenly items-center bg-white rounded-2xl opacity-85">
+          <div className="mt-5 md:mt-10 lg:mt-12 lg:px-6 p-3 sm:pt-6 sm:pb-10 sm:px-4 w-full max-w-lg lg:max-w-7xl flex flex-wrap gap-4 justify-evenly items-center ">
             {etapas.map((etapa) => (
               <div
                 key={etapa.EtapaId}
-                className="w-full max-w-sm flex items-center space-x-3 cursor-pointer group mt-3"
+                className="w-full max-w-sm flex items-center space-x-3 cursor-pointer group mt-3 bg-white rounded-2xl shadow-md p-4 relative"
               >
                 <p
                   className={`font-bold md:text-lg drop-shadow-[2px_1px_2px_white] ${
@@ -217,7 +219,7 @@ function Actualizar_Producto() {
             <p className="mt-8 w-full max-w-sm md:max-w-xl font-black sm:text-center text-lg md:text-xl lg:text-3xl uppercase text-white drop-shadow-[1px_2px_0px_black]">
               Asignar más etapas
             </p>
-            <div className="mt-5 md:mt-10 lg:mt-12 lg:px-6 p-3 sm:pt-6 sm:pb-10 sm:px-4 w-full max-w-lg lg:max-w-7xl flex flex-wrap gap-4 justify-evenly items-center bg-white rounded-2xl opacity-85">
+            <div className="mt-5 md:mt-10 lg:mt-12 lg:px-6 p-3 sm:pt-6 sm:pb-10 sm:px-4 w-full max-w-lg lg:max-w-7xl flex flex-wrap gap-4 justify-evenly items-center ">
               {mostrarNuevasEtapas.length > 0 &&
                 mostrarNuevasEtapas.map((etapa) => {
                   return (

@@ -53,18 +53,18 @@ const router = createBrowserRouter([
             element: <ListadoEtapas />,
           },
           {
-            path: "Reasignar_Etapas",
-            element: (
-              <ProtectedRouteAdmins>
-                <ReasignarEtapas />,
-              </ProtectedRouteAdmins>
-            ),
-          },
-          {
             path: "Actualizar",
             element: (
               <ProtectedRouteAdmins>
                 <Actualizar_Producto />,
+              </ProtectedRouteAdmins>
+            ),
+          },
+          {
+            path: "ReasignarEtapas",
+            element: (
+              <ProtectedRouteAdmins>
+                <ReasignarEtapas />,
               </ProtectedRouteAdmins>
             ),
           },

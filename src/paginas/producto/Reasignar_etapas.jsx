@@ -1,113 +1,122 @@
-import CheckEtapa from "../../componentes/CheckEtapa";
-import Alert from "../../componentes/Alert";
+import { useState, useEffect } from "react";
+// import { useOutletContext } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+//Componentes
 import Confirmacion from "../../componentes/Confirmacion";
-import { useState } from "react";
+import Alert from "../../componentes/Alert";
+import CheckEtapa from "../../componentes/CheckEtapa";
+//Hooks
+import fetch_Producto_Info from "../../hooks/fetch_producto_info";
 
-function CampoLleno(props) {
-  const { titulo, valor } = props;
-  return (
-    <div className="w-full max-w-sm mb-6 md:mb-0 text-white">
-      <p className="block uppercase text-xs font-bold mb-2 md:text-sm lg:text-lg drop-shadow-[1px_1px_1px_black]">
-        {titulo}
-      </p>
-      <p className="w-full bg-gray-50 text-black focus:bg-blue-50 rounded py-3 px-4 mb-3 focus:outline-none focus:shadow-xl focus:shadow-blue-300 font-semibold">
-        {valor}
-      </p>
-    </div>
-  );
-}
+import { useOutletData } from "./OutletProductoContexts";
 
-function ReasignarEtapas() {
-  const [datosConfirmados, setDatosConfirmados] = useState();
-  const [mostrarConfirmacion, setMostrarConfirmacion] = useState();
-  const etapas = [
-    {
-      EtapaId: 1,
-      Nombre: "Etapa1",
-    },
-    {
-      EtapaId: 2,
-      Nombre: "Etapa2",
-    },
-    {
-      EtapaId: 3,
-      Nombre: "Etapa3",
-    },
-  ];
-  const campos = ["Nombre", "Descripcion"];
+function Actualizar_Producto() {
+  const params = useParams();
+  const productoId = params.productoId; // Obtiene el id del producto a Actualizar
+  const { etapas } = useOutletData(); // Obtiene las etapas asignadas anteriormente
+
+  // const { usuarios, loadingUsuarios, errorUsuarios } = fetch_all_usuarios(); // Usa el custom hook para obtener los usuarios
+  const { info, errorInfo, loadingInfo } = fetch_Producto_Info({
+    productoId,
+  });
+
+  const [validarCampos, setValidarCampos] = useState(false); // Validar que los campos requeridos no estén vacíos
+  const [datosConfirmados, setDatosConfirmados] = useState(); // Confirmación del envío del formulario
+  const [mostrarConfirmacion, setMostrarConfirmacion] = useState(); // Mostrar confirmación
+
+  // Estados para manejar los datos ingresados en el formulario
+  const [etapasAsignadas, setEtapasAsignadas] = useState([]); // Manejar las etapas a enviar
 
   // se modifica etapasAsignadas cada vez que el usuario de check o uncheck en cada etapa
   const handleToggleEtapa = (etapa, isChecked) => {
-    console.log("Hola");
+    setEtapasAsignadas(
+      (prevEtapas) =>
+        isChecked
+          ? [...prevEtapas, etapa] // Agregar si se marca
+          : prevEtapas.filter((e) => e.EtapaId !== etapa.EtapaId) // Eliminar si se desmarca
+    );
   };
 
+  console.log(info);
+  console.log(etapas);
+
   return (
-    <div className="w-full mt-10 h-full">
-      {/* Informacion del producto */}
-      <div className="w-full flex gap-4 justify-center flex-wrap">
-        {campos.map((campo) => (
-          <CampoLleno
-            titulo={campo}
-            valor="Valor dado al iniciar el desarrollo"
-          />
-        ))}
-      </div>
-      {/* Reasignacion de las Etapas */}
-      <div className="w-full mb-8 mt-12 md:mt-16 flex flex-col items-center">
-        <p className="w-full max-w-sm md:max-w-xl font-black sm:text-center md:text-xl lg:text-3xl uppercase text-white drop-shadow-[1px_1px_1px_black]">
-          Reasigna Las Etapas
-        </p>
-        <div className="mt-5 flex flex-wrap gap-4 justify-center items-center w-full">
-          {etapas.map((etapa) => (
-            <CheckEtapa
-              key={etapa.EtapaId}
-              etapa={etapa}
-              onToggle={handleToggleEtapa}
-            />
-          ))}
+    <div className="flex flex-col items-center mt-8 md:mt-12">
+      <form className="w-full h-full">
+        {/* Asignar Etapas */}
+        <div className="mb-8 flex flex-col items-center">
+          <p className="w-full text-center max-w-sm md:max-w-xl font-black sm:text-center text-lg md:text-xl lg:text-3xl uppercase text-white drop-shadow-[1px_2px_0px_black]">
+            Reasignar etapas aprobadas
+          </p>
+          <div className="w-fit mt-5 md:mt-10 lg:mt-12 lg:px-6 p-3 sm:pt-6 sm:pb-10 sm:px-4 justify-center flex flex-wrap gap-4 rounded-2xl opacity-95">
+            {etapas.length > 0 &&
+              etapas.map((etapa) => {
+                if (etapa.ProgresoEstado !== null) {
+                  return (
+                    <CheckEtapa
+                      key={etapa.EtapaId}
+                      etapa={etapa}
+                      onToggle={handleToggleEtapa}
+                      classCSS={`${
+                        etapa.ProgresoEstado == 1 && "text-green-600 "
+                      }
+                        ${etapa.ProgresoEstado == 2 && "text-red-500"}
+                        ${etapa.ProgresoEstado == 3 && "text-[#879efc]"}
+                        `}
+                      showCheck={true}
+                    />
+                  );
+                }
+              })}
+          </div>
         </div>
-      </div>
-      {/* Boton guardar */}
-      <div className="w-full pt-12 flex justify-center">
-        <div className="w-full max-w-sm">
-          <button
-            className="w-full text-white py-3 px-8 bg-blue-500 rounded-3xl shadow-md shadow-blue-500 sm:text-lg hover:bg-blue-700"
-            type="button"
-            onClick={() => setMostrarConfirmacion(true)}
-          >
-            Guardar
-          </button>
-        </div>
-      </div>
+        {/* Botón */}
+        {/* Se mostrará el boton solamente si alguno de los campos cambia */}
+        {(validarCampos || etapasAsignadas.length > 0) && (
+          <div className="w-full pt-12 flex justify-center">
+            <div className="w-full max-w-sm">
+              <button
+                typeof="submit"
+                className="w-full bg-blue-500 hover:bg-blue-700 text-white py-3 px-8 font-semibold rounded focus:outline-none focus:shadow-outline"
+                type="button"
+                onClick={() => {
+                  setMostrarConfirmacion(true);
+                }}
+              >
+                Actualizar Producto
+              </button>
+            </div>
+          </div>
+        )}
+      </form>
       {mostrarConfirmacion && (
         <Confirmacion
-          mensaje="Esta seguro de realizar esta accion?"
+          mensaje="¿Está seguro de realizar esta acción?"
           handleConfirm={(value) => {
             setDatosConfirmados(value);
             setMostrarConfirmacion(false);
           }}
-          onSubmit={() => {
-            console.log("Actualizando etapas...");
-          }}
+          // onSubmit={actualizarDatos}
         />
       )}
       {datosConfirmados != null && datosConfirmados && (
-        <Alert // Cuando el usuario de click en guardar y confirme la accion
+        <Alert // Cuando el usuario haga clic en guardar y confirme la acción
           duracion={4000}
           bgColor="bg-green-300"
-          redirigir="/"
-          mensaje="Se han reasignado las etapas correctamente!!"
+          redirigir="/Producto/All"
+          mensaje="Se ha iniciado un nuevo desarrollo"
         ></Alert>
       )}
       {datosConfirmados != null && !datosConfirmados && (
-        <Alert // Cuando el usuario de click en guardar y cancele la accion
+        <Alert // Cuando el usuario haga clic en guardar y cancele la acción
           duracion={4000}
           bgColor="bg-red-300"
-          mensaje="Se ha cancelado la reasignacion de las etapas!!"
+          mensaje="Se ha cancelado la acción"
         ></Alert>
       )}
     </div>
   );
 }
 
-export default ReasignarEtapas;
+export default Actualizar_Producto;

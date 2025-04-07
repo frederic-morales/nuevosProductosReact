@@ -188,7 +188,7 @@ function Desarrollos() {
                 desarrollo={desarrollo}
                 link={
                   desarrollo.Estado == 2
-                    ? `/Producto/${desarrollo.DesarrolloProductoId}/Reasignar Etapas`
+                    ? `/Producto/${desarrollo.DesarrolloProductoId}/Etapas`
                     : `/Producto/${desarrollo.DesarrolloProductoId}/Etapas`
                 }
                 classCSS={`${

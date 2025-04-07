@@ -9,7 +9,7 @@ function CheckEtapa({ etapa, onToggle, classCSS, showCheck }) {
     onToggle(etapa, checked); // Llamar a la función cuando cambia el estado
   };
   return (
-    <label className="w-full max-w-sm flex items-center space-x-3 cursor-pointer group mt-3">
+    <label className="w-full max-w-sm flex items-center space-x-3 cursor-pointer group mt-3 bg-white rounded-2xl shadow-md p-4 relative">
       {showCheck && (
         <>
           <input
@@ -46,7 +46,7 @@ function CheckEtapa({ etapa, onToggle, classCSS, showCheck }) {
       )}
 
       <span
-        className={`font-bold md:text-lg drop-shadow-[2px_1px_2px_white] ${classCSS}`}
+        className={`font-black md:text-lg drop-shadow-[2px_1px_2px_white] ${classCSS}`}
       >
         {/* {etapa.EtapaId}  */}
         No.{etapa.EtapaId} - {etapa.Nombre}

@@ -137,7 +137,7 @@ function NuevoProducto() {
           <p className="w-full max-w-sm md:max-w-xl font-black sm:text-center md:text-xl lg:text-3xl uppercase text-white drop-shadow-[1px_2px_0px_black]">
             Etapas que llevará el producto
           </p>
-          <div className="mt-5 md:mt-10 lg:mt-12 lg:px-6 p-3 sm:pt-6 sm:pb-10 sm:px-4 w-full max-w-lg lg:max-w-7xl flex flex-wrap gap-4 justify-evenly items-center bg-white rounded-2xl opacity-85">
+          <div className="mt-5 md:mt-10 lg:mt-12 lg:px-6 p-3 sm:pt-6 sm:pb-10 sm:px-4 w-full max-w-lg lg:max-w-7xl flex flex-wrap gap-4 justify-evenly items-start">
             {allEtapas.map((etapa) => (
               <CheckEtapa
                 key={etapa.EtapaId}

@@ -4,22 +4,29 @@ import fetchProducto from "../../hooks/fetch_producto";
 import fetch_Producto_Info from "../../hooks/fetch_producto_info";
 import { Link } from "react-router";
 import { useAuth } from "../../auth/AuthContext";
+import { OutletDataContext } from "./OutletProductoContexts";
 
 function Producto() {
   const params = useParams();
   const productoId = params.productoId;
+  const showBotonActualizar = useMatch("/Producto/:productoId/Etapas");
+
   const { etapas, loading, error } = fetchProducto({ productoId });
   const { info, errorInfo, loadingInfo } = fetch_Producto_Info({ productoId });
-  const showBotonActualizar = useMatch("/Producto/:productoId/Etapas");
   const { user } = useAuth();
 
   let fechaInicio = new Date();
-
   if (info?.productoInfo[0].FechaInicio) {
     const fecha = new Date(info?.productoInfo[0]?.FechaInicio);
     const opciones = { day: "numeric", month: "long", year: "numeric" };
     fechaInicio = new Intl.DateTimeFormat("es-ES", opciones).format(fecha);
   }
+
+  // Informacion pasada al Outlet (Componentes hijos)
+  const outletValues = {
+    etapas: etapas?.productoEtapas,
+    producto: info?.productoInfo[0],
+  };
 
   if (loading || loadingInfo) {
     return <div>Cargando...</div>;
@@ -30,6 +37,8 @@ function Producto() {
   }
 
   console.log(info);
+  console.log(etapas);
+
   return (
     <div className="flex flex-col items-center mt-12 mb-8">
       <div className="text-center text-gray-50 flex flex-col gap-1 items-center">
@@ -38,7 +47,7 @@ function Producto() {
         </p>
         <p className="font-bold text-lg sm:text-xl lg:text-2xl drop-shadow-[2px_1px_1px_black]">
           Desarrollo Iniciado el
-          {` ${fechaInicio}`}
+          {`${fechaInicio}`}
           <br />
           Tiempo total estimado 24 meses
           <br />
@@ -46,15 +55,26 @@ function Producto() {
           {info?.productoInfo[0]?.Rechazos || " 0"}
         </p>
         {showBotonActualizar && user.role == "admin" && (
-          <Link
-            to={"Actualizar"}
-            className="w-full max-w-3xs bg-blue-600 hover:bg-blue-800 text-white mt-3 py-3 px-8 rounded-2xl focus:outline-none focus:shadow-outline font-bold sm:text-lg lg:text-"
-          >
-            Actualizar
-          </Link>
+          <>
+            <Link
+              to={"Actualizar"}
+              className="w-full max-w-3xs bg-blue-600 hover:bg-blue-800 text-white mt-3 py-3 px-8 rounded-2xl focus:outline-none focus:shadow-outline font-bold sm:text-lg lg:text-"
+            >
+              Actualizar
+            </Link>
+            <Link
+              to={"ReasignarEtapas"}
+              className="w-full max-w-3xs bg-blue-600 hover:bg-blue-800 text-white mt-3 py-3 px-8 rounded-2xl focus:outline-none focus:shadow-outline font-bold sm:text-lg lg:text-"
+            >
+              Reasignar Etapas
+            </Link>
+          </>
         )}
       </div>
-      <Outlet context={etapas?.productoEtapas} />
+      {/* <Outlet context={etapas?.productoEtapas} /> */}
+      <OutletDataContext.Provider value={outletValues}>
+        <Outlet />
+      </OutletDataContext.Provider>
     </div>
   );
 }

@@ -1,17 +1,18 @@
 import { useState } from "react";
-import { useOutletContext } from "react-router-dom";
 import EtapaDescripcion from "../../componentes/EtapaDescripcion";
+import { useOutletData } from "./OutletProductoContexts";
 
 function ListadoEtapas() {
   // Estado que permirte mostrar las etapas rechazadas
-  const etapas = useOutletContext();
+  const { etapas, producto } = useOutletData();
   const [mostrarRechazos, setMostrarRechazos] = useState();
 
   const handleClick = () => {
     setMostrarRechazos(!mostrarRechazos);
   };
 
-  // console.log(etapas);
+  console.log(etapas, producto);
+
   return (
     <>
       <div className="flex flex-wrap items-start justify-center gap-6 mt-6 w-full lg:mt-12">
@@ -29,11 +30,10 @@ function ListadoEtapas() {
                   let ruta = "";
                   if (etapa?.ProgresoEstado == 1)
                     ruta = `${etapa.EtapaId}/Historial`;
-                  if (etapa?.ProgresoEstado == 3)
+                  if (etapa?.ProgresoEstado == 3 && producto?.Rechazos == 0)
                     ruta = `${etapa.EtapaId}/Actualizar`;
-                  if (etapa?.ProgresoEstado == null)
+                  if (etapa?.ProgresoEstado == null && producto?.Rechazos == 0)
                     ruta = `${etapa.EtapaId}/Iniciar`;
-
                   return (
                     <EtapaDescripcion
                       key={etapa.EtapaId}
@@ -41,7 +41,9 @@ function ListadoEtapas() {
                       link={ruta}
                       classCSS={`${etapa.ProgresoEstado == 1 && "bg-[#affdce]"} 
                                 ${etapa.ProgresoEstado == 3 && "bg-[#879efc]"}
-                                ${etapa.ProgresoEstado == null && "bg-white"}`}
+                                ${
+                                  etapa.ProgresoEstado == null && "bg-[#ffa470]"
+                                }`}
                     />
                   );
                 }
@@ -54,7 +56,7 @@ function ListadoEtapas() {
                 if (etapa.ProgresoEstado == 2) {
                   return (
                     <EtapaDescripcion
-                      key={etapa.id}
+                      key={etapa.EtapaId}
                       etapa={etapa}
                       classCSS="bg-red-400"
                       link={`${etapa.EtapaId}/Historial`}
