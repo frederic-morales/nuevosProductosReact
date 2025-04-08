@@ -4,7 +4,7 @@ import { useOutletData } from "./OutletProductoContexts";
 
 function ListadoEtapas() {
   // Estado que permirte mostrar las etapas rechazadas
-  const { etapas, producto } = useOutletData();
+  const { etapas, producto, etapasAnteriores } = useOutletData();
   const [mostrarRechazos, setMostrarRechazos] = useState();
 
   const handleClick = () => {
@@ -12,6 +12,7 @@ function ListadoEtapas() {
   };
 
   console.log(etapas, producto);
+  console.log(etapasAnteriores);
 
   return (
     <>
@@ -26,17 +27,13 @@ function ListadoEtapas() {
           {!mostrarRechazos && (
             <div className="w-full flex flex-wrap justify-center gap-8 mt-8">
               {etapas?.map((etapa) => {
-                if (
-                  etapa.ProgresoEstado != 2 &&
-                  etapa?.Correlativo != 1 &&
-                  etapa.AsignacionEstado != 2
-                ) {
+                if (etapa.AsignacionEstado != 2) {
                   let ruta = "";
-                  if (etapa?.ProgresoEstado == 1)
+                  if (etapa?.AsignacionEstado == 1)
                     ruta = `${etapa.EtapaId}/Historial`;
-                  if (etapa?.ProgresoEstado == 3 && producto?.Estado != 2)
+                  if (etapa?.AsignacionEstado == 3 && producto?.Estado != 2)
                     ruta = `${etapa.EtapaId}/Actualizar`;
-                  if (etapa?.ProgresoEstado == null && producto?.Estado != 2)
+                  if (etapa?.AsignacionEstado == null && producto?.Estado != 2)
                     ruta = `${etapa.EtapaId}/Iniciar`;
                   return (
                     <EtapaDescripcion
@@ -44,13 +41,16 @@ function ListadoEtapas() {
                       etapa={etapa}
                       link={ruta}
                       classCSS={`${
-                        etapa.ProgresoEstado == 1 &&
-                        etapa.Correlativo != 1 &&
+                        etapa?.AsignacionEstado == 1 &&
+                        etapa?.Correlativo != 1 &&
                         "bg-[#affdce]"
                       } 
-                                ${etapa.ProgresoEstado == 3 && "bg-[#879efc]"}
                                 ${
-                                  etapa.ProgresoEstado == null && "bg-[#ffa470]"
+                                  etapa?.AsignacionEstado == 3 && "bg-[#879efc]"
+                                }
+                                ${
+                                  etapa?.AsignacionEstado == null &&
+                                  "bg-[#ffa470]"
                                 }`}
                     />
                   );
@@ -59,20 +59,41 @@ function ListadoEtapas() {
             </div>
           )}
           {mostrarRechazos && (
-            <div className="w-full flex flex-wrap items-center justify-center gap-8 mt-8">
+            <>
+              <h2 className="text-center font-black md:text-2xl mt-8 md:mt-10 mb-4 sm:mb-6 text-white uppercase drop-shadow-[1px_2px_0px_black]">
+                Etapas rechazas en Desarrollo Actual
+              </h2>
               {etapas?.map((etapa) => {
-                if (etapa.ProgresoEstado == 2) {
+                if (etapa?.AsignacionEstado == 2) {
                   return (
                     <EtapaDescripcion
                       key={etapa.EtapaId}
                       etapa={etapa}
                       classCSS="bg-red-400"
-                      link={`${etapa.EtapaId}/Historial`}
+                      link={`${etapa?.EtapaId}/Historial`}
                     />
                   );
                 }
               })}
-            </div>
+
+              <h2 className="text-center font-black md:text-2xl mt-8 md:mt-10 text-white uppercase drop-shadow-[1px_2px_0px_black]">
+                Rechazos Anteriores
+              </h2>
+              <div className="w-full flex flex-wrap items-center justify-center gap-8 mt-4">
+                {etapasAnteriores?.map((etapa) => {
+                  if (etapa.ProgresoEstado == 2) {
+                    return (
+                      <EtapaDescripcion
+                        key={etapa.EtapaId}
+                        etapa={etapa}
+                        classCSS="bg-red-400"
+                        link={`${etapa?.EtapaId}/Historial`}
+                      />
+                    );
+                  }
+                })}
+              </div>
+            </>
           )}
         </div>
       </div>

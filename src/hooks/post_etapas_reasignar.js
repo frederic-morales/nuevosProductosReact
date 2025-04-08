@@ -1,14 +1,18 @@
 import axios from 'axios'
 
-const post_etapas_reasignar = async ({ DesarrolloProductoId, Etapas }) => {
+const post_etapas_reasignar = async ({
+  DesarrolloProductoId,
+  Etapas,
+  EtapasEnProcesoActual,
+  Correlativo
+}) => {
   try {
-    console.log('DesarrolloProductoId', DesarrolloProductoId)
-    console.log('Etapas', Etapas)
-
     const API = import.meta.env.VITE_API_URL
-    const response = await axios.post(`${API}/etapa/actualizarEstadoEtapas`, {
+    const response = await axios.post(`${API}/etapa/reasignarEtapas`, {
       DesarrolloProductoId: DesarrolloProductoId,
-      Etapas: Etapas
+      Etapas: Etapas,
+      Correlativo: Correlativo,
+      EtapasEnProcesoActual: EtapasEnProcesoActual
     })
     console.log(await response.data)
     return await response.data

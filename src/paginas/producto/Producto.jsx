@@ -10,7 +10,6 @@ function Producto() {
   const params = useParams();
   const productoId = params.productoId;
   const showBotonActualizar = useMatch("/Producto/:productoId/Etapas");
-
   const { etapas, loading, error } = fetchProducto({ productoId });
   const { info, errorInfo, loadingInfo } = fetch_Producto_Info({ productoId });
   const { user } = useAuth();
@@ -26,6 +25,7 @@ function Producto() {
   const outletValues = {
     etapas: etapas?.productoEtapas,
     producto: info?.productoInfo[0],
+    etapasAnteriores: etapas?.etapasAnteriores,
   };
 
   if (loading || loadingInfo) {
@@ -36,8 +36,8 @@ function Producto() {
     return <div>Error: {error}</div>;
   }
 
-  console.log(info);
-  console.log(etapas);
+  // console.log(info);
+  // console.log(etapas);
 
   return (
     <div className="flex flex-col items-center mt-12 mb-8">
