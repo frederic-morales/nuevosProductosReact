@@ -9,7 +9,8 @@ import { useAuth } from "../../auth/AuthContext";
 
 function Iniciar() {
   const { user } = useAuth();
-  const etapa = useOutletContext();
+  const infoEtapa = useOutletContext();
+  const etapa = infoEtapa?.infoEtapa;
 
   const [showConfirmacion, setShowConfirmacion] = useState();
   const [datosConfirmados, setDatosConfirmados] = useState(); // Estado que guarda la eleccion del usuario "si" o "no" - Servira para enviar los datos a la DB
@@ -34,6 +35,8 @@ function Iniciar() {
 
     console.log(response);
   };
+
+  console.log(etapa);
 
   return (
     <div className="flex flex-col justify-center items-center">

@@ -3,13 +3,14 @@ import { useParams } from "react-router";
 import fetch_etapa_progreso from "../../hooks/fetch_etapa_progreso";
 import fetch_etapa_historial from "../../hooks/fetch_etapa_historial";
 import AccessDenied from "../../componentes/AccessDenied";
+import fetch_etapa_progreso_actual from "../../hooks/fetch_etapa_progreso_actual";
 // import { useEffect, useState } from "react";
 
 function Etapa() {
   const params = useParams();
   const desarrolloProductoId = params.productoId;
   const etapaId = params.etapaId;
-  // const etapaAsignadaId = params.etapaAsignadaId
+  const etapaAsignadaId = params.etapaAsignadaId;
 
   const { etapaHistorial, loadingHistorial, errorHistorial } =
     fetch_etapa_historial({ desarrolloProductoId, etapaId });
@@ -17,18 +18,26 @@ function Etapa() {
   const { etapaProgreso, errorProgreso, loadingProgreso } =
     fetch_etapa_progreso({ desarrolloProductoId, etapaId });
 
-  if (
-    loadingProgreso ||
-    loadingHistorial ||
-    !etapaHistorial ||
-    !etapaProgreso
-  ) {
+  const { etapaProgresoActual, errorProgresoActual, loadingProgresoActual } =
+    fetch_etapa_progreso_actual({
+      desarrolloProductoId,
+      etapaId,
+      etapaAsignadaId,
+    });
+
+  if (loadingProgreso || loadingHistorial || loadingProgresoActual) {
     <div>Cargando...</div>;
   }
 
-  if (errorProgreso || errorHistorial || !etapaHistorial || !etapaProgreso) {
+  if (errorProgreso || errorHistorial || errorProgresoActual) {
     <div>Error...</div>;
   }
+
+  console.log(etapaProgreso);
+  console.log(etapaProgresoActual);
+
+  const etapa = etapaProgresoActual ? etapaProgresoActual : etapaProgreso;
+  console.log(etapa);
 
   if (!etapaProgreso?.infoEtapa.PermitirInicio) {
     return (
@@ -40,7 +49,6 @@ function Etapa() {
       </>
     );
   }
-  console.log(etapaProgreso?.infoEtapa);
 
   return (
     <div className="flex flex-col items-center mt-12 mb-16">
@@ -75,7 +83,7 @@ function Etapa() {
             )}
         </div>
       </div>
-      <Outlet context={etapaProgreso?.infoEtapa} />
+      <Outlet context={etapa} />
     </div>
   );
 }
