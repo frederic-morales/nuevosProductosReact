@@ -30,11 +30,11 @@ function ListadoEtapas() {
                 if (etapa.AsignacionEstado != 2) {
                   let ruta = "";
                   if (etapa?.AsignacionEstado == 1)
-                    ruta = `${etapa.EtapaId}/Historial`;
+                    ruta = `${etapa.EtapaId}/${etapa?.EtapasAsignadasId}/Historial`;
                   if (etapa?.AsignacionEstado == 3 && producto?.Estado != 2)
-                    ruta = `${etapa.EtapaId}/Actualizar`;
+                    ruta = `${etapa.EtapaId}/${etapa?.EtapasAsignadasId}/Actualizar`;
                   if (etapa?.AsignacionEstado == null && producto?.Estado != 2)
-                    ruta = `${etapa.EtapaId}/Iniciar`;
+                    ruta = `${etapa.EtapaId}/${etapa?.EtapasAsignadasId}/Iniciar`;
                   return (
                     <EtapaDescripcion
                       key={etapa.EtapaId}

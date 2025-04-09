@@ -47,12 +47,11 @@ function Producto() {
         </p>
         <p className="font-bold text-lg sm:text-xl lg:text-2xl drop-shadow-[2px_1px_1px_black]">
           Desarrollo Iniciado el
-          {`${fechaInicio}`}
+          {` ${fechaInicio}`}
           <br />
           Tiempo total estimado 24 meses
           <br />
-          Total de rechazos:
-          {info?.productoInfo[0]?.Rechazos || " 0"}
+          Total de rechazos: {info?.productoInfo[0]?.Rechazos || " 0"}
         </p>
         {showBotonActualizar && user.role == "admin" && (
           <>

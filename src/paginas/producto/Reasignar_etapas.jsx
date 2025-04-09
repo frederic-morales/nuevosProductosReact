@@ -17,7 +17,7 @@ function Actualizar_Producto() {
   const [datosConfirmados, setDatosConfirmados] = useState(); // Confirmación del envío del formulario
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(); // Mostrar confirmación
   const [etapasAReasignar, setEtapasAReasignar] = useState([]); // Etapas a actualizar
-  // const [etapasEnProcesoEnviar, setEtapasEnProcesoEnviar] = useState([]); // Etapas en proceso a enviar
+  const [etapasEnProcesoEnviar, setEtapasEnProcesoEnviar] = useState([]); // Etapas en proceso a enviar
 
   // TRAE LAS ETAPAS EN PROCESO
   const { etapasEnProcesoActual } = fetch_etapas_iniciadas_proceso_actual({
@@ -27,6 +27,20 @@ function Actualizar_Producto() {
   // se modifica etapasAsignadas cada vez que el usuario de check o uncheck en cada etapa
   const handleToggleEtapa = (etapa, isChecked) => {
     setEtapasAReasignar(
+      (prevEtapas) =>
+        isChecked
+          ? [...prevEtapas, etapa] // Agregar si se marca
+          : prevEtapas.filter((e) => e.EtapaId !== etapa.EtapaId) // Eliminar si se desmarca
+    );
+
+    console.log(etapa);
+    console.log(
+      etapasEnProcesoActual?.etapasEnProcesoActual.filter(
+        (e) => e.EtapaId == etapa.EtapaId
+      )
+    );
+
+    setEtapasEnProcesoEnviar(
       (prevEtapas) =>
         isChecked
           ? [...prevEtapas, etapa] // Agregar si se marca
@@ -44,7 +58,7 @@ function Actualizar_Producto() {
     console.log(response);
   };
 
-  console.log(etapasEnProcesoActual?.etapasEnProcesoActual);
+  console.log(etapasEnProcesoEnviar);
   console.log(etapasAReasignar);
 
   return (

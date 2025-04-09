@@ -69,7 +69,7 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "Etapas/:etapaId",
+            path: "Etapas/:etapaId/:etapaAsignadaId",
             element: <Etapa />,
             children: [
               {

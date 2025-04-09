@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
-const fetch_etapa_progreso = ({ desarrolloProductoId, etapaId }) => {
+const fetch_etapa_progreso = ({
+  desarrolloProductoId,
+  etapaId
+  // etapaAsignadaId
+}) => {
   const [etapaProgreso, setEtapaProgreso] = useState()
   const [errorProgreso, setErrorProgreso] = useState(null)
   const [loadingProgreso, setLoadingProgreso] = useState(null)
-
   const api = import.meta.env.VITE_API_URL
 
   useEffect(() => {

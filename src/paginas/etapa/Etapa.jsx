@@ -9,6 +9,7 @@ function Etapa() {
   const params = useParams();
   const desarrolloProductoId = params.productoId;
   const etapaId = params.etapaId;
+  // const etapaAsignadaId = params.etapaAsignadaId
 
   const { etapaHistorial, loadingHistorial, errorHistorial } =
     fetch_etapa_historial({ desarrolloProductoId, etapaId });
@@ -29,8 +30,6 @@ function Etapa() {
     <div>Error...</div>;
   }
 
-  console.log(etapaProgreso?.infoEtapa);
-
   if (!etapaProgreso?.infoEtapa.PermitirInicio) {
     return (
       <>
@@ -41,6 +40,7 @@ function Etapa() {
       </>
     );
   }
+  console.log(etapaProgreso?.infoEtapa);
 
   return (
     <div className="flex flex-col items-center mt-12 mb-16">

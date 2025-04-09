@@ -61,6 +61,7 @@ function Actualizar() {
     console.log(response);
   };
 
+  console.log(enviarEstado);
   console.log(etapa);
   return (
     <div className={`grid grid-cols-4 gap-4 mt-4 sm:mt-8`}>
