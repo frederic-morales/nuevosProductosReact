@@ -56,7 +56,6 @@ function Actualizar() {
     if (descripcion) {
       formData.append("Descripcion", descripcion);
     }
-
     const response = await post_etapa_actualizar({ formData });
     console.log(response);
   };
@@ -139,7 +138,7 @@ function Actualizar() {
               setMsjConfirmacion("Se ha actualizado la etapa correctamente!!");
               setMsjCancelacion("Se ha cancelado la actualizacion!!");
               setRutaRedireccion("/Producto/All");
-              setEnviarEstado(3); // ACTUALIZAR - NO CAMBIA EL ESTADO DEL PROGRESO DE LA ETAPA
+              setEnviarEstado(3); // ACTUALIZAR - EL ESTADO DE LA ETAPA SIGUE SIENDO 3 = INICIADA
               setEstadoDescripcion("Iniciado");
             }}
           >

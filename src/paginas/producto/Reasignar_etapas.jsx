@@ -7,7 +7,7 @@ import CheckEtapa from "../../componentes/CheckEtapa";
 //Hooks
 import { useOutletData } from "./OutletProductoContexts";
 import post_etapas_reasignar from "../../hooks/post_etapas_reasignar";
-import fetch_etapas_iniciadas_proceso_actual from "../../hooks/fetch_etapas_Iniciadas_Proceso_Actual";
+// import fetch_etapas_iniciadas_proceso_actual from "../../hooks/fetch_etapas_Iniciadas_Proceso_Actual";
 
 function Actualizar_Producto() {
   const params = useParams();
@@ -17,30 +17,11 @@ function Actualizar_Producto() {
   const [datosConfirmados, setDatosConfirmados] = useState(); // Confirmación del envío del formulario
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(); // Mostrar confirmación
   const [etapasAReasignar, setEtapasAReasignar] = useState([]); // Etapas a actualizar
-  const [etapasEnProcesoEnviar, setEtapasEnProcesoEnviar] = useState([]); // Etapas en proceso a enviar
 
-  // TRAE LAS ETAPAS EN PROCESO
-  const { etapasEnProcesoActual } = fetch_etapas_iniciadas_proceso_actual({
-    DesarrolloProductoId: productoId,
-  });
+  console.log(etapas);
 
-  // se modifica etapasAsignadas cada vez que el usuario de check o uncheck en cada etapa
   const handleToggleEtapa = (etapa, isChecked) => {
     setEtapasAReasignar(
-      (prevEtapas) =>
-        isChecked
-          ? [...prevEtapas, etapa] // Agregar si se marca
-          : prevEtapas.filter((e) => e.EtapaId !== etapa.EtapaId) // Eliminar si se desmarca
-    );
-
-    console.log(etapa);
-    console.log(
-      etapasEnProcesoActual?.etapasEnProcesoActual.filter(
-        (e) => e.EtapaId == etapa.EtapaId
-      )
-    );
-
-    setEtapasEnProcesoEnviar(
       (prevEtapas) =>
         isChecked
           ? [...prevEtapas, etapa] // Agregar si se marca
@@ -52,13 +33,11 @@ function Actualizar_Producto() {
     const response = await post_etapas_reasignar({
       DesarrolloProductoId: productoId,
       Etapas: etapasAReasignar,
-      EtapasEnProcesoActual: etapasEnProcesoActual?.etapasEnProcesoActual,
-      Correlativo: 1,
+      Correlativo: producto?.Rechazos,
     });
     console.log(response);
   };
 
-  console.log(etapasEnProcesoEnviar);
   console.log(etapasAReasignar);
 
   return (

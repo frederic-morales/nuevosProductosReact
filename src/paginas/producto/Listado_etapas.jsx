@@ -27,7 +27,7 @@ function ListadoEtapas() {
           {!mostrarRechazos && (
             <div className="w-full flex flex-wrap justify-center gap-8 mt-8">
               {etapas?.map((etapa) => {
-                if (etapa.AsignacionEstado != 2) {
+                if (etapa?.AsignacionEstado != 2) {
                   let ruta = "";
                   if (etapa?.AsignacionEstado == 1)
                     ruta = `${etapa.EtapaId}/${etapa?.EtapasAsignadasId}/Historial`;

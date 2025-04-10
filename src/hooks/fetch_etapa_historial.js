@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
-const fetch_etapa_historial = ({ desarrolloProductoId, etapaId }) => {
+const fetch_etapa_historial = ({
+  desarrolloProductoId,
+  etapaId,
+  progresoEtapaId
+}) => {
   const [etapaHistorial, setEtapaHistorial] = useState([]) // Campos traídos desde la DB
   const [loadingHistorial, setloadingHistorial] = useState(true) // Estado de carga
   const [errorHistorial, setErrorHistorial] = useState(null) // Manejo de errores
@@ -12,7 +16,7 @@ const fetch_etapa_historial = ({ desarrolloProductoId, etapaId }) => {
     const fetchData = async () => {
       try {
         const historialResponse = await axios.get(
-          `${api}/etapas/${desarrolloProductoId}/historial/${etapaId}`
+          `${api}/etapas/${desarrolloProductoId}/historial/${etapaId}/progreso/${progresoEtapaId}`
         )
         setEtapaHistorial(await historialResponse.data)
       } catch (err) {
