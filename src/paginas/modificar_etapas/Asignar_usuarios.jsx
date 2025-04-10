@@ -44,7 +44,6 @@ function Asignar_usuarios() {
 
   // Filtrar usuarios según la búsqueda
   const usuariosFiltrados = usuarios.filter((usuario) => {
-    // console.log(seleccionados);
     return usuario.Nombres.toLocaleLowerCase().includes(
       busqueda.toLocaleLowerCase()
     );
@@ -69,6 +68,8 @@ function Asignar_usuarios() {
       setDatosConfirmados(false);
     }
   };
+
+  console.log(seleccionados);
 
   return (
     <div className="flex flex-col flex-wrap sm:flex-row items-center sm:items-start justify-center mt-8 md:mt-16 text-white gap-8 md:gap-14">
@@ -132,20 +133,22 @@ function Asignar_usuarios() {
         </ul>
       </div>
       {/* Actualizar etapa */}
-      <div className="w-full pt-2 md:pt-4 flex justify-center">
-        <div className="w-full max-w-xs">
-          <button
-            typeof="submit"
-            className="w-full bg-blue-500 hover:bg-blue-700 text-white py-3 px-8 rounded-xl focus:outline-none focus:shadow-outline"
-            type="button"
-            onClick={() => {
-              setMostrarConfirmacion(true);
-            }}
-          >
-            Guardar
-          </button>
+      {seleccionados?.length > 0 && (
+        <div className="w-full pt-2 md:pt-4 flex justify-center">
+          <div className="w-full max-w-xs">
+            <button
+              typeof="submit"
+              className="w-full bg-blue-500 hover:bg-blue-700 text-white py-3 px-8 rounded-xl focus:outline-none focus:shadow-outline"
+              type="button"
+              onClick={() => {
+                setMostrarConfirmacion(true);
+              }}
+            >
+              Guardar
+            </button>
+          </div>
         </div>
-      </div>
+      )}
       {mostrarConfirmacion && (
         <Confirmacion
           mensaje="¿Está seguro de realizar esta acción?"

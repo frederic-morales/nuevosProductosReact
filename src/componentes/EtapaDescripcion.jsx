@@ -1,20 +1,16 @@
 import { NavLink } from "react-router";
 
 function EtapaDescripcion({ etapa, classCSS, link }) {
-  // console.log(etapa);
-
   const setFecha = (fechaInicio) => {
     const fecha = new Date(fechaInicio);
     const opciones = { day: "numeric", month: "long", year: "numeric" };
     const fechaFormated = new Intl.DateTimeFormat("es-ES", opciones).format(
       fecha
     );
-
     return fechaFormated;
   };
 
-  // console.log(etapa);
-
+  console.log(etapa);
   return (
     <NavLink to={link}>
       <div
@@ -49,13 +45,13 @@ function EtapaDescripcion({ etapa, classCSS, link }) {
             </>
           )}
           <li className="font-black mt-6 text-[14px] h-full flex items-end">
-            {etapa?.ProgresoEstado === 1 && "Etapa Aprobada"}
-            {etapa?.ProgresoEstado === 2 && "Etapa Rechazada"}
-            {etapa?.ProgresoEstado === 3 && "Etapa en Proceso"}
-            {etapa?.ProgresoEstado === null &&
+            {etapa?.AsignacionEstado === 1 && "Etapa Aprobada"}
+            {etapa?.AsignacionEstado === 2 && "Etapa Rechazada"}
+            {etapa?.AsignacionEstado === 3 && "Etapa en Proceso"}
+            {etapa?.AsignacionEstado === null &&
               etapa?.PermitirInicio &&
               "Etapa siguiente"}
-            {etapa?.ProgresoEstado === null &&
+            {etapa?.AsignacionEstado === null &&
               !etapa?.PermitirInicio &&
               "Etapa bloqueda"}
           </li>

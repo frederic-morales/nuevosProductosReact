@@ -61,7 +61,7 @@ function ListadoEtapas() {
           {mostrarRechazos && (
             <>
               <h2 className="text-center font-black md:text-2xl mt-8 md:mt-10 mb-4 sm:mb-6 text-white uppercase drop-shadow-[1px_2px_0px_black]">
-                Etapas rechazas en Desarrollo Actual
+                Etapas rechazadas
               </h2>
               {etapas?.map((etapa) => {
                 if (etapa?.AsignacionEstado == 2) {
@@ -76,7 +76,7 @@ function ListadoEtapas() {
                 }
               })}
 
-              <h2 className="text-center font-black md:text-2xl mt-8 md:mt-10 text-white uppercase drop-shadow-[1px_2px_0px_black]">
+              {/* <h2 className="text-center font-black md:text-2xl mt-8 md:mt-10 text-white uppercase drop-shadow-[1px_2px_0px_black]">
                 Rechazos Anteriores
               </h2>
               <div className="w-full flex flex-wrap items-center justify-center gap-8 mt-4">
@@ -92,7 +92,7 @@ function ListadoEtapas() {
                     );
                   }
                 })}
-              </div>
+              </div> */}
             </>
           )}
         </div>
