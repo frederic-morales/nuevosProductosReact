@@ -121,10 +121,10 @@ function Desarrollos() {
           estado={3}
         ></Button>
       </div>
-      <div className="w-full flex-col gap-8 md:gap-20 md:flex-row flex items-center md:justify-center justify-between mt-8 md:mt-12">
+      <div className="w-full flex-col flex-wrap gap-8 md:gap-20 md:flex-row flex items-center md:justify-center justify-between mt-8 md:mt-12">
         {/* Filtrar por nombre del producto */}
         <div className="w-full max-w-xs flex flex-col items-center justify-start">
-          <label className="text-white uppercase font-bold text-lg md:text-xl mb-2 drop-shadow-[1px_1px_0px_black]">
+          <label className="text-white uppercase font-black text-lg md:text-xl mb-2 drop-shadow-[1px_1px_0px_black]">
             Filtrar por producto:
           </label>
           <input
@@ -137,7 +137,7 @@ function Desarrollos() {
         </div>
         {/* Filtrar por responsable*/}
         <div className="w-full max-w-xs flex flex-col items-center justify-start flex-wrap">
-          <label className="text-white uppercase font-bold text-lg md:text-xl mb-2 drop-shadow-[1px_1px_0px_black]">
+          <label className="text-white uppercase font-black text-lg md:text-xl mb-2 drop-shadow-[1px_1px_0px_black]">
             Filtrar por responsable:
           </label>
           <input
@@ -150,6 +150,9 @@ function Desarrollos() {
         </div>
         {/* Filtrar por fecha */}
         <div className="w-full max-w-xs flex flex-col items-center justify-start">
+          <p className="text-white uppercase font-black text-lg md:text-xl mb-2 drop-shadow-[1px_1px_0px_black]">
+            Filtrar por fecha
+          </p>
           <label className="w-full bg-white text-center font-semibold mb-2 rounded-2xl drop-shadow-[1px_1px_0px_black]">
             De:
             <input

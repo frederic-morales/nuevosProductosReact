@@ -50,7 +50,11 @@ const router = createBrowserRouter([
         children: [
           {
             path: "Etapas",
-            element: <ListadoEtapas />,
+            element: (
+              <ProtectedRouteAdmins>
+                <ListadoEtapas />,
+              </ProtectedRouteAdmins>
+            ),
           },
           {
             path: "Actualizar",

@@ -4,6 +4,7 @@ import Confirmacion from "../../componentes/Confirmacion";
 import { useState } from "react";
 import { Link } from "react-router";
 import post_iniciar_etapa from "../../hooks/post_etapa_iniciar";
+import AccessDenied from "../../componentes/AccessDenied";
 //use auth
 import { useAuth } from "../../auth/AuthContext";
 
@@ -19,6 +20,14 @@ function Iniciar() {
     setDatosConfirmados(valor);
     setShowConfirmacion(false);
   };
+
+  //VERIFICAR SI EL USUARIO LOGEADO PUEDO INICIAR LA ETAPA
+  const permitirInicioUsuario = etapa?.usuariosAsignados.some(
+    (usuario) => usuario.Usuario.toLowerCase() === user.usuario.toLowerCase()
+  );
+
+  console.log(user.usuario.toLowerCase());
+  console.log(permitirInicioUsuario);
 
   const iniciarEtapa = async () => {
     const response = await post_iniciar_etapa({
@@ -36,7 +45,17 @@ function Iniciar() {
     console.log(response);
   };
 
-  console.log(etapa);
+  if (!permitirInicioUsuario) {
+    // return <>No tiene permitido iniciar esta etapa...</>;
+    return (
+      <AccessDenied
+        title={user.usuario}
+        message={"¡¡Usuario sin permiso de Iniciar esta etapa!!"}
+      ></AccessDenied>
+    );
+  }
+
+  console.log(etapa?.usuariosAsignados);
 
   return (
     <div className="flex flex-col justify-center items-center">

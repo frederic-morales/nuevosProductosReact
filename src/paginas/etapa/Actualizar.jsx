@@ -3,10 +3,13 @@ import Confirmacion from "../../componentes/Confirmacion";
 import Alert from "../../componentes/Alert";
 import { useOutletContext } from "react-router-dom";
 import post_etapa_actualizar from "../../hooks/post_etapa_actualizar";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function Actualizar() {
   //Traemos la informacion de la etapa pasada desde el elemento padre
   const etapa = useOutletContext();
+  const navigate = useNavigate();
   const [showConfirmacion, setShowConfirmacion] = useState(); //Estado que maneja si se debe de mostrar el mensaje de confirmacion
   const [showAlert, setShowAlert] = useState(); // Estado que maneja si se debe de mostrar la alerta o no, se setea al valor "false" despues de cada renderizacion
   const [msjConfirmacion, setMsjConfirmacion] = useState(); // Mensaje de confirmacion, cambia su estado dependiendo si es "Actualizar", "Aprobar" o "Rechazar"
@@ -19,6 +22,17 @@ function Actualizar() {
   const [file, setFile] = useState(null); // Estado que guarda el archivo subido
   const [enviarEstado, setEnviarEstado] = useState(null); // "Estados:" 1 = aprobado, 2 = rechazado, 3 = actualizacion"
   const [descripcion, setDescripcion] = useState(null);
+
+  useEffect(() => {
+    if (
+      etapa?.infoEtapa?.AsignacionEstado === null ||
+      etapa?.AsignacionEstado === 1 ||
+      etapa?.AsignacionEstado === 2
+    ) {
+      console.log("Regresando");
+      navigate(-1);
+    }
+  }, [etapa?.infoEtapa?.AsignacionEstado, navigate]);
 
   // console.log(etapaInfo);
   const handleFileChange = (e) => {
@@ -62,6 +76,8 @@ function Actualizar() {
 
   console.log(enviarEstado);
   console.log(etapa);
+  console.log(etapa?.infoEtapa);
+
   return (
     <div className={`grid grid-cols-4 gap-4 mt-4 sm:mt-8`}>
       {/* Descripcion de la etapa */}

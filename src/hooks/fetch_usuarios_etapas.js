@@ -1,31 +1,31 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
-const fetch_usuarios_etapas = ({ Usuario }) => {
-  const [usuarioEtapas, setUsuariosEtapas] = useState([]) // Etapas a mostrar
-  const [loadingUsuarioEtapas, setLoadingUsuarioEtapas] = useState(true) // Estado de carga
-  const [errorUsuarioEtapas, setErrorUsuarioEtapas] = useState(null) // Manejo de errores
+const fetch_usuarios_etapas = ({ Usuario, SerieProductos }) => {
+  const [usuarioProductos, setUsuariosProductos] = useState([]) // Etapas a mostrar
+  const [loadingUsuarioProductos, setLoadingUsuarioProductos] = useState(true) // Estado de carga
+  const [errorUsuarioProductos, setErrorUsuarioProductos] = useState(null) // Manejo de errores
   const api = import.meta.env.VITE_API_URL
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const resEtapas = await axios.get(
-          `${api}/usuarios/etapasAsignadas/${Usuario}`
+          `${api}/usuarios/etapasAsignadas/${Usuario}/${SerieProductos}`
         )
-        setUsuariosEtapas(await resEtapas?.data)
+        setUsuariosProductos(await resEtapas?.data)
       } catch (err) {
-        setErrorUsuarioEtapas(
+        setErrorUsuarioProductos(
           err instanceof Error ? err.message : 'Ocurrió un error'
         )
       } finally {
-        setLoadingUsuarioEtapas(false)
+        setLoadingUsuarioProductos(false)
       }
     }
     fetchData()
   }, [])
 
-  return { usuarioEtapas, loadingUsuarioEtapas, errorUsuarioEtapas }
+  return { usuarioProductos, loadingUsuarioProductos, errorUsuarioProductos }
 }
 
 export default fetch_usuarios_etapas

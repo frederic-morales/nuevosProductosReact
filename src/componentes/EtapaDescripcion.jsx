@@ -10,7 +10,7 @@ function EtapaDescripcion({ etapa, classCSS, link }) {
     return fechaFormated;
   };
 
-  console.log(etapa);
+  // console.log(etapa);
   return (
     <NavLink to={link}>
       <div

@@ -75,24 +75,6 @@ function ListadoEtapas() {
                   );
                 }
               })}
-
-              {/* <h2 className="text-center font-black md:text-2xl mt-8 md:mt-10 text-white uppercase drop-shadow-[1px_2px_0px_black]">
-                Rechazos Anteriores
-              </h2>
-              <div className="w-full flex flex-wrap items-center justify-center gap-8 mt-4">
-                {etapasAnteriores?.map((etapa) => {
-                  if (etapa.ProgresoEstado == 2) {
-                    return (
-                      <EtapaDescripcion
-                        key={etapa.EtapaId}
-                        etapa={etapa}
-                        classCSS="bg-red-400"
-                        link={`${etapa?.EtapaId}/Historial`}
-                      />
-                    );
-                  }
-                })}
-              </div> */}
             </>
           )}
         </div>
