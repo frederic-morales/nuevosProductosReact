@@ -5,11 +5,15 @@ import { useOutletContext } from "react-router-dom";
 import post_etapa_actualizar from "../../hooks/post_etapa_actualizar";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { useAuth } from "../../auth/AuthContext";
+// import AccessDenied from "../../componentes/AccessDenied";
 
 function Actualizar() {
   //Traemos la informacion de la etapa pasada desde el elemento padre
   const etapa = useOutletContext();
   const navigate = useNavigate();
+  // const { user } = useAuth();
+
   const [showConfirmacion, setShowConfirmacion] = useState(); //Estado que maneja si se debe de mostrar el mensaje de confirmacion
   const [showAlert, setShowAlert] = useState(); // Estado que maneja si se debe de mostrar la alerta o no, se setea al valor "false" despues de cada renderizacion
   const [msjConfirmacion, setMsjConfirmacion] = useState(); // Mensaje de confirmacion, cambia su estado dependiendo si es "Actualizar", "Aprobar" o "Rechazar"
@@ -76,7 +80,7 @@ function Actualizar() {
 
   console.log(enviarEstado);
   console.log(etapa);
-  console.log(etapa?.infoEtapa);
+  // console.log(user);
 
   return (
     <div className={`grid grid-cols-4 gap-4 mt-4 sm:mt-8`}>
@@ -123,7 +127,7 @@ function Actualizar() {
           </svg>
           <div className="text-center">
             <p className="italic text-[10px] sm:text-xs">Archivos: 0</p>
-            {file && <p className="overflow md:text-sm">{file.name}</p>}
+            {file && <p className="overflow md:text-sm">{file?.name}</p>}
           </div>
           <p className="text-center italic text-[10px] sm:text-xs">
             Ultimo archivo <br />

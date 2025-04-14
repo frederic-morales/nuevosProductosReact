@@ -80,7 +80,7 @@ function NuevoProducto() {
     console.log(resAsignarEtapas.data);
   };
 
-  // Verificar si todos los campos están completos
+  // VERIFICAR SI TODOS LOS CAMPOS ESTAN COMPLETOS
   const validateField = () => {
     const camposCompletos = Object.values(camposNuevos).every(
       (val) => val.trim() != ""

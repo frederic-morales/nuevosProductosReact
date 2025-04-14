@@ -3,12 +3,15 @@ import { useParams } from "react-router";
 import fetch_etapa_progreso from "../../hooks/fetch_etapa_progreso";
 import AccessDenied from "../../componentes/AccessDenied";
 import fetch_etapa_progreso_actual from "../../hooks/fetch_etapa_progreso_actual";
+import { useAuth } from "../../auth/AuthContext";
 
 function Etapa() {
   const params = useParams();
   const desarrolloProductoId = params.productoId;
   const etapaId = params.etapaId;
   const etapaAsignadaId = params.etapaAsignadaId;
+
+  const { user } = useAuth();
 
   const { etapaProgreso, errorProgreso, loadingProgreso } =
     fetch_etapa_progreso({ desarrolloProductoId, etapaId });
@@ -28,9 +31,15 @@ function Etapa() {
     <div>Error...</div>;
   }
 
+  const permitirInicioUsuario =
+    etapaProgreso?.infoEtapa?.usuariosAsignados?.some(
+      (usuario) =>
+        usuario?.Usuario?.toLowerCase() === user?.usuario?.toLowerCase()
+    );
+
+  console.log(permitirInicioUsuario);
   console.log(etapaProgreso);
   console.log(etapaProgresoActual);
-
   const etapa = etapaProgresoActual ? etapaProgresoActual : etapaProgreso;
   console.log(etapa);
 
@@ -40,6 +49,17 @@ function Etapa() {
         <AccessDenied
           title={etapaProgreso?.infoEtapa.NombreEtapa}
           message="Etapa Bloqueda!! No es posible Iniciar esta etapa"
+        ></AccessDenied>
+      </>
+    );
+  }
+
+  if (!permitirInicioUsuario) {
+    return (
+      <>
+        <AccessDenied
+          title={etapaProgreso?.infoEtapa?.NombreEtapa}
+          message="Usuario sin acceso a esta etapa"
         ></AccessDenied>
       </>
     );

@@ -70,7 +70,7 @@ function ListadoEtapas() {
                       key={etapa.EtapaId}
                       etapa={etapa}
                       classCSS="bg-red-400"
-                      link={`${etapa?.EtapaId}/Historial`}
+                      link={`${etapa.EtapaId}/${etapa?.EtapasAsignadasId}/Historial`}
                     />
                   );
                 }

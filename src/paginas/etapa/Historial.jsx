@@ -8,7 +8,6 @@ import { useEffect } from "react";
 import descargarArchivo from "../../hooks/fetch_download_file";
 import post_delete_historial_etapa from "../../hooks/post_delete_historial_etapa";
 import { useOutletContext } from "react-router-dom";
-// import { useNavigate } from "react-router";
 
 function Historial() {
   const params = useParams();
@@ -20,7 +19,7 @@ function Historial() {
 
   const [showConfirmacion, setShowConfirmacion] = useState();
   const [datosConfirmados, setDatosConfirmados] = useState(); // Estado que guarda la eleccion del usuario "si" o "no" - Servira para enviar los datos a la DB
-  const [historial, setHistorial] = useState([]);
+  // const [historial, setHistorial] = useState([]);
   const [ProEtapaHistorialId, setProEtapaHistorialId] = useState(null);
 
   const { etapaHistorial } = fetch_etapa_historial({
@@ -29,11 +28,8 @@ function Historial() {
     progresoEtapaId,
   });
 
-  useEffect(() => {
-    if (etapaHistorial) {
-      setHistorial(etapaHistorial?.response);
-    }
-  });
+  const historial = etapaHistorial?.response;
+  console.log(etapaHistorial);
 
   const handleConfirmacion = (valor) => {
     setDatosConfirmados(valor);
@@ -61,7 +57,7 @@ function Historial() {
     console.log("Eliminando historial de la etapa...");
   };
 
-  // console.log(etapa);
+  console.log(historial);
 
   return (
     <>
