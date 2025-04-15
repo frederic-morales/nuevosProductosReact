@@ -43,7 +43,7 @@ function Etapa() {
   const etapa = etapaProgresoActual ? etapaProgresoActual : etapaProgreso;
   console.log(etapa);
 
-  if (!etapaProgreso?.infoEtapa.PermitirInicio) {
+  if (!etapaProgreso?.infoEtapa?.PermitirInicio) {
     return (
       <>
         <AccessDenied

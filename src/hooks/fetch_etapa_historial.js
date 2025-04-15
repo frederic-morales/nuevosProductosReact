@@ -9,7 +9,6 @@ const fetch_etapa_historial = ({
   const [etapaHistorial, setEtapaHistorial] = useState([]) // Campos traídos desde la DB
   const [loadingHistorial, setloadingHistorial] = useState(true) // Estado de carga
   const [errorHistorial, setErrorHistorial] = useState(null) // Manejo de errores
-
   const api = import.meta.env.VITE_API_URL
 
   useEffect(() => {

@@ -49,6 +49,7 @@ export function AuthProvider({ children }) {
         password: Password,
         role: role,
       };
+
       setUser(currentUser);
       setGrupoUsuario(grupoUsuario);
       setSerieProductos(Serie);

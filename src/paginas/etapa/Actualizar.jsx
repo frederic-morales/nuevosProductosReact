@@ -71,6 +71,9 @@ function Actualizar() {
     formData.append("Rechazos", rechazosProducto);
     formData.append("Correlativo", etapa?.Correlativo);
     formData.append("EtapasAsignadasId", etapa?.EtapasAsignadasId);
+    formData.append("NombreProducto", etapa?.NombreProducto);
+    formData.append("NombreEtapa", etapa?.NombreEtapa);
+
     if (descripcion) {
       formData.append("Descripcion", descripcion);
     }

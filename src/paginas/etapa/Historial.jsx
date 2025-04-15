@@ -37,6 +37,8 @@ function Historial() {
   };
 
   const handleDownloadFile = (file) => {
+    console.log(file);
+
     descargarArchivo(file);
   };
 
@@ -97,20 +99,20 @@ function Historial() {
                   </p>
                 </div>
               </div>
-              <div className="w-full sm:w-[40%] flex gap-4 font-semibold overflow-scroll">
+              <div className="w-full sm:w-[40%] flex gap-4 font-semibold ">
                 {/* Documento */}
                 <a
                   href={actualizacion?.rutaArchivo}
                   className="w-[50%] flex sm:flex-col bg-[#affdce] p-4 rounded-2xl shadow-xl hover:shadow-green-300"
                   onClick={() => {
-                    if (actualizacion.RutaDoc) {
-                      console.log(actualizacion?.rutaArchivo);
-                      handleDownloadFile(actualizacion?.rutaArchivo);
+                    if (actualizacion?.RutaDoc) {
+                      console.log(actualizacion?.RutaDoc);
+                      handleDownloadFile(actualizacion?.RutaDoc);
                     }
                   }}
                 >
                   <label
-                    className="w-full h-full flex sm:flex-col gap-2 justify-center items-center relative overflow-scroll"
+                    className="w-full h-full flex sm:flex-col gap-2 justify-center items-center relative overflow-hidden"
                     htmlFor="fileDownload"
                   >
                     <svg
