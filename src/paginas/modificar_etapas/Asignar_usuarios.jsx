@@ -2,7 +2,8 @@ import fetch_all_usuarios from "../../hooks/fetch_all_usuarios";
 import fetch_etapa_usuarios from "../../hooks/fetch_etapa_usuarios";
 import Confirmacion from "../../componentes/Confirmacion";
 import Alert from "../../componentes/Alert";
-import axios from "axios";
+// import axios from "axios";
+import api from "../../auth/axiosConfig";
 import { useParams } from "react-router";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -50,14 +51,14 @@ function Asignar_usuarios() {
   });
 
   const handleEnviarDatos = async () => {
-    const API = import.meta.env.VITE_API_URL;
+    // const API = import.meta.env.VITE_API_URL;
     const headers = {
       EtapaId: EtapaId,
       Usuarios: seleccionados.map((usuario) => usuario),
     };
     console.log(headers);
-    const resEtapaActualizada = await axios.post(
-      `${API}/etapa/asignarUsuarios`,
+    const resEtapaActualizada = await api.post(
+      `/etapa/asignarUsuarios`,
       headers
     );
 

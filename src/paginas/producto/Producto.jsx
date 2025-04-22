@@ -36,7 +36,7 @@ function Producto() {
     return <div>Error: {error}</div>;
   }
 
-  console.log(outletValues);
+  // console.log(outletValues);
 
   return (
     <div className="flex flex-col items-center mt-12 mb-8">

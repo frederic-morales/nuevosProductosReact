@@ -1,4 +1,5 @@
-import axios from 'axios'
+// import axios from 'axios'
+import api from '../auth/axiosConfig'
 
 const post_etapas_reasignar = async ({
   DesarrolloProductoId,
@@ -7,8 +8,14 @@ const post_etapas_reasignar = async ({
   Correlativo
 }) => {
   try {
-    const API = import.meta.env.VITE_API_URL
-    const response = await axios.post(`${API}/etapa/reasignarEtapas`, {
+    // const API = import.meta.env.VITE_API_URL
+    // const response = await axios.post(`${API}/etapa/reasignarEtapas`, {
+    //   DesarrolloProductoId: DesarrolloProductoId,
+    //   Etapas: Etapas,
+    //   Correlativo: Correlativo,
+    //   EtapasEnProcesoActual: EtapasEnProcesoActual
+    // })
+    const response = await api.post(`/etapa/reasignarEtapas`, {
       DesarrolloProductoId: DesarrolloProductoId,
       Etapas: Etapas,
       Correlativo: Correlativo,

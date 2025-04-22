@@ -1,17 +1,12 @@
-import axios from 'axios'
+import api from '../auth/axiosConfig'
 
 const post_etapa_actualizar = async ({ formData }) => {
   try {
-    const API = import.meta.env.VITE_API_URL
-    const response = await axios.post(
-      `${API}/etapa/progreso/actualizacion`,
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+    const response = await api.post(`/etapa/progreso/actualizacion`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
       }
-    )
+    })
     console.log(await response.data)
     return await response
   } catch (err) {

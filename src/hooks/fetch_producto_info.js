@@ -1,17 +1,16 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import api from '../auth/axiosConfig'
 
 const fetch_Producto_Info = ({ productoId }) => {
   const [info, setInfo] = useState()
   const [errorInfo, setErrorInfo] = useState(null) // Manejo de errores
   const [loadingInfo, setLoadingInfo] = useState(true) // Estado de carga
-  const api = import.meta.env.VITE_API_URL
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         console.log(productoId)
-        const infoResponse = await axios.get(`${api}/producto/${productoId}`)
+        const infoResponse = await api.get(`/producto/${productoId}`)
         setInfo(await infoResponse.data)
       } catch (err) {
         setErrorInfo(err instanceof Error ? err.message : 'Ocurrió un error')

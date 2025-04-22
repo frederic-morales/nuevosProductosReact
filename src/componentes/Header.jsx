@@ -5,7 +5,7 @@ import { useAuth } from "../auth/AuthContext";
 function Header() {
   const { user, logout, grupoUsuario, serieProductos } = useAuth();
 
-  console.log(grupoUsuario);
+  // console.log(grupoUsuario);
 
   return (
     <div className="text-[12px] sm:text-base">

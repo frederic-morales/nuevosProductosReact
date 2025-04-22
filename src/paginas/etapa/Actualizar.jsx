@@ -81,8 +81,8 @@ function Actualizar() {
     console.log(response);
   };
 
-  console.log(enviarEstado);
-  console.log(etapa);
+  // console.log(enviarEstado);
+  // console.log(etapa);
   // console.log(user);
 
   return (

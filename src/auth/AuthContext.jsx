@@ -31,10 +31,10 @@ export function AuthProvider({ children }) {
       setToken(storedToken); // Recuperar el token del localStorage
     }
 
-    console.log(storedUser);
-    console.log(storedSerieProductos);
-    console.log(storedGrupo);
-    console.log(storedToken); // Verificar el token recuperado
+    // console.log(storedUser);
+    // console.log(storedSerieProductos);
+    // console.log(storedGrupo);
+    // console.log(storedToken); // Verificar el token recuperado
 
     setLoading(false);
   }, []);
@@ -69,11 +69,11 @@ export function AuthProvider({ children }) {
       localStorage.setItem("serieProductos", JSON.stringify(Serie));
       localStorage.setItem("token", token);
 
-      console.log(grupoUsuario);
-      console.log(result);
-      console.log(currentUser);
-      console.log(Serie);
-      console.log(token); // Verificar el token guardado
+      // console.log(grupoUsuario);
+      // console.log(result);
+      // console.log(currentUser);
+      // console.log(Serie);
+      // console.log(token); // Verificar el token guardado
 
       return result;
     } catch (error) {

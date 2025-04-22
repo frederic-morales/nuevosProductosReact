@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
-// import { useOutletContext } from "react-router-dom";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import api from "../../auth/axiosConfig";
 //Componentes
 import Confirmacion from "../../componentes/Confirmacion";
 import Alert from "../../componentes/Alert";
@@ -95,7 +94,7 @@ function Actualizar_Producto() {
   };
 
   const actualizarDatos = async () => {
-    const API = import.meta.env.VITE_API_URL;
+    // const API = import.meta.env.VITE_API_URL;
     const updates = {
       nombre: camposNuevos.Nombre
         ? camposNuevos.Nombre
@@ -110,7 +109,7 @@ function Actualizar_Producto() {
     }; // se le pasan solamante los parametros que se desean actualizar
     // Si el usuario no actualiza ningun campo se enviaran la actualizacion con el valor anterior de ese campo
 
-    const resActualizacion = await axios.patch(`${API}/producto/actualizar`, {
+    const resActualizacion = await api.patch(`/producto/actualizar`, {
       desarrolloProductoId: info.productoInfo[0].DesarrolloProductoId,
       updates: updates,
     });
@@ -118,13 +117,10 @@ function Actualizar_Producto() {
 
     // Si el usuario asigno nuevas etapas
     if (etapasAsignadas.length > 0) {
-      const resAsignarEtapasNuevas = await axios.post(
-        `${API}/producto/asignarEtapas`,
-        {
-          desarrolloProducto: info.productoInfo[0].DesarrolloProductoId,
-          etapas: etapasAsignadas,
-        }
-      );
+      const resAsignarEtapasNuevas = await api.post(`/producto/asignarEtapas`, {
+        desarrolloProducto: info.productoInfo[0].DesarrolloProductoId,
+        etapas: etapasAsignadas,
+      });
       console.log("Asignado etapas nuevas...", resAsignarEtapasNuevas.data);
     }
   };

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
+// import axios from "axios";
+import api from "../../auth/axiosConfig";
 //Componentes
 import Confirmacion from "../../componentes/Confirmacion";
 import Alert from "../../componentes/Alert";
@@ -62,8 +63,8 @@ function NuevoProducto() {
 
   //Se envian los datos al usuario confirmar el envio de los datos
   const handleEnviarDatos = async () => {
-    const API = import.meta.env.VITE_API_URL;
-    const resProducto = await axios.post(`${API}/producto/create`, {
+    // const API = import.meta.env.VITE_API_URL;
+    const resProducto = await api.post(`/producto/create`, {
       nombre: camposNuevos.Nombre,
       descripcion: camposNuevos.Descripcion,
       usuario: usuarioResponsable.Usuario,
@@ -71,9 +72,8 @@ function NuevoProducto() {
     });
 
     console.log(usuarioResponsable.Usuario);
-
     const nuevoProducto = await resProducto.data.nuevoProductoId; // Obtiene el Id generado del Producto nuevo
-    const resAsignarEtapas = await axios.post(`${API}/producto/asignarEtapas`, {
+    const resAsignarEtapas = await api.post(`/producto/asignarEtapas`, {
       desarrolloProducto: nuevoProducto,
       etapas: etapasAsignadas,
     });
@@ -181,7 +181,7 @@ function NuevoProducto() {
         <Alert // Cuando el usuario haga clic en guardar y confirme la acción
           duracion={4000}
           bgColor="bg-green-300"
-          redirigir="/"
+          redirigir="/Producto/All"
           mensaje="Se ha iniciado un nuevo desarrollo"
         ></Alert>
       )}

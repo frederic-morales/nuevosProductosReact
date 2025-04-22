@@ -1,16 +1,18 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+// import axios from 'axios'
+import api from '../auth/axiosConfig'
 
 const fetch_usuarios_grupo = ({ CodigoGrupo }) => {
   const [grupoUsuarios, setUsuariosGrupo] = useState([]) // Etapas a mostrar
   const [loadingGrupo, setLoadingGrupo] = useState(true) // Estado de carga
   const [errorGrupo, setErrorGrupo] = useState(null) // Manejo de errores
-  const api = import.meta.env.VITE_API_URL
+  // const api = import.meta.env.VITE_API_URL
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const resUsuarios = await axios.get(`${api}/usuarios/${CodigoGrupo}`)
+        // const resUsuarios = await axios.get(`${api}/usuarios/${CodigoGrupo}`)
+        const resUsuarios = await api.get(`/usuarios/${CodigoGrupo}`)
         // console.log(await resUsuarios?.data.usuarios)
         setUsuariosGrupo(await resUsuarios?.data.usuarios)
       } catch (err) {

@@ -1,4 +1,5 @@
-import axios from 'axios'
+// import axios from 'axios'
+import api from '../auth/axiosConfig'
 
 const post_delete_historial_etapa = async ({
   ProEtapaHistorialId,
@@ -9,7 +10,15 @@ const post_delete_historial_etapa = async ({
   try {
     // console.log(Usuario, Password)
     const API = import.meta.env.VITE_API_URL
-    const response = await axios.delete(`${API}/etapa/historial`, {
+    // const response = await axios.delete(`${API}/etapa/historial`, {
+    //   data: {
+    //     ProEtapaHistorialId: ProEtapaHistorialId,
+    //     NombreProducto: nombreProducto,
+    //     NombreEtapa: nombreEtapa,
+    //     Archivo: archivo
+    //   }
+    // })
+    const response = await api.delete(`/etapa/historial`, {
       data: {
         ProEtapaHistorialId: ProEtapaHistorialId,
         NombreProducto: nombreProducto,
@@ -17,7 +26,6 @@ const post_delete_historial_etapa = async ({
         Archivo: archivo
       }
     })
-
     // console.log(await response.data)
     return await response.data
   } catch (err) {

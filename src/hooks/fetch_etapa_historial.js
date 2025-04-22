@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+// import axios from 'axios'
+import api from '../auth/axiosConfig'
 
 const fetch_etapa_historial = ({
   desarrolloProductoId,
@@ -9,13 +10,16 @@ const fetch_etapa_historial = ({
   const [etapaHistorial, setEtapaHistorial] = useState([]) // Campos traídos desde la DB
   const [loadingHistorial, setloadingHistorial] = useState(true) // Estado de carga
   const [errorHistorial, setErrorHistorial] = useState(null) // Manejo de errores
-  const api = import.meta.env.VITE_API_URL
+  // const api = import.meta.env.VITE_API_URL
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const historialResponse = await axios.get(
-          `${api}/etapas/${desarrolloProductoId}/historial/${etapaId}/progreso/${progresoEtapaId}`
+        // const historialResponse = await axios.get(
+        //   `${api}/etapas/${desarrolloProductoId}/historial/${etapaId}/progreso/${progresoEtapaId}`
+        // )
+        const historialResponse = await api.get(
+          `/etapas/${desarrolloProductoId}/historial/${etapaId}/progreso/${progresoEtapaId}`
         )
         setEtapaHistorial(await historialResponse.data)
       } catch (err) {

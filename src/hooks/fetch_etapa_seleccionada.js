@@ -1,17 +1,18 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+// import axios from 'axios'
+import api from '../auth/axiosConfig'
 
 const fetchEtapaSeleccionada = () => {
   const [etapa, setEtapa] = useState()
   const [error, setError] = useState(null) // Manejo de errores
   const [loading, setLoading] = useState(true) // Estado de carga
 
-  const api = import.meta.env.VITE_API_URL
-
+  // const api = import.meta.env.VITE_API_URL
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const etapaResponse = await axios.get(`${api}/producto/${productoId}`) // Actualiza el estado con los datos obtenidos
+        // const etapaResponse = await axios.get(`${api}/producto/${productoId}`) // Actualiza el estado con los datos obtenidos
+        const etapaResponse = await api.get(`/producto/${productoId}`)
         setEtapa(await etapaResponse.data)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Ocurrió un error...')

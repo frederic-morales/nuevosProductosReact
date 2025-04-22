@@ -10,7 +10,7 @@ const CheckSerie = ({ onChange, hasError, serie, message, classCss }) => {
       // Si el checkbox ya está seleccionado, deseleccionarlo
       setSelectedOption(null);
       onChange(option);
-      console.log(option);
+      // console.log(option);
     } else {
       // Seleccionar el nuevo checkbox
       setSelectedOption(option);

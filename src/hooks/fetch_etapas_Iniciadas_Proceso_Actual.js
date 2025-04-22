@@ -1,17 +1,16 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import api from '../auth/axiosConfig'
 
 const fetch_etapas_iniciadas_proceso_actual = ({ DesarrolloProductoId }) => {
   const [etapasEnProcesoActual, setetapasEnProcesoActual] = useState([]) // Etapas a mostrar
   const [loadingEtapasEnProceso, setloadingEtapasEnProceso] = useState(true) // Estado de carga
   const [errorEtapasEnProceso, setErrorEtapasEnProceso] = useState(null) // Manejo de errores
-  const api = import.meta.env.VITE_API_URL
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const resEtapas = await axios.get(
-          `${api}/etapasEnProcesoActual/${DesarrolloProductoId}`
+        const resEtapas = await api.get(
+          `/etapasEnProcesoActual/${DesarrolloProductoId}`
         )
         setetapasEnProcesoActual(await resEtapas.data)
       } catch (err) {
