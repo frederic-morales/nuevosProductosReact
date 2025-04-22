@@ -4,7 +4,6 @@ import Confirmacion from "../../componentes/Confirmacion";
 import { useState } from "react";
 import fetch_etapa_historial from "../../hooks/fetch_etapa_historial";
 import { useParams } from "react-router";
-import { useEffect } from "react";
 import descargarArchivo from "../../hooks/fetch_download_file";
 import post_delete_historial_etapa from "../../hooks/post_delete_historial_etapa";
 import { useOutletContext } from "react-router-dom";
@@ -21,6 +20,7 @@ function Historial() {
   const [datosConfirmados, setDatosConfirmados] = useState(); // Estado que guarda la eleccion del usuario "si" o "no" - Servira para enviar los datos a la DB
   // const [historial, setHistorial] = useState([]);
   const [ProEtapaHistorialId, setProEtapaHistorialId] = useState(null);
+  const [rutaArchivo, setRutaArchivo] = useState(null);
 
   const { etapaHistorial } = fetch_etapa_historial({
     desarrolloProductoId,
@@ -36,10 +36,12 @@ function Historial() {
     setShowConfirmacion(false);
   };
 
-  const handleDownloadFile = (file) => {
-    console.log(file);
-
-    descargarArchivo(file);
+  const handleDownloadFile = (rutaFile) => {
+    const rutaNormalizada = rutaFile.replace(/\\/g, "/");
+    const partes = rutaNormalizada.split("/").filter(Boolean);
+    const rutaArchivo = partes.slice(-3).join("/");
+    console.log(rutaArchivo);
+    descargarArchivo(rutaArchivo);
   };
 
   const formatFecha = (date) => {
@@ -51,16 +53,34 @@ function Historial() {
     return fechaInicio;
   };
 
-  //Eliminando una actualizacion de la etapa
-  const handleDeleteHistorial = async (ProEtapaHistorialId) => {
-    console.log(ProEtapaHistorialId);
-    const response = await post_delete_historial_etapa(ProEtapaHistorialId);
-    console.log(response);
+  const handleDeleteHistorial = async (ProEtapaHistorialId, rutaFile) => {
+    //SI EXISTE LA RUTA DEL ARCHIVO, SE MANDA A ELIMINAR TAMBIEN EL ARCHIVO
+    if (rutaFile) {
+      const rutaNormalizada = rutaFile.replace(/\\/g, "/");
+      const partes = rutaNormalizada.split("/").filter(Boolean);
+      const nombreProducto = partes.slice(-3, -2).join("/");
+      const nombreEtapa = partes.slice(-2, -1).join("/");
+      const archivo = partes.slice(-1).join("/");
+
+      const response = await post_delete_historial_etapa({
+        ProEtapaHistorialId,
+        nombreProducto,
+        nombreEtapa,
+        archivo,
+      });
+      console.log(response);
+    }
+    // SI NO EXISTE LA RUTA DEL ARCHIVO, SOLO SE MANDA A ELIMINAR EL HISTORIAL
+    else {
+      const response = await post_delete_historial_etapa({
+        ProEtapaHistorialId,
+      });
+      console.log(response);
+    }
     console.log("Eliminando historial de la etapa...");
   };
 
-  console.log(historial);
-
+  // console.log(historial);
   return (
     <>
       <div
@@ -106,7 +126,6 @@ function Historial() {
                   className="w-[50%] flex sm:flex-col bg-[#affdce] p-4 rounded-2xl shadow-xl hover:shadow-green-300"
                   onClick={() => {
                     if (actualizacion?.RutaDoc) {
-                      console.log(actualizacion?.RutaDoc);
                       handleDownloadFile(actualizacion?.RutaDoc);
                     }
                   }}
@@ -142,6 +161,7 @@ function Historial() {
                   onClick={() => {
                     setShowConfirmacion(true);
                     setProEtapaHistorialId(actualizacion?.ProEtapaHistorialId);
+                    setRutaArchivo(actualizacion?.RutaDoc);
                   }}
                 >
                   <svg
@@ -172,7 +192,8 @@ function Historial() {
           mensaje="Esta seguro de elimninar esta actualización!!"
           handleConfirm={handleConfirmacion}
           onSubmit={() => {
-            handleDeleteHistorial(ProEtapaHistorialId);
+            handleDeleteHistorial(ProEtapaHistorialId, rutaArchivo);
+            window.location.reload();
           }}
         />
       )}

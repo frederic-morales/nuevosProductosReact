@@ -8,12 +8,14 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [serieProductos, setSerieProductos] = useState(null);
   const [grupoUsuario, setGrupoUsuario] = useState(null);
+  const [token, setToken] = useState(null); // Token de autenticación temporal
 
   // Verificar si hay un usuario logeado al cargar la app
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     const storedSerieProductos = localStorage.getItem("serieProductos");
     const storedGrupo = localStorage.getItem("grupoUsuario");
+    const storedToken = localStorage.getItem("token");
     // const storedGrupoUsuario = localStorage.getItem("grupoUsuario");
 
     if (storedUser) {
@@ -25,10 +27,14 @@ export function AuthProvider({ children }) {
     if (storedGrupo) {
       setGrupoUsuario(JSON.parse(storedGrupo));
     }
+    if (storedToken && storedToken !== "undifined") {
+      setToken(storedToken); // Recuperar el token del localStorage
+    }
 
     console.log(storedUser);
     console.log(storedSerieProductos);
     console.log(storedGrupo);
+    console.log(storedToken); // Verificar el token recuperado
 
     setLoading(false);
   }, []);
@@ -37,6 +43,8 @@ export function AuthProvider({ children }) {
     try {
       const result = await post_verificar_usuario({ Usuario, Password });
       const grupoUsuario = await result?.user?.CodigoGrupo;
+      const token = await result?.token; // Obtener el token de la respuesta
+
       let role = "";
       if (grupoUsuario == 44 || grupoUsuario == 35) {
         role = "admin";
@@ -53,15 +61,19 @@ export function AuthProvider({ children }) {
       setUser(currentUser);
       setGrupoUsuario(grupoUsuario);
       setSerieProductos(Serie);
+      setToken(token); // Guardar el token en el estado y en el localStorage
 
-      //Guardar los elementos para acceder desde toda la aplicación
+      //Guardar los elementos para acceder desde toda la aplicación con localStorage
       localStorage.setItem("user", JSON.stringify(currentUser));
       localStorage.setItem("grupoUsuario", JSON.stringify(grupoUsuario));
       localStorage.setItem("serieProductos", JSON.stringify(Serie));
+      localStorage.setItem("token", token);
 
       console.log(grupoUsuario);
       console.log(result);
       console.log(currentUser);
+      console.log(Serie);
+      console.log(token); // Verificar el token guardado
 
       return result;
     } catch (error) {
@@ -78,6 +90,9 @@ export function AuthProvider({ children }) {
 
     setSerieProductos(null);
     localStorage.removeItem("serieProductos");
+
+    setSerieProductos(null);
+    localStorage.removeItem("token");
   };
 
   const value = {
@@ -87,6 +102,7 @@ export function AuthProvider({ children }) {
     logout,
     serieProductos,
     grupoUsuario,
+    token,
   };
 
   return (

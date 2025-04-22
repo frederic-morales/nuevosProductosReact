@@ -108,6 +108,7 @@ function Actualizar() {
           type="file"
           className="w-full h-full hidden"
           id="fileUpload"
+          accept=".pdf, .doc, .docx, .xls, .xlsx"
           onChange={handleFileChange}
         />
         <label

@@ -1,12 +1,20 @@
 import axios from 'axios'
 
-const post_delete_historial_etapa = async (ProEtapaHistorialId) => {
+const post_delete_historial_etapa = async ({
+  ProEtapaHistorialId,
+  nombreProducto,
+  nombreEtapa,
+  archivo
+}) => {
   try {
     // console.log(Usuario, Password)
     const API = import.meta.env.VITE_API_URL
     const response = await axios.delete(`${API}/etapa/historial`, {
       data: {
-        ProEtapaHistorialId: ProEtapaHistorialId
+        ProEtapaHistorialId: ProEtapaHistorialId,
+        NombreProducto: nombreProducto,
+        NombreEtapa: nombreEtapa,
+        Archivo: archivo
       }
     })
 

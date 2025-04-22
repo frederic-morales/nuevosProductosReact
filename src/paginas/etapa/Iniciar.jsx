@@ -2,8 +2,8 @@ import Alert from "../../componentes/Alert";
 import { useOutletContext } from "react-router-dom";
 import Confirmacion from "../../componentes/Confirmacion";
 import { useState } from "react";
-import { Link } from "react-router";
 import post_iniciar_etapa from "../../hooks/post_etapa_iniciar";
+import { useNavigate } from "react-router";
 //use auth
 import { useAuth } from "../../auth/AuthContext";
 
@@ -11,6 +11,7 @@ function Iniciar() {
   const { user } = useAuth();
   const infoEtapa = useOutletContext();
   const etapa = infoEtapa?.infoEtapa;
+  const navigate = useNavigate();
 
   const [showConfirmacion, setShowConfirmacion] = useState();
   const [datosConfirmados, setDatosConfirmados] = useState(); // Estado que guarda la eleccion del usuario "si" o "no" - Servira para enviar los datos a la DB
@@ -45,7 +46,6 @@ function Iniciar() {
   };
 
   // console.log(etapa?.usuariosAsignados);
-
   return (
     <div className="flex flex-col justify-center items-center">
       <h1 className="text-sm md:text-base text-start m-1 md:mr-4 cursor-pointer rounded-lg py-1 px-3 font-medium bg-gray-100 hover:shadow-xl hover:shadow-blue-300 w-fit">
@@ -69,17 +69,18 @@ function Iniciar() {
         >
           Iniciar
         </button>
-        <Link to={"/"}>
-          <button
-            className="text-center md:text-start text-xs md:text-lg cursor-pointer rounded-lg py-2 px-8 font-medium hover:shadow-xl hover:shadow-blue-300 w-fit 
+        {/* <Link to={"/"}> */}
+        <button
+          className="text-center md:text-start text-xs md:text-lg cursor-pointer rounded-lg py-2 px-8 font-medium hover:shadow-xl hover:shadow-blue-300 w-fit 
               border-2 shadow-sm bg-red-300"
-            onClick={() => {
-              setShowConfirmacion(true);
-            }}
-          >
-            Regresar
-          </button>
-        </Link>
+          onClick={() => {
+            navigate(-1);
+            // setShowConfirmacion(true);
+          }}
+        >
+          Regresar
+        </button>
+        {/* </Link> */}
       </div>
       {showConfirmacion && (
         <Confirmacion

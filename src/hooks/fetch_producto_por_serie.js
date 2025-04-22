@@ -1,19 +1,15 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import api from '../auth/axiosConfig'
 
 const fetch_productos_por_serie = (serie) => {
   const [productosPorSerie, setProductosPorSerie] = useState([])
   const [errorProductosSerie, setErrorProductosSerie] = useState(null) // Manejo de errores
   const [loadingProductosSerie, setLoadingProductosSerie] = useState(true) // Estado de carga
 
-  const api = import.meta.env.VITE_API_URL
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const productosResponse = await axios.get(
-          `${api}/producto/${serie}/getAll`
-        )
+        const productosResponse = await api.get(`/producto/${serie}/getAll`)
         setProductosPorSerie(await productosResponse?.data?.productos)
       } catch (err) {
         setErrorProductosSerie(
