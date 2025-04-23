@@ -11,8 +11,8 @@ function ListadoEtapas() {
     setMostrarRechazos(!mostrarRechazos);
   };
 
-  console.log(etapas, producto);
-  console.log(etapasAnteriores);
+  // console.log(etapas, producto);
+  // console.log(etapasAnteriores);
 
   return (
     <>

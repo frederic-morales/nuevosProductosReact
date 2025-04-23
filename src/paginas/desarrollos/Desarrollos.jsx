@@ -16,7 +16,7 @@ function Desarrollos() {
   const { productosPorSerie, loadingProductosSerie, errorProductosSerie } =
     fetch_productos_por_serie(serieProductos); // Trae los productos a mostrar
 
-  console.log(productosPorSerie);
+  // console.log(productosPorSerie);
 
   useEffect(() => {
     setProductosFiltrados(productosPorSerie);
@@ -92,6 +92,7 @@ function Desarrollos() {
   }
 
   if (errorProductosSerie) {
+    window.location.reload();
     return <div>Error...</div>;
   }
 

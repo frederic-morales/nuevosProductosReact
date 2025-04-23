@@ -1,8 +1,7 @@
 import { NavLink } from "react-router";
 
 function DesarrolloDescripcion({ classCSS, desarrollo, link }) {
-  console.log(desarrollo);
-
+  // console.log(desarrollo);
   const fecha = new Date(desarrollo.FechaInicio);
   const opciones = { day: "numeric", month: "long", year: "numeric" };
   const fechaInicio = new Intl.DateTimeFormat("es-ES", opciones).format(fecha);

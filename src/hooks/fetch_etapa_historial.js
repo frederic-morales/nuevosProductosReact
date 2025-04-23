@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-// import axios from 'axios'
 import api from '../auth/axiosConfig'
 
 const fetch_etapa_historial = ({
@@ -15,9 +14,6 @@ const fetch_etapa_historial = ({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // const historialResponse = await axios.get(
-        //   `${api}/etapas/${desarrolloProductoId}/historial/${etapaId}/progreso/${progresoEtapaId}`
-        // )
         const historialResponse = await api.get(
           `/etapas/${desarrolloProductoId}/historial/${etapaId}/progreso/${progresoEtapaId}`
         )

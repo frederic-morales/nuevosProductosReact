@@ -22,20 +22,28 @@ function EtapaDescripcion({ etapa, classCSS, link }) {
         <ul className="text-xs md:text-sm text-black font-semibold uppercase flex flex-col ">
           <li className="font-black mb-2 text-sm md:text-[16px] lg:text-[18px]">
             {etapa?.EtapaId}
-            {" - "}
+            {"-"}
             {etapa?.Nombre}
           </li>
-          <li className="font-bold mt-2">Procesos Responsables:</li>
-          {etapa?.procesosResponsables?.map((proceso) => (
-            <li key={proceso?.Nombre}> {proceso?.Nombre}, </li>
-          ))}
-          <li className="font-bold mt-2">Usuarios Asignados:</li>
-          {etapa?.usuariosAsignados?.map((usuario) => (
-            <li key={usuario.Nombres}>
-              {" "}
-              {usuario?.Nombres} {usuario?.Apellidos},{" "}
-            </li>
-          ))}
+          {etapa?.procesosResponsables && (
+            <>
+              <li className="font-bold mt-2">Procesos Responsables:</li>
+              {etapa?.procesosResponsables?.map((proceso) => (
+                <li key={proceso?.Nombre}> {proceso?.Nombre}, </li>
+              ))}
+            </>
+          )}
+          {etapa?.usuariosAsignados && (
+            <>
+              <li className="font-bold mt-2">Usuarios Asignados:</li>
+              {etapa?.usuariosAsignados?.map((usuario) => (
+                <li key={usuario?.Nombres}>
+                  {" "}
+                  {usuario?.Nombres} {usuario?.Apellidos},{" "}
+                </li>
+              ))}
+            </>
+          )}
           <li className="mt-2 font-bold">Tiempo total en Desarrollo:</li>
           {<li>25 meses</li>}
           {etapa?.FechaInicio && (

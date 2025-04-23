@@ -9,7 +9,7 @@ const fetch_Producto_Info = ({ productoId }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log(productoId)
+        // console.log(productoId)
         const infoResponse = await api.get(`/producto/${productoId}`)
         setInfo(await infoResponse.data)
       } catch (err) {
@@ -21,7 +21,7 @@ const fetch_Producto_Info = ({ productoId }) => {
     fetchData()
   }, [])
 
-  console.log(info)
+  // console.log(info)
 
   return { info, errorInfo, loadingInfo }
 }

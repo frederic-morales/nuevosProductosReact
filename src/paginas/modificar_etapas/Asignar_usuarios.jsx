@@ -1,5 +1,6 @@
 import fetch_all_usuarios from "../../hooks/fetch_all_usuarios";
 import fetch_etapa_usuarios from "../../hooks/fetch_etapa_usuarios";
+import fetch_etapa_info from "../../hooks/fetch_etapa_info";
 import Confirmacion from "../../componentes/Confirmacion";
 import Alert from "../../componentes/Alert";
 // import axios from "axios";
@@ -10,8 +11,14 @@ import { useEffect } from "react";
 
 function Asignar_usuarios() {
   const EtapaId = useParams().id; // Obtener el id de la etapa de la URL
+  // console.log(EtapaId);
+
   const { usuarios } = fetch_all_usuarios();
   const { usuariosEtapa } = fetch_etapa_usuarios({ EtapaId });
+  const { etapaInfo } = fetch_etapa_info({ EtapaId });
+
+  console.log(etapaInfo);
+
   const [busqueda, setBusqueda] = useState(""); // Estado para el texto de búsqueda
   const [seleccionados, setSeleccionados] = useState([]); // Estado para los usuarios seleccionados
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false); // Estado para mostrar la confirmación de guardado
@@ -56,24 +63,30 @@ function Asignar_usuarios() {
       EtapaId: EtapaId,
       Usuarios: seleccionados.map((usuario) => usuario),
     };
-    console.log(headers);
+
+    // console.log(headers);
     const resEtapaActualizada = await api.post(
       `/etapa/asignarUsuarios`,
       headers
     );
 
+    // console.log(resEtapaActualizada);
     if (resEtapaActualizada.status === 200) {
-      console.log(resEtapaActualizada);
       setDatosConfirmados(true);
     } else {
       setDatosConfirmados(false);
     }
   };
 
-  console.log(seleccionados);
-
+  // console.log(seleccionados);
   return (
     <div className="flex flex-col flex-wrap sm:flex-row items-center sm:items-start justify-center mt-8 md:mt-16 text-white gap-8 md:gap-14">
+      {/* Titulo de la etapa */}
+      <div>
+        <h2 className="text-xl text-center font-black lg:text-5xl md:text-3xl mb-4 sm:mb-6 text-white uppercase drop-shadow-[1px_2px_0px_black]">
+          {etapaInfo?.Nombre}
+        </h2>
+      </div>
       {/* Buscador de usuarios */}
       <div className="w-full flex flex-col items-center">
         <h2 className="font-bold mb-4 md:mb-8 text-xl sm:text-2xl lg:text-3xl uppercase drop-shadow-[2px_1px_1px_black]">

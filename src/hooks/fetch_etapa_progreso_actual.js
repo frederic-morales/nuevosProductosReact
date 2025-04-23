@@ -15,9 +15,6 @@ const fetch_etapa_progreso_actual = ({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // const response = await axios.get(
-        //   `${api}/etapas/progresoActual/${desarrolloProductoId}/${etapaId}/asignacion/${etapaAsignadaId}`
-        // )
         const response = await api.get(
           `/etapas/progresoActual/${desarrolloProductoId}/${etapaId}/asignacion/${etapaAsignadaId}`
         )

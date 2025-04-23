@@ -12,7 +12,7 @@ const post_iniciar_etapa = async ({
       Usuario: Usuario,
       DesarrolloProductoId: DesarrolloProductoId
     })
-    console.log(await response.data)
+    // console.log(await response.data)
     return await response
   } catch (err) {
     console.log('Error al iniciar la etapa...', err)

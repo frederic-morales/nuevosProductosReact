@@ -5,7 +5,6 @@ import { useOutletContext } from "react-router-dom";
 import post_etapa_actualizar from "../../hooks/post_etapa_actualizar";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { useAuth } from "../../auth/AuthContext";
 // import AccessDenied from "../../componentes/AccessDenied";
 
 function Actualizar() {
@@ -77,8 +76,7 @@ function Actualizar() {
     if (descripcion) {
       formData.append("Descripcion", descripcion);
     }
-    const response = await post_etapa_actualizar({ formData });
-    console.log(response);
+    await post_etapa_actualizar({ formData });
   };
 
   // console.log(enviarEstado);

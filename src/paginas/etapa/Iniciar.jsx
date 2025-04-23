@@ -21,13 +21,13 @@ function Iniciar() {
     setShowConfirmacion(false);
   };
 
-  //VERIFICAR SI EL USUARIO LOGEADO PUEDO INICIAR LA ETAPA
-  const permitirInicioUsuario = etapa?.usuariosAsignados.some(
-    (usuario) => usuario.Usuario.toLowerCase() === user.usuario.toLowerCase()
-  );
+  // //VERIFICAR SI EL USUARIO LOGEADO PUEDO INICIAR LA ETAPA
+  // const permitirInicioUsuario = etapa?.usuariosAsignados.some(
+  //   (usuario) => usuario.Usuario.toLowerCase() === user.usuario.toLowerCase()
+  // );
 
-  console.log(user.usuario.toLowerCase());
-  console.log(permitirInicioUsuario);
+  // console.log(user.usuario.toLowerCase());
+  // console.log(permitirInicioUsuario);
 
   const iniciarEtapa = async () => {
     const response = await post_iniciar_etapa({

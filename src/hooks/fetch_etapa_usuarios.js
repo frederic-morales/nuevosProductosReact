@@ -10,9 +10,6 @@ const fetch_etapa_usuarios = ({ EtapaId }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // const [resUsuariosEtapa] = await Promise.all([
-        //   axios.get(`${api}/etapa/${EtapaId}/usuarios`)
-        // ])
         const resUsuariosEtapa = await api.get(`/etapa/${EtapaId}/usuarios`)
         setUsuariosEtapa(await resUsuariosEtapa.data)
       } catch (err) {

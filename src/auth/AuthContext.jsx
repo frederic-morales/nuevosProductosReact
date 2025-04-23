@@ -1,8 +1,20 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import post_verificar_usuario from "../hooks/post_verificar_usuario";
+import { jwtDecode } from "jwt-decode";
+
+const isTokenExpired = (token) => {
+  try {
+    const decoded = jwtDecode(token);
+    const currentTime = Date.now() / 1000; // en segundos
+    console.log(decoded.exp, currentTime);
+    return decoded.exp < currentTime;
+  } catch (err) {
+    console.log("Token inválido o roto:", err);
+    return true; // si no se puede decodificar, está roto o inválido
+  }
+};
 
 const AuthContext = createContext();
-
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -28,17 +40,37 @@ export function AuthProvider({ children }) {
       setGrupoUsuario(JSON.parse(storedGrupo));
     }
     if (storedToken && storedToken !== "undifined") {
-      setToken(storedToken); // Recuperar el token del localStorage
+      if (isTokenExpired(storedToken)) {
+        logout();
+      } else {
+        setToken(storedToken); // GUARDAR TOKEN
+      }
     }
 
     // console.log(storedUser);
     // console.log(storedSerieProductos);
     // console.log(storedGrupo);
     // console.log(storedToken); // Verificar el token recuperado
-
     setLoading(false);
   }, []);
 
+  //VERIFICAR SI EL TOKEN HA EXPIRADO CADA 60 SEGUNDOS
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log("Verificando token...");
+      const token = localStorage.getItem("token");
+      if (token && isTokenExpired(token)) {
+        console.log("🔒 Token expirado, cerrando sesión...");
+        logout();
+        alert("Sesion expirada, inicie sesión nuevamente.");
+        window.location.href = "/Login"; // REDIRIGIR AL LOGIN SI EL TOKEN EXPIRÓ
+      }
+    }, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  //LOGIN
   const login = async ({ Usuario, Password, Serie }) => {
     try {
       const result = await post_verificar_usuario({ Usuario, Password });

@@ -7,7 +7,7 @@ const post_etapa_actualizar = async ({ formData }) => {
         'Content-Type': 'multipart/form-data'
       }
     })
-    console.log(await response.data)
+    // console.log(await response.data)
     return await response
   } catch (err) {
     console.log('Error al iniciar la etapa...', err)

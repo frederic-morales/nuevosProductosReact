@@ -29,7 +29,7 @@ function Historial() {
   });
 
   const historial = etapaHistorial?.response;
-  console.log(etapaHistorial);
+  // console.log(etapaHistorial);
 
   const handleConfirmacion = (valor) => {
     setDatosConfirmados(valor);
@@ -40,7 +40,7 @@ function Historial() {
     const rutaNormalizada = rutaFile.replace(/\\/g, "/");
     const partes = rutaNormalizada.split("/").filter(Boolean);
     const rutaArchivo = partes.slice(-3).join("/");
-    console.log(rutaArchivo);
+    // console.log(rutaArchivo);
     descargarArchivo(rutaArchivo);
   };
 

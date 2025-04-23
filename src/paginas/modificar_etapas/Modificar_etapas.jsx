@@ -4,7 +4,7 @@ import EtapaDescripcion from "../../componentes/EtapaDescripcion";
 function Modificar_etapas() {
   const { allEtapas, loading, error } = fetch_all_etapas();
 
-  console.log(allEtapas);
+  // console.log(allEtapas);
 
   if (loading) {
     return <div>Cargando...</div>;

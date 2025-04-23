@@ -7,7 +7,6 @@ import CheckEtapa from "../../componentes/CheckEtapa";
 //Hooks
 import { useOutletData } from "./OutletProductoContexts";
 import post_etapas_reasignar from "../../hooks/post_etapas_reasignar";
-// import fetch_etapas_iniciadas_proceso_actual from "../../hooks/fetch_etapas_Iniciadas_Proceso_Actual";
 
 function Actualizar_Producto() {
   const params = useParams();
@@ -30,15 +29,15 @@ function Actualizar_Producto() {
   };
 
   const actualizarEtapas = async () => {
-    const response = await post_etapas_reasignar({
+    await post_etapas_reasignar({
       DesarrolloProductoId: productoId,
       Etapas: etapasAReasignar,
       Correlativo: producto?.Rechazos,
     });
-    console.log(response);
+    // console.log(response);
   };
 
-  console.log(etapasAReasignar);
+  // console.log(etapasAReasignar);
 
   return (
     <div className="flex flex-col items-center mt-8 md:mt-12">

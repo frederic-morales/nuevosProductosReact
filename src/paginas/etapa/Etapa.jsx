@@ -37,11 +37,11 @@ function Etapa() {
         usuario?.Usuario?.toLowerCase() === user?.usuario?.toLowerCase()
     );
 
-  console.log(permitirInicioUsuario);
-  console.log(etapaProgreso);
-  console.log(etapaProgresoActual);
+  // console.log(permitirInicioUsuario);
+  // console.log(etapaProgreso);
+  // console.log(etapaProgresoActual);
   const etapa = etapaProgresoActual ? etapaProgresoActual : etapaProgreso;
-  console.log(etapa);
+  // console.log(etapa);
 
   if (!etapaProgreso?.infoEtapa?.PermitirInicio) {
     return (

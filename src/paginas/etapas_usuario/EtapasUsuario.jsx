@@ -2,8 +2,6 @@ import EtapaDescripcion from "../../componentes/EtapaDescripcion";
 import fetch_usuarios_etapas from "../../hooks/fetch_usuarios_etapas";
 import { useAuth } from "../../auth/AuthContext";
 import { useState, useEffect } from "react";
-// import { EtapaPrueba } from "../../interfaces/Etapa";
-// import Button from "../../componentes/Button";
 
 function EtapasUsuario() {
   //estados 1=Aprobada, 2=Rechazado, 3=EnProceso, 4=Pendiente
@@ -13,9 +11,9 @@ function EtapasUsuario() {
     fetch_usuarios_etapas({ Usuario: Usuario, SerieProductos: serieProductos });
 
   // console.log(user, grupoUsuario, SerieProducto);
-  console.log(usuarioProductos);
-  console.log(Usuario);
-  console.log(serieProductos);
+  // console.log(usuarioProductos);
+  // console.log(Usuario);
+  // console.log(serieProductos);
 
   const [busquedaProducto, setBusquedaProducto] = useState(""); // Estado para el texto de búsqueda por producto
   const [productosFiltrados, setProductosFiltrados] = useState([]);
@@ -73,6 +71,8 @@ function EtapasUsuario() {
   if (errorUsuarioProductos) {
     return <>Errro {errorUsuarioProductos}</>;
   }
+
+  console.log(productosFiltrados[0]?.etapas);
 
   return (
     <>
