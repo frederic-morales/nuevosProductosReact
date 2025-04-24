@@ -69,10 +69,10 @@ function EtapasUsuario() {
   }
 
   if (errorUsuarioProductos) {
-    return <>Errro {errorUsuarioProductos}</>;
+    return <>Error {errorUsuarioProductos}</>;
   }
 
-  console.log(productosFiltrados[0]?.etapas);
+  // console.log(productosFiltrados[0]?.etapas);
 
   return (
     <>
@@ -88,7 +88,7 @@ function EtapasUsuario() {
             value={busquedaProducto}
             onChange={handleBusquedaProducto}
             className="max-w-xs placeholder-white block w-full p-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
-          />{" "}
+          />
         </div>
         {/* Filtrar por fecha */}
         <div className="w-full max-w-xs flex flex-col items-center justify-start">

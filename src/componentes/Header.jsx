@@ -1,11 +1,9 @@
 import { Link } from "react-router-dom";
-import headerImage from "C:\\Frederic\\ProductosNuevos\\ProductosNuevos\\frontend\\img\\Logo-Wellco.png";
 import { useAuth } from "../auth/AuthContext";
 
 function Header() {
   const { user, logout, grupoUsuario, serieProductos } = useAuth();
-
-  // console.log(grupoUsuario);
+  const headerImage = "..\\img\\Logo-Wellco.png";
 
   return (
     <div className="text-[12px] sm:text-base">

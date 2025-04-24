@@ -12,12 +12,10 @@ import { useEffect } from "react";
 function Asignar_usuarios() {
   const EtapaId = useParams().id; // Obtener el id de la etapa de la URL
   // console.log(EtapaId);
-
   const { usuarios } = fetch_all_usuarios();
   const { usuariosEtapa } = fetch_etapa_usuarios({ EtapaId });
   const { etapaInfo } = fetch_etapa_info({ EtapaId });
-
-  console.log(etapaInfo);
+  // console.log(etapaInfo);
 
   const [busqueda, setBusqueda] = useState(""); // Estado para el texto de búsqueda
   const [seleccionados, setSeleccionados] = useState([]); // Estado para los usuarios seleccionados

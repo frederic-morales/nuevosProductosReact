@@ -10,13 +10,15 @@ function EtapaDescripcion({ etapa, classCSS, link }) {
     return fechaFormated;
   };
 
-  // console.log(etapa);
+  console.log(etapa);
   return (
     <NavLink to={link}>
       <div
         className={`w-[300px] md:w-[375px] lg:w-[390px] h-full px-4 py-6 flex rounded-2xl shadow-lg hover:shadow-cyan-200 hover:shadow-xl border-2 border-blue-200
             ${classCSS} ${
-          !etapa?.PermitirInicio && "opacity-80 bg-gray-100 border-none"
+          etapa?.AsignacionEstado === null &&
+          !etapa?.PermitirInicio &&
+          "opacity-80 bg-gray-100 border-none"
         }`}
       >
         <ul className="text-xs md:text-sm text-black font-semibold uppercase flex flex-col ">
@@ -38,7 +40,7 @@ function EtapaDescripcion({ etapa, classCSS, link }) {
               <li className="font-bold mt-2">Usuarios Asignados:</li>
               {etapa?.usuariosAsignados?.map((usuario) => (
                 <li key={usuario?.Nombres}>
-                  {" "}
+                  {""}
                   {usuario?.Nombres} {usuario?.Apellidos},{" "}
                 </li>
               ))}

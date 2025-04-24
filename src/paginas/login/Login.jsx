@@ -16,7 +16,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    console.log(usuario, password);
+    // console.log(usuario, password);
     const result = await login({
       Usuario: usuario,
       Password: password,

@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Header from "../componentes/Header";
 import ProtectedRouteGeneral from "../auth/ProtectedRouteGeneral";
+import { Navigate } from "react-router-dom";
 
 function Layout() {
   return (
@@ -17,6 +18,8 @@ function Layout() {
         <div className="w-full max-w-screen-xl mx-auto px-5 pt-5 pb-12">
           <Header></Header>{" "}
           {/*Componente Header se renderizará en todas las paginas y rutas*/}
+          <Navigate to="/Producto/All" replace />
+          {/*Redirecciona a la ruta por defecto*/}
           <Outlet />
         </div>
       </div>

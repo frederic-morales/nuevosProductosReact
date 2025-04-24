@@ -47,10 +47,6 @@ export function AuthProvider({ children }) {
       }
     }
 
-    // console.log(storedUser);
-    // console.log(storedSerieProductos);
-    // console.log(storedGrupo);
-    // console.log(storedToken); // Verificar el token recuperado
     setLoading(false);
   }, []);
 

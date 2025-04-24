@@ -8,7 +8,7 @@ const post_verificar_usuario = async ({ Usuario, Password }) => {
       Password: Password
     })
 
-    console.log(await response.data)
+    // console.log(await response.data)
     return await response.data
   } catch (err) {
     console.log('Error al iniciar la etapa...', err)

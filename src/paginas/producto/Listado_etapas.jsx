@@ -41,13 +41,8 @@ function ListadoEtapas() {
                       etapa={etapa}
                       link={ruta}
                       classCSS={`${
-                        etapa?.AsignacionEstado == 1 &&
-                        etapa?.Correlativo != 1 &&
-                        "bg-[#affdce]"
-                      } 
-                                ${
-                                  etapa?.AsignacionEstado == 3 && "bg-[#879efc]"
-                                }
+                        etapa?.AsignacionEstado == 1 && "bg-[#affdce]"
+                      } ${etapa?.AsignacionEstado == 3 && "bg-[#879efc]"}
                                 ${
                                   etapa?.AsignacionEstado == null &&
                                   "bg-[#ffa470]"
