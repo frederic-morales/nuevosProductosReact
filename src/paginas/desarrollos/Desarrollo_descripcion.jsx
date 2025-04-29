@@ -2,16 +2,20 @@ import { NavLink } from "react-router";
 
 function DesarrolloDescripcion({ classCSS, desarrollo, link }) {
   // console.log(desarrollo);
-  const opciones = { day: "numeric", month: "long", year: "numeric" };
-  const fechaIn = new Date(desarrollo?.FechaInicio);
-  const fechaInicio = new Intl.DateTimeFormat("es-ES", opciones).format(
-    fechaIn
-  );
-  const fechaFin = new Date(desarrollo?.FechaInicio);
-  const fechaFinal = new Intl.DateTimeFormat("es-ES", opciones).format(
-    fechaFin
-  );
-  // Formatear en español
+  // Formatear fechas en español
+  const formatFecha = (date) => {
+    const fecha = new Date(date);
+    const opciones = {
+      timeZone: "UTC",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    };
+    const fechaInicio = new Intl.DateTimeFormat("es-ES", opciones).format(
+      fecha
+    );
+    return fechaInicio;
+  };
 
   return (
     <NavLink to={link} className="w-full min-w-[200px] max-w-[400px]">
@@ -28,26 +32,27 @@ function DesarrolloDescripcion({ classCSS, desarrollo, link }) {
           </li>
           <li className="mt-2 font-bold">Fecha de Inicio: </li>
           {desarrollo?.FechaInicio ? (
-            <li>{fechaInicio}</li>
+            <li>{formatFecha(desarrollo?.FechaInicio)}</li>
           ) : (
             <li>No iniciado</li>
           )}
           {(desarrollo.Estado === 1 || desarrollo.Estado === 2) && (
             <>
               <li className="mt-2 font-bold">{`Fecha final:`}</li>
-              <li>{`${fechaFinal}`}</li>
+              <li>{`${formatFecha(desarrollo?.FechaFin)}`}</li>
             </>
           )}
-          <li className="mt-2 font-bold">Tiempo total en Desarrollo:</li>
-          {<li>25 meses</li>}
+          <li className="mt-2 font-bold">Tiempo Estimado:</li>
+          {<li>{(desarrollo?.TiempoEstimado / 30).toFixed(0)} Meses</li>}
+
           <li className="mt-2 ">
             <b className="font-bold"> Serie:</b>
-            {desarrollo.serie == "F" ? " Farma" : " VET"}
+            {desarrollo?.Serie == "F" ? " Farma" : " VET"}
           </li>
           <li className="font-black mt-2 text-[14px] h-full flex items-end">
-            {desarrollo.Estado === 1 && "Desarrollo Aprobado"}
-            {desarrollo.Estado === 2 && "Desarrollo Rechazado"}
-            {desarrollo.Estado === 3 && "Desarrollo en Proceso"}
+            {desarrollo?.Estado === 1 && "Desarrollo Aprobado"}
+            {desarrollo?.Estado === 2 && "Desarrollo Rechazado"}
+            {desarrollo?.Estado === 3 && "Desarrollo en Proceso"}
           </li>
         </ul>
       </div>
