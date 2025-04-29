@@ -17,7 +17,7 @@ function Actualizar_Producto() {
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(); // Mostrar confirmación
   const [etapasAReasignar, setEtapasAReasignar] = useState([]); // Etapas a actualizar
 
-  console.log(etapas);
+  // console.log(etapas);
 
   const handleToggleEtapa = (etapa, isChecked) => {
     setEtapasAReasignar(
@@ -52,7 +52,8 @@ function Actualizar_Producto() {
               etapas.map((etapa) => {
                 if (
                   (etapa?.AsignacionEstado == 1 ||
-                    etapa?.AsignacionEstado == 2) &&
+                    etapa?.AsignacionEstado == 2 ||
+                    etapa?.AsignacionEstado == 3) &&
                   producto?.Estado == 2 &&
                   !etapa?.Correlativo
                 ) {

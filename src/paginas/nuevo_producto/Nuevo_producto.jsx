@@ -71,13 +71,13 @@ function NuevoProducto() {
       serie: serie,
     });
 
-    console.log(usuarioResponsable.Usuario);
+    // console.log(usuarioResponsable.Usuario);
     const nuevoProducto = await resProducto.data.nuevoProductoId; // Obtiene el Id generado del Producto nuevo
-    const resAsignarEtapas = await api.post(`/producto/asignarEtapas`, {
+    await api.post(`/producto/asignarEtapas`, {
       desarrolloProducto: nuevoProducto,
-      etapas: etapasAsignadas,
+      etapasProd: etapasAsignadas,
     });
-    console.log(resAsignarEtapas.data);
+    // console.log(resAsignarEtapas.data);
   };
 
   // VERIFICAR SI TODOS LOS CAMPOS ESTAN COMPLETOS
@@ -123,8 +123,8 @@ function NuevoProducto() {
               usuarios={grupoUsuarios}
               onSelect={(usuario) => {
                 setUsuarioResponsable(usuario);
-                console.log(usuario);
-                console.log(usuario.Usuario);
+                // console.log(usuario);
+                // console.log(usuario.Usuario);
               }} // Recibe el usuario seleccionado
               hasError={!usuarioResponsable}
             />

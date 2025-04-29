@@ -118,12 +118,15 @@ function Actualizar_Producto() {
     // Si el usuario asigno nuevas etapas
     if (etapasAsignadas.length > 0) {
       const resAsignarEtapasNuevas = await api.post(`/producto/asignarEtapas`, {
-        desarrolloProducto: info.productoInfo[0].DesarrolloProductoId,
-        etapas: etapasAsignadas,
+        desarrolloProducto: info?.productoInfo[0]?.DesarrolloProductoId,
+        etapasProd: etapasAsignadas,
       });
       console.log("Asignado etapas nuevas...", resAsignarEtapasNuevas.data);
     }
   };
+
+  console.log(etapasAsignadas);
+  console.log(info?.productoInfo[0]?.DesarrolloProductoId);
 
   // console.log(etapas);
   // console.log(allEtapas);

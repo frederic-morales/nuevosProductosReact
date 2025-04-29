@@ -17,8 +17,19 @@ function Producto() {
   let fechaInicio = new Date();
   if (info?.productoInfo[0].FechaInicio) {
     const fecha = new Date(info?.productoInfo[0]?.FechaInicio);
-    const opciones = { day: "numeric", month: "long", year: "numeric" };
+    const opciones = {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      timezone: "UTC",
+    };
     fechaInicio = new Intl.DateTimeFormat("es-ES", opciones).format(fecha);
+  }
+
+  let cantidadMeses = 0;
+  if (info?.productoInfo[0]?.TiempoEstimado) {
+    const tiempoEstimadoMes = info?.productoInfo[0]?.TiempoEstimado / 30;
+    cantidadMeses = tiempoEstimadoMes.toFixed(0);
   }
 
   // Informacion pasada al Outlet (Componentes hijos)
@@ -37,6 +48,8 @@ function Producto() {
   }
 
   // console.log(outletValues);
+  // console.log(info?.productoInfo[0]?.TiempoEstimado);
+  console.log(info?.productoInfo[0].FechaInicio);
 
   return (
     <div className="flex flex-col items-center mt-12 mb-8">
@@ -48,8 +61,7 @@ function Producto() {
           Desarrollo Iniciado el
           {` ${fechaInicio}`}
           <br />
-          Tiempo total estimado 24 meses
-          <br />
+          Tiempo total estimado {cantidadMeses} meses <br />
           Total de rechazos: {info?.productoInfo[0]?.Rechazos || " 0"}
         </p>
         {showBotonActualizar && user.role == "admin" && (

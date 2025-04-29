@@ -21,28 +21,12 @@ function Iniciar() {
     setShowConfirmacion(false);
   };
 
-  // //VERIFICAR SI EL USUARIO LOGEADO PUEDO INICIAR LA ETAPA
-  // const permitirInicioUsuario = etapa?.usuariosAsignados.some(
-  //   (usuario) => usuario.Usuario.toLowerCase() === user.usuario.toLowerCase()
-  // );
-
-  // console.log(user.usuario.toLowerCase());
-  // console.log(permitirInicioUsuario);
-
   const iniciarEtapa = async () => {
-    const response = await post_iniciar_etapa({
+    await post_iniciar_etapa({
       EtapaId: etapa?.EtapaId,
       Usuario: user?.usuario,
       DesarrolloProductoId: etapa?.DesarrolloProductoId,
     });
-
-    console.log({
-      EtapaId: etapa?.EtapaId,
-      Usuario: user?.usuario,
-      DesarrolloProductoId: etapa?.DesarrolloProducto,
-    });
-
-    console.log(response);
   };
 
   // console.log(etapa?.usuariosAsignados);
@@ -75,7 +59,6 @@ function Iniciar() {
               border-2 shadow-sm bg-red-300"
           onClick={() => {
             navigate(-1);
-            // setShowConfirmacion(true);
           }}
         >
           Regresar

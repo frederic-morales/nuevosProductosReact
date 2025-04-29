@@ -32,14 +32,14 @@ function Actualizar() {
       etapa?.AsignacionEstado === 1 ||
       etapa?.AsignacionEstado === 2
     ) {
-      console.log("Regresando");
+      // console.log("Regresando");
       navigate(-1);
     }
   }, [etapa?.infoEtapa?.AsignacionEstado, navigate]);
 
   // console.log(etapaInfo);
   const handleFileChange = (e) => {
-    console.log(e.target.files[0]);
+    // console.log(e.target.files[0]);
     if (e.target.files) {
       setFile(e.target.files[0]);
     }

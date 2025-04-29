@@ -63,7 +63,7 @@ function EtapaDescripcion({ etapa, classCSS, link }) {
               "Etapa siguiente"}
             {etapa?.AsignacionEstado === null &&
               !etapa?.PermitirInicio &&
-              "Etapa bloqueda"}
+              "Etapa bloqueada"}
           </li>
         </ul>
       </div>

@@ -2,9 +2,15 @@ import { NavLink } from "react-router";
 
 function DesarrolloDescripcion({ classCSS, desarrollo, link }) {
   // console.log(desarrollo);
-  const fecha = new Date(desarrollo.FechaInicio);
   const opciones = { day: "numeric", month: "long", year: "numeric" };
-  const fechaInicio = new Intl.DateTimeFormat("es-ES", opciones).format(fecha);
+  const fechaIn = new Date(desarrollo?.FechaInicio);
+  const fechaInicio = new Intl.DateTimeFormat("es-ES", opciones).format(
+    fechaIn
+  );
+  const fechaFin = new Date(desarrollo?.FechaInicio);
+  const fechaFinal = new Intl.DateTimeFormat("es-ES", opciones).format(
+    fechaFin
+  );
   // Formatear en español
 
   return (
@@ -27,7 +33,10 @@ function DesarrolloDescripcion({ classCSS, desarrollo, link }) {
             <li>No iniciado</li>
           )}
           {(desarrollo.Estado === 1 || desarrollo.Estado === 2) && (
-            <li>{`Fecha final ${desarrollo.FechaFin}`}</li>
+            <>
+              <li className="mt-2 font-bold">{`Fecha final:`}</li>
+              <li>{`${fechaFinal}`}</li>
+            </>
           )}
           <li className="mt-2 font-bold">Tiempo total en Desarrollo:</li>
           {<li>25 meses</li>}
