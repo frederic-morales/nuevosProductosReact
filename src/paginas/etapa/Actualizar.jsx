@@ -5,13 +5,14 @@ import { useOutletContext } from "react-router-dom";
 import post_etapa_actualizar from "../../hooks/post_etapa_actualizar";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-// import AccessDenied from "../../componentes/AccessDenied";
+import { useAuth } from "../../auth/AuthContext";
 
 function Actualizar() {
   //Traemos la informacion de la etapa pasada desde el elemento padre
   const etapa = useOutletContext();
   const navigate = useNavigate();
-  // const { user } = useAuth();
+  const { user } = useAuth();
+  const usuario = user?.usuario?.toUpperCase();
 
   const [showConfirmacion, setShowConfirmacion] = useState(); //Estado que maneja si se debe de mostrar el mensaje de confirmacion
   const [showAlert, setShowAlert] = useState(); // Estado que maneja si se debe de mostrar la alerta o no, se setea al valor "false" despues de cada renderizacion
@@ -72,6 +73,7 @@ function Actualizar() {
     formData.append("EtapasAsignadasId", etapa?.EtapasAsignadasId);
     formData.append("NombreProducto", etapa?.NombreProducto);
     formData.append("NombreEtapa", etapa?.NombreEtapa);
+    formData.append("Usuario", usuario);
 
     if (descripcion) {
       formData.append("Descripcion", descripcion);

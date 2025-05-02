@@ -49,7 +49,7 @@ function Producto() {
 
   // console.log(outletValues);
   // console.log(info?.productoInfo[0]?.TiempoEstimado);
-  console.log(info?.productoInfo[0].FechaInicio);
+  // console.log(info?.productoInfo[0].FechaInicio);
 
   return (
     <div className="flex flex-col items-center mt-12 mb-8">

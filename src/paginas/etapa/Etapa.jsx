@@ -47,8 +47,8 @@ function Etapa() {
     return (
       <>
         <AccessDenied
-          title={etapaProgreso?.infoEtapa.NombreEtapa}
-          message="Etapa Bloqueda!! No es posible Iniciar esta etapa"
+          title={etapaProgreso?.infoEtapa?.NombreEtapa}
+          message="Etapa Bloqueada!! No es posible Iniciar esta etapa"
         ></AccessDenied>
       </>
     );

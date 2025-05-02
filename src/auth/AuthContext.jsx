@@ -6,7 +6,7 @@ const isTokenExpired = (token) => {
   try {
     const decoded = jwtDecode(token);
     const currentTime = Date.now() / 1000; // en segundos
-    console.log(decoded.exp, currentTime);
+    // console.log(decoded.exp, currentTime);
     return decoded.exp < currentTime;
   } catch (err) {
     console.log("Token inválido o roto:", err);

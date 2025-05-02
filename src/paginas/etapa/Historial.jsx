@@ -80,7 +80,7 @@ function Historial() {
     console.log("Eliminando historial de la etapa...");
   };
 
-  // console.log(historial);
+  console.log(historial);
   return (
     <>
       <div
@@ -111,7 +111,7 @@ function Historial() {
                   )}
                   <br />
                   {actualizacion?.Descripcion}
-                  <br /> Usuario FSOC
+                  <br /> {actualizacion?.Usuario}
                 </p>
                 <div className="max-h-24 sm:min-w-[350px] lg:min-w-[400px] overflow-auto pr-2 overscroll-none [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-300">
                   <p>
