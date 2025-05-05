@@ -4,7 +4,7 @@ import { useOutletData } from "./OutletProductoContexts";
 
 function ListadoEtapas() {
   // Estado que permirte mostrar las etapas rechazadas
-  const { etapas, producto, etapasAnteriores } = useOutletData();
+  const { etapas, producto } = useOutletData();
   const [mostrarRechazos, setMostrarRechazos] = useState();
 
   const handleClick = () => {

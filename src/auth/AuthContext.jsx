@@ -73,8 +73,10 @@ export function AuthProvider({ children }) {
       const grupoUsuario = await result?.user?.CodigoGrupo;
       const token = await result?.token; // Obtener el token de la respuesta
 
+      // console.log(result);
+
       let role = "";
-      if (grupoUsuario == 44 || grupoUsuario == 35) {
+      if (grupoUsuario == 44 || grupoUsuario == 35 || grupoUsuario == 69) {
         role = "admin";
       } else {
         role = "user";

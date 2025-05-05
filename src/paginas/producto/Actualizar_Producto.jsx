@@ -131,7 +131,7 @@ function Actualizar_Producto() {
   // console.log(etapas);
   // console.log(allEtapas);
   // console.log(mostrarNuevasEtapas);
-  console.log(info);
+  // console.log(info);
 
   if (loading || loadingCampos || loadingGrupo || loadingInfo) {
     return <div>Cargando...</div>;

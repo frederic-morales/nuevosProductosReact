@@ -48,7 +48,7 @@ function Producto() {
   }
 
   // console.log(outletValues);
-  // console.log(info?.productoInfo[0]?.TiempoEstimado);
+  // console.log(info?.productoInfo[0]);
   // console.log(info?.productoInfo[0].FechaInicio);
 
   return (

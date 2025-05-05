@@ -80,7 +80,7 @@ function Historial() {
     console.log("Eliminando historial de la etapa...");
   };
 
-  console.log(historial);
+  // console.log(historial);
   return (
     <>
       <div

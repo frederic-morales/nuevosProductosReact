@@ -2,8 +2,10 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 
 function Header() {
-  const { user, logout, grupoUsuario, serieProductos } = useAuth();
+  const { user, logout, grupoUsuario, serieProductos, role } = useAuth();
   const headerImage = "..\\img\\Logo-Wellco.png";
+
+  // console.log(user?.role);
 
   return (
     <div className="text-[12px] sm:text-base">
@@ -76,21 +78,21 @@ function Header() {
         {/* items de abajo */}
         <div className="mt-4 py-1 flex gap items-center justify-center">
           <div className="flex flex-wrap gap-x-8 gap-y-4 w-full justify-between lg:justify-start text-white">
-            {(grupoUsuario == 35 || grupoUsuario == 44) && (
+            {user?.role === "admin" && (
               <Link to={"/Producto/All"}>
                 <span className="cursor-pointer rounded-sm py-1 px-2  font-medium hover:bg-gray-100 hover:text-black hover:shadow-xl hover:shadow-blue-300">
                   Productos en Proceso
                 </span>
               </Link>
             )}
-            {(grupoUsuario == 35 || grupoUsuario == 44) && (
+            {user?.role === "admin" && (
               <Link to={"NuevoProducto"}>
                 <span className="cursor-pointer rounded-sm py-1 px-2 font-medium hover:bg-gray-100 hover:text-black hover:shadow-xl hover:shadow-blue-300">
                   Iniciar Producto nuevo
                 </span>
               </Link>
             )}
-            {(grupoUsuario == 35 || grupoUsuario == 44) && (
+            {user?.role === "admin" && (
               <Link to={"Modificar_Etapas"}>
                 <span className="cursor-pointer rounded-sm py-1 px-2 font-medium hover:bg-gray-100 hover:text-black hover:shadow-xl hover:shadow-blue-300">
                   Actualizar Etapas

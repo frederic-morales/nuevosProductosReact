@@ -4,8 +4,13 @@ import fetch_etapa_progreso from "../../hooks/fetch_etapa_progreso";
 import AccessDenied from "../../componentes/AccessDenied";
 import fetch_etapa_progreso_actual from "../../hooks/fetch_etapa_progreso_actual";
 import { useAuth } from "../../auth/AuthContext";
+import { useOutletData } from "../producto/OutletProductoContexts";
 
 function Etapa() {
+  //
+  const { producto } = useOutletData();
+  // console.log(producto);
+
   const params = useParams();
   const desarrolloProductoId = params.productoId;
   const etapaId = params.etapaId;
@@ -31,15 +36,17 @@ function Etapa() {
     <div>Error...</div>;
   }
 
+  const gerenteUser = import.meta.env.VITE_API_USUARIO_GERENTE;
+
+  // PERMITE ACCEDER A LOS USUARIO QUE TIENE ASIGNADA LA ETAPA, AL RESPONSABLE DEL PRODUCTO Y AL GERENTE DE IND
   const permitirInicioUsuario =
     etapaProgreso?.infoEtapa?.usuariosAsignados?.some(
       (usuario) =>
         usuario?.Usuario?.toLowerCase() === user?.usuario?.toLowerCase()
-    );
+    ) ||
+    producto?.Usuario?.toLowerCase() === user?.usuario?.toLowerCase() ||
+    user?.usuario?.toLowerCase() === gerenteUser?.toLowerCase();
 
-  // console.log(permitirInicioUsuario);
-  // console.log(etapaProgreso);
-  // console.log(etapaProgresoActual);
   const etapa = etapaProgresoActual ? etapaProgresoActual : etapaProgreso;
   // console.log(etapa);
 

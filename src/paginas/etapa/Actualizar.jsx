@@ -25,7 +25,8 @@ function Actualizar() {
   //Datos a enviar
   const [file, setFile] = useState(null); // Estado que guarda el archivo subido
   const [enviarEstado, setEnviarEstado] = useState(null); // "Estados:" 1 = aprobado, 2 = rechazado, 3 = actualizacion"
-  const [descripcion, setDescripcion] = useState(null);
+  const [descripcion, setDescripcion] = useState("");
+  const [mostrarBotones, setMostrarBotones] = useState(false); // Estado que maneja si se deben de mostrar los botones de "Actualizar", "Aprobar" y "Rechazar"
 
   useEffect(() => {
     if (
@@ -50,6 +51,8 @@ function Actualizar() {
     if (e.target.value) {
       setDescripcion(e.target.value);
     }
+
+    verificarDescripcion(e.target.value);
   };
 
   //Funcion que maneja los estados de renderizacion "Confirmacion" y "Alert"
@@ -57,6 +60,16 @@ function Actualizar() {
     setShowConfirmacion(false);
     setShowAlert(true);
     setDatosConfirmados(isConfirmed);
+  };
+
+  //Funcion para setear las fechas
+  const setFecha = (fechaInicio) => {
+    const fecha = new Date(fechaInicio);
+    const opciones = { day: "numeric", month: "long", year: "numeric" };
+    const fechaFormated = new Intl.DateTimeFormat("es-ES", opciones).format(
+      fecha
+    );
+    return fechaFormated;
   };
 
   //Enviando archivos y datos a la API
@@ -81,9 +94,18 @@ function Actualizar() {
     await post_etapa_actualizar({ formData });
   };
 
+  const verificarDescripcion = (text) => {
+    if (text.trim() != "") {
+      setMostrarBotones(true);
+    } else {
+      setMostrarBotones(false);
+    }
+  };
+
   // console.log(enviarEstado);
   // console.log(etapa);
   // console.log(user);
+  // console.log(descripcion);
 
   return (
     <div className={`grid grid-cols-4 gap-4 mt-4 sm:mt-8`}>
@@ -97,9 +119,9 @@ function Actualizar() {
           </p>
         </div>
         <p className="text-xs sm:text-sm mt-3 font-semibold ">
-          Se inicio el 03 de marzo de 2025
+          Se inicio el {setFecha(etapa?.FechaInicio)}
           <br />
-          Fecha de finalizacion estimada 05 05 2025
+          Fecha de finalizacion estimada
         </p>
       </div>
       {/* Subir archivos */}
@@ -153,54 +175,60 @@ function Actualizar() {
         </div>
       </div>
       {/* Actualizar, Aprobar, Rechazar */}
-      <div className="grid grid-cols-3 gap-3 col-start-1 col-end-5 h-14 rounded-3xl mt-6 text-white text-sm">
-        <div className="col-start-1 col-end-2 bg-blue-500 rounded-3xl shadow-xs shadow-blue-500 flex sm:text-lg hover:bg-blue-700">
-          <button
-            className="w-full h-full"
-            onClick={() => {
-              setShowConfirmacion(true);
-              setMsjConfirmacion("Se ha actualizado la etapa correctamente!!");
-              setMsjCancelacion("Se ha cancelado la actualizacion!!");
-              setRutaRedireccion("/Producto/All");
-              setEnviarEstado(3); // ACTUALIZAR - EL ESTADO DE LA ETAPA SIGUE SIENDO 3 = INICIADA
-              setEstadoDescripcion("Iniciado");
-            }}
-          >
-            Actualizar
-          </button>
+      {mostrarBotones && (
+        <div className="grid grid-cols-3 gap-3 col-start-1 col-end-5 h-14 rounded-3xl mt-6 text-white text-sm">
+          <div className="col-start-1 col-end-2 bg-blue-500 rounded-3xl shadow-xs shadow-blue-500 flex sm:text-lg hover:bg-blue-700">
+            <button
+              className="w-full h-full"
+              onClick={() => {
+                setShowConfirmacion(true);
+                setMsjConfirmacion(
+                  "Se ha actualizado la etapa correctamente!!"
+                );
+                setMsjCancelacion("Se ha cancelado la actualizacion!!");
+                setRutaRedireccion("/Producto/All");
+                setEnviarEstado(3); // ACTUALIZAR - EL ESTADO DE LA ETAPA SIGUE SIENDO 3 = INICIADA
+                setEstadoDescripcion("Iniciado");
+              }}
+            >
+              Actualizar
+            </button>
+          </div>
+          <div className="col-start-2 col-end-3 bg-green-500 rounded-3xl shadow-xs shadow-green-500 flex sm:text-lg hover:bg-green-700">
+            <button
+              className="w-full h-full"
+              onClick={() => {
+                setShowConfirmacion(true);
+                setMsjConfirmacion("Se ha aprobado la etapa correctamente!!");
+                setMsjCancelacion(
+                  "Se ha cancelado la aprobacion de la etapa!!"
+                );
+                setRutaRedireccion("/Producto/All");
+                setEnviarEstado(1); // APROBACION - CAMBIA EL ESTADO DEL PROGRESO DE LA ETAPA A 1
+                setEstadoDescripcion("Aprobado");
+              }}
+            >
+              Aprobar
+            </button>
+          </div>
+          <div className="col-start-3 col-end-4 bg-red-500 rounded-3xl shadow-xs shadow-red-500 flex sm:text-lg hover:bg-red-700">
+            <button
+              className="w-full h-full"
+              onClick={() => {
+                setShowConfirmacion(true);
+                setMsjConfirmacion("Se ha rechazado la etapa correctamente!!");
+                setMsjCancelacion("Se ha cancelado el rechazo de la etapa!!");
+                setRutaRedireccion("/Producto/All");
+                setEnviarEstado(2); // RECHAZAR - CAMBIA EL ESTADO DEL PROGRESO DE LA ETAPA A 2
+                setEstadoDescripcion("Rechazado");
+                setRechazosProducto(etapa?.Rechazos + 1); // Suma 1 si el usuario rechaza la etapa
+              }}
+            >
+              Rechazar
+            </button>
+          </div>
         </div>
-        <div className="col-start-2 col-end-3 bg-green-500 rounded-3xl shadow-xs shadow-green-500 flex sm:text-lg hover:bg-green-700">
-          <button
-            className="w-full h-full"
-            onClick={() => {
-              setShowConfirmacion(true);
-              setMsjConfirmacion("Se ha aprobado la etapa correctamente!!");
-              setMsjCancelacion("Se ha cancelado la aprobacion de la etapa!!");
-              setRutaRedireccion("/Producto/All");
-              setEnviarEstado(1); // APROBACION - CAMBIA EL ESTADO DEL PROGRESO DE LA ETAPA A 1
-              setEstadoDescripcion("Aprobado");
-            }}
-          >
-            Aprobar
-          </button>
-        </div>
-        <div className="col-start-3 col-end-4 bg-red-500 rounded-3xl shadow-xs shadow-red-500 flex sm:text-lg hover:bg-red-700">
-          <button
-            className="w-full h-full"
-            onClick={() => {
-              setShowConfirmacion(true);
-              setMsjConfirmacion("Se ha rechazado la etapa correctamente!!");
-              setMsjCancelacion("Se ha cancelado el rechazo de la etapa!!");
-              setRutaRedireccion("/Producto/All");
-              setEnviarEstado(2); // RECHAZAR - CAMBIA EL ESTADO DEL PROGRESO DE LA ETAPA A 2
-              setEstadoDescripcion("Rechazado");
-              setRechazosProducto(etapa?.Rechazos + 1); // Suma 1 si el usuario rechaza la etapa
-            }}
-          >
-            Rechazar
-          </button>
-        </div>
-      </div>
+      )}
       {showConfirmacion && ( //Al hacer click en cualquiera de los 3 botones
         <Confirmacion
           key={Date.now()}

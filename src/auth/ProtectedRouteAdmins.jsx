@@ -8,7 +8,7 @@ const ProtectedRouteAdmins = ({ children }) => {
   //   console.log(user.role);
   //   console.log(grupoUsuario);
 
-  if (grupoUsuario != 35 && grupoUsuario != 44) {
+  if (grupoUsuario != 35 && grupoUsuario != 44 && grupoUsuario != 69) {
     return <Navigate to="/EtapasUsuario" replace />;
   }
 

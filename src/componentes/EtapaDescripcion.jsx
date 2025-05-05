@@ -46,8 +46,7 @@ function EtapaDescripcion({ etapa, classCSS, link }) {
               ))}
             </>
           )}
-          <li className="mt-2 font-bold">Tiempo total en Desarrollo:</li>
-          {<li>25 meses</li>}
+
           {etapa?.FechaInicio && (
             <>
               <li className="mt-2 font-bold">Fecha de Inicio: </li>
