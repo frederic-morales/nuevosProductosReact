@@ -109,14 +109,14 @@ function Actualizar_Producto() {
           duracion={4000}
           bgColor="bg-green-300"
           redirigir="/Producto/All"
-          mensaje="Se ha iniciado un nuevo desarrollo"
+          mensaje="Se han reasignado las etapas exitosamente!!"
         ></Alert>
       )}
       {datosConfirmados != null && !datosConfirmados && (
         <Alert // Cuando el usuario haga clic en guardar y cancele la acción
           duracion={4000}
           bgColor="bg-red-300"
-          mensaje="Se ha cancelado la acción"
+          mensaje="Se ha cancelado la acción!!"
         ></Alert>
       )}
     </div>

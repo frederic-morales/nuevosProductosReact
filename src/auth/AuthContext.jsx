@@ -74,7 +74,6 @@ export function AuthProvider({ children }) {
       const token = await result?.token; // Obtener el token de la respuesta
 
       // console.log(result);
-
       let role = "";
       if (grupoUsuario == 44 || grupoUsuario == 35 || grupoUsuario == 69) {
         role = "admin";
@@ -98,7 +97,6 @@ export function AuthProvider({ children }) {
       localStorage.setItem("grupoUsuario", JSON.stringify(grupoUsuario));
       localStorage.setItem("serieProductos", JSON.stringify(Serie));
       localStorage.setItem("token", token);
-
       // console.log(grupoUsuario);
       // console.log(result);
       // console.log(currentUser);

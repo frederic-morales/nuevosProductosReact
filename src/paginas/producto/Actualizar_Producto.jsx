@@ -43,7 +43,7 @@ function Actualizar_Producto() {
   const [usuarioResponsable, setUsuarioResponsable] = useState(""); // Usuario responsable del producto
   const [serie, setSerie] = useState(""); // Serie del producto
 
-  console.log(info);
+  // console.log(info);
 
   // Etapas a mostrar
   const mostrarNuevasEtapas = [];
@@ -125,13 +125,8 @@ function Actualizar_Producto() {
     }
   };
 
-  console.log(etapasAsignadas);
-  console.log(info?.productoInfo[0]?.DesarrolloProductoId);
-
-  // console.log(etapas);
-  // console.log(allEtapas);
-  // console.log(mostrarNuevasEtapas);
-  // console.log(info);
+  // console.log(etapasAsignadas);
+  // console.log(info?.productoInfo[0]?.DesarrolloProductoId);
 
   if (loading || loadingCampos || loadingGrupo || loadingInfo) {
     return <div>Cargando...</div>;

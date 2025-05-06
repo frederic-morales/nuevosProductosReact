@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 
 function Header() {
-  const { user, logout, grupoUsuario, serieProductos, role } = useAuth();
+  const { user, logout, serieProductos } = useAuth();
   const headerImage = "..\\img\\Logo-Wellco.png";
 
   // console.log(user?.role);

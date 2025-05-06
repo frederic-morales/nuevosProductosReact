@@ -72,6 +72,14 @@ function Actualizar() {
     return fechaFormated;
   };
 
+  // CALCULA LA FECHA DE FINALIZACION ESTIMADA
+  const sumarDiasFecha = (fechaInicio, dias) => {
+    const fecha = new Date(fechaInicio);
+    fecha.setDate(fecha.getDate() + dias);
+    const opciones = { day: "2-digit", month: "long", year: "numeric" };
+    return fecha.toLocaleDateString("es-ES", opciones);
+  };
+
   //Enviando archivos y datos a la API
   const handleSubmit = async () => {
     const formData = new FormData();
@@ -110,18 +118,17 @@ function Actualizar() {
   return (
     <div className={`grid grid-cols-4 gap-4 mt-4 sm:mt-8`}>
       {/* Descripcion de la etapa */}
-      <div className="h-42 flex flex-col px-6 py-4 col-start-1 col-end-5 sm:col-end-4 sm:min-w-[450px] rounded-3xl shadow-md shadow-gray-500 bg-gray-100 opacity-95 hover:shadow-lg hover:shadow-blue-300">
+      <div className="h-auto flex flex-col px-6 py-4 col-start-1 col-end-5 sm:col-end-4 sm:min-w-[450px] md:min-w-[600px] rounded-3xl shadow-md shadow-gray-500 bg-gray-100 opacity-95 hover:shadow-lg hover:shadow-blue-300">
         <p className="text-base mb-2 font-bold">{etapa?.NombreEtapa}</p>
-        <div className="h-[80%] flex-col overflow-auto text-xs md:text-sm [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-300">
+        {/* <div className="h-[80%] flex-col overflow-auto text-xs md:text-sm [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-300">
           <p className="sm:text-sm text-justify w-full">
-            {etapa?.Descripcion ||
-              `Descripcion de ejemplo de la etapa ${etapa?.NombreEtapa} - agregar descripcion de las etapas`}
           </p>
-        </div>
+        </div> */}
         <p className="text-xs sm:text-sm mt-3 font-semibold ">
           Se inicio el {setFecha(etapa?.FechaInicio)}
           <br />
-          Fecha de finalizacion estimada
+          Fecha de finalizacion estimada{" "}
+          {sumarDiasFecha(etapa?.FechaInicio, etapa?.TiempoEstimado)}
         </p>
       </div>
       {/* Subir archivos */}
@@ -156,8 +163,7 @@ function Actualizar() {
             {file && <p className="overflow md:text-sm">{file?.name}</p>}
           </div>
           <p className="text-center italic text-[10px] sm:text-xs">
-            Ultimo archivo <br />
-            21 02 2025
+            archivo <br />
           </p>
         </label>
       </div>

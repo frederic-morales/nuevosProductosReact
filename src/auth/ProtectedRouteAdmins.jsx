@@ -3,12 +3,13 @@ import { useAuth } from "./AuthContext";
 import { Navigate } from "react-router-dom";
 
 const ProtectedRouteAdmins = ({ children }) => {
-  const { grupoUsuario } = useAuth();
-  //   console.log(user);
-  //   console.log(user.role);
-  //   console.log(grupoUsuario);
+  const { user } = useAuth();
 
-  if (grupoUsuario != 35 && grupoUsuario != 44 && grupoUsuario != 69) {
+  // if (grupoUsuario != 35 && grupoUsuario != 44 && grupoUsuario != 69) {
+  //   return <Navigate to="/EtapasUsuario" replace />;
+  // }
+
+  if (user?.role != "admin") {
     return <Navigate to="/EtapasUsuario" replace />;
   }
 
