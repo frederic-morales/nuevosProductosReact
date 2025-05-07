@@ -104,6 +104,13 @@ function Header() {
                 Mis Etapas
               </span>
             </Link>
+            {user?.role === "admin" && (
+              <Link to={"Reportes"}>
+                <span className="cursor-pointer rounded-sm py-1 px-2 font-medium hover:bg-gray-100 hover:text-black hover:shadow-xl hover:shadow-blue-300">
+                  Reportes
+                </span>
+              </Link>
+            )}
           </div>
         </div>
       </div>

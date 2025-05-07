@@ -16,6 +16,7 @@ import Modificar_etapas from "./paginas/modificar_etapas/modificar_etapas";
 import Asignar_usuarios from "./paginas/modificar_etapas/Asignar_usuarios";
 import Actualizar_Producto from "./paginas/producto/Actualizar_producto";
 import ProtectedRouteAdmins from "./auth/ProtectedRouteAdmins";
+import Reportes from "./paginas/reportes/reportes";
 
 import "./App.css";
 
@@ -111,6 +112,10 @@ const router = createBrowserRouter([
       {
         path: "EtapasUsuario",
         element: <EtapasUsuario />,
+      },
+      {
+        path: "Reportes",
+        element: <Reportes />,
       },
     ],
   },
