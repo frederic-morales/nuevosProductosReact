@@ -9,7 +9,7 @@ function Seleccionar_Elemento({ data, onSelect, hasError, titulo }) {
   ); // Filtrar usuarios por nombre o apellido
 
   const handleSelect = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setSelectedData(e.target.value);
     onSelect(data.find((elemento) => elemento?.Nombre === e.target.value));
   }; // Actualizar el usuario seleccionado

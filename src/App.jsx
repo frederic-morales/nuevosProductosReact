@@ -16,7 +16,10 @@ import Modificar_etapas from "./paginas/modificar_etapas/modificar_etapas";
 import Asignar_usuarios from "./paginas/modificar_etapas/Asignar_usuarios";
 import Actualizar_Producto from "./paginas/producto/Actualizar_producto";
 import ProtectedRouteAdmins from "./auth/ProtectedRouteAdmins";
+
+//REPORTES
 import Reportes from "./paginas/reportes/reportes";
+import Reporte_productos_usuario from "./paginas/reportes/Reporte_productos_usuario";
 
 import "./App.css";
 
@@ -115,7 +118,17 @@ const router = createBrowserRouter([
       },
       {
         path: "Reportes",
-        element: <Reportes />,
+        element: (
+          <ProtectedRouteAdmins>
+            <Reportes />,
+          </ProtectedRouteAdmins>
+        ),
+        children: [
+          {
+            path: "productosUsuario/:usuario/:serie",
+            element: <Reporte_productos_usuario />,
+          },
+        ],
       },
     ],
   },

@@ -6,8 +6,11 @@ import { useAuth } from "../../auth/AuthContext";
 import fetch_productos_por_serie from "../../hooks/fetch_producto_por_serie";
 import fetch_all_etapas from "../../hooks/fetch_all_etapas";
 import fetch_usuarios_grupo from "../../hooks/fetch_usuarios_grupo";
+import { Outlet, useNavigate } from "react-router";
 
 function Reportes() {
+  const navigate = useNavigate();
+
   const tiposReportes = [
     { Id: 1, Nombre: "REPORTE POR PRODUCTO" },
     { Id: 2, Nombre: "REPORTE POR ETAPA" },
@@ -15,7 +18,6 @@ function Reportes() {
   ];
 
   const { serieProductos } = useAuth();
-
   const { productosPorSerie, loadingProductosSerie, errorProductosSerie } =
     fetch_productos_por_serie(serieProductos); // Trae los productos a mostrar
   const { allEtapas, loading, error } = fetch_all_etapas();
@@ -34,7 +36,32 @@ function Reportes() {
   // console.log(reporteSeleccionado?.Nombre);
   const handleClick = () => {
     console.log(reporteSeleccionado?.Nombre);
+    console.log(usuarioSeleccionado);
     console.log("Generando reporte...");
+
+    if (reporteSeleccionado.Id === 3) {
+      navigate(
+        `productosUsuario/${usuarioSeleccionado?.Usuario}/${serieProductos}`
+      );
+    }
+  };
+
+  const handleSeleccionarReporte = (reporte) => {
+    //SETEAMOS LOS VALORES SIGUIENTES A NULL PARA QUE NO SE MUESTRE EL BOTON DE GENERAR REPORTE
+    //SE MOSTRARÁ HASTA QUE EL USUARIO ELIGA
+    if (reporte.Id === 1) {
+      setUsuarioSeleccionado(null);
+      setEtapaSeleccionada(null);
+    }
+    if (reporte.Id === 2) {
+      setProductoSeleccionado(null);
+      setUsuarioSeleccionado(null);
+    }
+    if (reporte.Id === 3) {
+      setEtapaSeleccionada(null);
+      setProductoSeleccionado(null);
+    }
+    setReporteSeleccionado(reporte);
   };
 
   if (loadingProductosSerie || loading || loadingGrupo) {
@@ -44,9 +71,7 @@ function Reportes() {
     return <>Error...</>;
   }
 
-  console.log(productoSeleccionado);
-  console.log(etapaSeleccionada);
-  console.log(usuarioSeleccionado);
+  // console.log(usuarioSeleccionado);
 
   return (
     <>
@@ -59,7 +84,7 @@ function Reportes() {
         <Seleccionar_Reporte
           reportes={tiposReportes}
           onSelect={(reporte) => {
-            setReporteSeleccionado(reporte);
+            handleSeleccionarReporte(reporte);
           }}
           hasError={!reporteSeleccionado}
         />
@@ -68,6 +93,7 @@ function Reportes() {
             data={productosPorSerie}
             onSelect={(producto) => {
               setProductoSeleccionado(producto);
+              navigate("/Reportes");
             }}
             hasError={!productoSeleccionado}
             titulo={"BUSCAR PRODUCTO"}
@@ -78,6 +104,7 @@ function Reportes() {
             data={allEtapas}
             onSelect={(etapa) => {
               setEtapaSeleccionada(etapa);
+              navigate("/Reportes");
             }}
             hasError={!etapaSeleccionada}
             titulo={"BUSCAR ETAPA"}
@@ -88,6 +115,7 @@ function Reportes() {
             usuarios={grupoUsuarios}
             onSelect={(usuario) => {
               setUsuarioSeleccionado(usuario);
+              navigate("/Reportes");
             }} // Recibe el usuario seleccionado
             hasError={!usuarioSeleccionado}
           />
@@ -95,7 +123,7 @@ function Reportes() {
         {reporteSeleccionado?.Id && (
           <div className="w-full max-w-xs flex flex-col items-center justify-start">
             <p className="text-white uppercase font-black text-lg md:text-xl mb-2 drop-shadow-[1px_1px_0px_black]">
-              Filtrar por fecha
+              Filtrar por fecha Inicio
             </p>
             <label className="w-full bg-white text-center font-semibold mb-2 rounded-2xl drop-shadow-[1px_1px_0px_black]">
               De:
@@ -117,31 +145,26 @@ function Reportes() {
                 onChange={(e) => setFechaHasta(e.target.value)}
               />
             </label>
-            {/* <button
-              className="w-full bg-blue-500 hover:bg-blue-700 text-white py-2 rounded-2xl focus:outline-none focus:shadow-outline"
-              onClick={() => {
-                console.log(fechaDesde);
-                console.log(fechaHasta);
-              }}
-            >
-              Filtrar
-            </button> */}
           </div>
         )}
-        {reporteSeleccionado && fechaDesde && fechaHasta && (
-          <div className="w-full max-w-sm flex items-center justify-center">
-            <button
-              onClick={handleClick}
-              className="bg-h-fit p-4 rounded-xl font-semibold border-1 border-white bg-green-600 shadow-xs shadow-green-600 text-white hover:bg-green-700"
-            >
-              Generar Reporte
-            </button>
-          </div>
-        )}
+        {reporteSeleccionado &&
+          (productoSeleccionado ||
+            etapaSeleccionada ||
+            usuarioSeleccionado) && (
+            <div className="w-full max-w-sm flex items-center justify-center">
+              <button
+                onClick={handleClick}
+                className="bg-h-fit p-4 rounded-xl font-semibold border-1 border-white bg-green-600 shadow-xs shadow-green-600 text-white hover:bg-green-700"
+              >
+                Generar Reporte
+              </button>
+            </div>
+          )}
+        {/* <Reporte_Tabla /> */}
+        <div className="w-full flex items-center justify-center">
+          <Outlet />
+        </div>
       </div>
-      {reporteSeleccionado?.Nombre} <br />
-      {etapaSeleccionada?.Nombre}
-      {/* BUSCAR PRODUCTO */}
     </>
   );
 }
