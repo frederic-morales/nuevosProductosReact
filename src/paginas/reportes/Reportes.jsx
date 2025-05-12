@@ -10,7 +10,6 @@ import { Outlet, useNavigate } from "react-router";
 
 function Reportes() {
   const navigate = useNavigate();
-
   const tiposReportes = [
     { Id: 1, Nombre: "REPORTE POR PRODUCTO" },
     { Id: 2, Nombre: "REPORTE POR ETAPA" },
@@ -44,6 +43,9 @@ function Reportes() {
         `productosUsuario/${usuarioSeleccionado?.Usuario}/${serieProductos}`
       );
     }
+    // if (reporteSeleccionado.Id === 2) {
+    //   navigate(`prueba`);
+    // }
   };
 
   const handleSeleccionarReporte = (reporte) => {
