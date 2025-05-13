@@ -1,6 +1,8 @@
 import { useRef } from "react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import ExcelJS from "exceljs";
+import { saveAs } from "file-saver";
 import { useParams } from "react-router";
 import fetch_productos_usuario from "../../hooks/reportes/fetch_productos_usuario";
 
@@ -9,15 +11,26 @@ const Reporte_productos_usuario = () => {
   const params = useParams();
   const usuario = params?.usuario;
   const serie = params?.serie;
-
   const headerImage = "\\img\\Logo-Wellco.png";
 
+  //DATOS PARA EL ARCHIVO
   const { productosUsuario, loadingProdUser, errorProdUser } =
     fetch_productos_usuario(usuario, serie);
 
-  //ARCHIVO A DESCARGAR
-  // const [pdfDataUri, setPdfDataUri] = useState(null);
+  //FUNCION PARA FORMATEAR FECHAS
+  const setFecha = (fechaInicio) => {
+    if (!fechaInicio) {
+      return "En proceso";
+    }
+    const fecha = new Date(fechaInicio);
+    const opciones = { day: "numeric", month: "long", year: "numeric" };
+    const fechaFormated = new Intl.DateTimeFormat("es-ES", opciones).format(
+      fecha
+    );
+    return fechaFormated;
+  };
 
+  //ARCHIVO A DESCARGAR PDF
   const generarPDF = () => {
     const doc = new jsPDF({
       orientation: "landscape",
@@ -38,62 +51,53 @@ const Reporte_productos_usuario = () => {
     //TABLA
     const headers = [
       [
-        "Id",
-        "Producto",
-        "Solicitado",
-        "Asignado",
-        "Entrega de Dossier",
-        "Obtencion de Registro",
-        "Lanzado",
-        "Tiempo de Lanzamiento(años)",
-        "Tiempo de Desarrollo(años)",
-        "Tiempo de Registros(años)",
-        "Tiempo 1era Fabricacion(años)",
-        "Avance",
-        "Observaciones",
+        "ID",
+        "PRODUCTO",
+        "SOLICITADO",
+        "ASIGNADO",
+        "ENTREGA DE DOSSIER",
+        "OBTENCION DE REGISTRO",
+        "LANZADO",
+        "TIEMPO DE LANZAMIENTO(AÑOS)",
+        "TIEMPO DE DESARROLLO(AÑOS)",
+        "TIEMPO DE REGISTROS(AÑOS)",
+        "TIEMPO 1RA FABRICACION(AÑOS)",
+        "AVANCE",
+        "OBSERVACIONES",
       ],
     ];
     const datos = productosUsuario.map((prod) => Object.values(prod));
     console.log(datos);
 
     // const data = [[1, "PRODUCTO1", "12 05 2025", "12 05 2025"]];
-
     // const finalY = 0;
     autoTable(doc, {
       startY: 30,
       head: headers,
       body: datos,
       headStyles: {
-        lineWidth: 1,
         fillColor: [222, 220, 218],
         textColor: [0, 0, 0],
-        cellPadding: { top: 8, bottom: 8 },
+        cellPadding: { top: 4, bottom: 4, right: 4, left: 4 },
         halign: "center",
         lineColor: "#000000",
         lineWidth: 0.5,
         fontStyle: "bold",
-        fontSize: 13,
+        fontSize: 10,
       },
       bodyStyles: {
         textColor: "#000000",
         halign: "center",
         lineColor: "#000000",
         lineWidth: 0.5,
-        cellPadding: { top: 8, bottom: 8 },
-        fontSize: 13,
+        cellPadding: { top: 4, bottom: 4, right: 4, left: 4 },
+        fontSize: 10,
       },
-      // didDrawPage: (data) => {
-      //   finalY = data.cursor.y;
-      // },
     });
 
-    // const alturaTabla = finalY / 20;
-
-    // ⚙️ Obtener base64 como Data URI
     const blob = doc.output("blob");
     const dataUriString = URL.createObjectURL(blob);
 
-    // ⚙️ setPdfDataUri(dataUriString);
     const link = document.createElement("a");
     link.href = dataUriString;
     link.download = "reporte.pdf"; // nombre del archivo
@@ -102,16 +106,88 @@ const Reporte_productos_usuario = () => {
     document.body.removeChild(link);
   };
 
-  const setFecha = (fechaInicio) => {
-    if (!fechaInicio) {
-      return "En proceso";
-    }
-    const fecha = new Date(fechaInicio);
-    const opciones = { day: "numeric", month: "long", year: "numeric" };
-    const fechaFormated = new Intl.DateTimeFormat("es-ES", opciones).format(
-      fecha
-    );
-    return fechaFormated;
+  //ARCHIVO A DESCARGAR EXCEL
+  const generarExcel = async () => {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet("Productos");
+
+    worksheet.mergeCells("A1", "M1");
+    const tituloCelda = worksheet.getCell("A1");
+    tituloCelda.value = "PRODUCTOS A CARGO DE ....";
+    tituloCelda.font = { size: 16, bold: true };
+    tituloCelda.alignment = { horizontal: "center", vertical: "middle" };
+
+    //AGREGANDO LOGO
+    const response = await fetch(headerImage);
+    const blob = await response.blob();
+    const buffer = await blob.arrayBuffer();
+
+    const imageId = workbook.addImage({
+      buffer,
+      extension: "png",
+    });
+
+    worksheet.addImage(imageId, {
+      tl: { col: 0, row: 0 },
+      ext: { width: 100, height: 50 },
+    });
+
+    const headers = [
+      "ID",
+      "PRODUCTO",
+      "SOLICITADO",
+      "ASIGNADO",
+      "ENTREGA DE DOSSIER",
+      "OBTENCION DE REGISTRO",
+      "LANZADO",
+      "TIEMPO DE LANZAMIENTO(AÑOS)",
+      "TIEMPO DE DESARROLLO(AÑOS)",
+      "TIEMPO DE REGISTROS(AÑOS)",
+      "TIEMPO 1RA FABRICACION(AÑOS)",
+      "AVANCE",
+      "OBSERVACIONES",
+    ];
+
+    worksheet.addRow(headers);
+
+    headers.forEach((_, index) => {
+      const cell = worksheet.getRow(2).getCell(index + 1);
+      cell.font = { bold: true };
+      cell.alignment = { horizontal: "center" };
+      cell.border = {
+        top: { style: "thin" },
+        bottom: { style: "thin" },
+        left: { style: "thin" },
+        right: { style: "thin" },
+      };
+      worksheet.getColumn(index + 1).width = 25; // ajusta ancho
+    });
+
+    // AGREGANDO LOS DATOS AL EXCEL
+    productosUsuario.forEach((prod) => {
+      const values = Object.values(prod);
+      const row = worksheet.addRow(values);
+      row.eachCell((cell) => {
+        cell.border = {
+          top: { style: "thin" },
+          bottom: { style: "thin" },
+          left: { style: "thin" },
+          right: { style: "thin" },
+        };
+        cell.alignment = {
+          horizontal: "center",
+          vertical: "middle",
+          wrapText: true,
+        };
+      });
+    });
+
+    // 💾 Exportar archivo
+    const bufferExcel = await workbook.xlsx.writeBuffer();
+    const blobExcel = new Blob([bufferExcel], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
+    saveAs(blobExcel, "reporte.xlsx");
   };
 
   if (loadingProdUser) {
@@ -127,7 +203,7 @@ const Reporte_productos_usuario = () => {
   return (
     <div className="w-full p-8">
       <h1>Reporte</h1>
-      {/* Tabla con referencia */}
+      {/* SE MUESTRA EL ARCHIVO ANTES DE DESCARGAR */}
       <div ref={tablaRef} className="bg-white p-2.5 overflow-x-scroll">
         <div className="relative h-15 flex items-center justify-center">
           <img
@@ -136,9 +212,10 @@ const Reporte_productos_usuario = () => {
             alt=""
           />
           <h2 className="text-center uppercase font-bold text-sm sm:text-lg mt-6 sm:mt-0">
-            Productos a cargo de {usuario}
+            Productos a cargo de... {usuario}
           </h2>
         </div>
+
         <table className="w-full border-collapse border-2 mt-2 text-xs md:text-sm">
           <thead>
             <tr
@@ -189,7 +266,20 @@ const Reporte_productos_usuario = () => {
           </tbody>
         </table>
       </div>
-      <button onClick={generarPDF}>DescargarPDF</button>
+      <div className="w-full flex gap-4 flex-wrap justify-center mt-8">
+        <button
+          className="bg-h-fit p-4 rounded-xl font-semibold border-1 border-white bg-blue-700 shadow-xs text-white hover:bg-blue-500"
+          onClick={generarPDF}
+        >
+          Descargar PDF
+        </button>
+        <button
+          className="bg-h-fit p-4 rounded-xl font-semibold border-1 border-white bg-blue-700 shadow-xs text-white hover:bg-blue-500"
+          onClick={generarExcel}
+        >
+          Descargar Excel
+        </button>
+      </div>
       {/* Botón para descargar PDF */}
       {/* <button
         onClick={exportarPDF}
