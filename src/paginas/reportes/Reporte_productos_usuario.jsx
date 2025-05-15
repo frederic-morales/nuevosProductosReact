@@ -29,18 +29,23 @@ const Reporte_productos_usuario = () => {
 
   // console.log(headersEtapas);
   //FUNCION PARA FORMATEAR FECHAS
-
   const setFecha = (fechaInicio) => {
     if (!fechaInicio) {
-      return "En proceso";
+      return "";
     }
     const fecha = new Date(fechaInicio);
-    const opciones = { day: "numeric", month: "long", year: "numeric" };
+    const opciones = { month: "short", year: "numeric" };
     const fechaFormated = new Intl.DateTimeFormat("es-ES", opciones).format(
       fecha
     );
     return fechaFormated;
   };
+
+  //DE DIAS A MESES
+  function diasAMeses(dias) {
+    const meses = Math.ceil(dias / 30);
+    return meses;
+  }
 
   //PRODUCTOS CON ETAPAS SI NO TIENEN ALGUNA ETAPA SE INCLUYE COMO NOMBRE NO INICIADO
   //VER EN LA CONSOLA DEL NAVEGADOR PARA DEPURAR
@@ -51,7 +56,7 @@ const Reporte_productos_usuario = () => {
       if (etapa) {
         progreso.push(etapa);
       } else {
-        progreso.push({ Nombre: "No Iniciado" });
+        progreso.push({ Nombre: "" });
       }
     }
     return progreso;
@@ -69,20 +74,27 @@ const Reporte_productos_usuario = () => {
     const fechasInicio = progreso?.map((eta) => {
       return setFecha(eta?.FechaInicio);
     });
-    return [prod?.DesarrolloProductoId, prod?.Nombre, ...fechasInicio];
+    return [
+      prod?.DesarrolloProductoId,
+      prod?.Nombre,
+      setFecha(prod?.FechaInicio),
+      setFecha(prod?.FechaFin),
+      diasAMeses(prod?.TiempoEstimado),
+      diasAMeses(prod?.TiempoTotal),
+      ...fechasInicio,
+    ];
   });
 
-  console.log(productosUsuario);
-  console.log(productosConEtapasPDF);
-
-  //console.log(productosConEtapas);
+  // console.log(productosUsuario);
+  // console.log(productosConEtapasPDF);
+  // console.log(productosConEtapas);
   //ARCHIVO A DESCARGAR PDF
   const generarPDF = async () => {
     try {
       const doc = new jsPDF({
         orientation: "landscape",
         unit: "mm",
-        format: [300, 600],
+        format: [250, 900],
       });
 
       //IMAGEN
@@ -96,42 +108,19 @@ const Reporte_productos_usuario = () => {
       const textX = (pageWidth - textWidth) / 2;
       doc.text(titulo, textX, 20); // Y = altura del texto (alineado con el logo)
 
-      //TABLA
-      const headers = [
-        [
-          "ID",
-          "PRODUCTO",
-          "SOLICITADO",
-          "SOLICITADO",
-          "SOLICITADO",
-          "SOLICITADO",
-          "SOLICITADO",
-          "ASIGNADO",
-          "ENTREGA DE DOSSIER",
-          "OBTENCION DE REGISTRO",
-          "LANZADO",
-          "TIEMPO DE LANZAMIENTO(AÑOS)",
-          "TIEMPO DE DESARROLLO(AÑOS)",
-          "TIEMPO DE REGISTROS(AÑOS)",
-          "TIEMPO 1RA FABRICACION(AÑOS)",
-          "AVANCE",
-          "OBSERVACIONES",
-          "OBSERVACIONES",
-          "OBSERVACIONES",
-          "OBSERVACIONES",
-          "OBSERVACIONES",
-          "OBSERVACIONES",
-          "OBSERVACIONES",
-          "OBSERVACIONES",
-          "OBSERVACIONES",
-          "OBSERVACIONES",
-          "OBSERVACIONES",
-        ],
-      ];
-
       autoTable(doc, {
         startY: 30,
-        head: [["Id", "Producto", ...headersEtapas]],
+        head: [
+          [
+            "Id",
+            "Producto",
+            "Fecha Inicio Producto",
+            "FechaFin",
+            "Tiempo Estimado - Meses",
+            "Tiempo Total - Meses",
+            ...headersEtapas,
+          ],
+        ],
         body: productosConEtapasPDF,
         headStyles: {
           fillColor: [222, 220, 218],
@@ -174,7 +163,7 @@ const Reporte_productos_usuario = () => {
 
     worksheet.mergeCells("A1", "M1");
     const tituloCelda = worksheet.getCell("A1");
-    tituloCelda.value = "PRODUCTOS A CARGO DE ....";
+    tituloCelda.value = `Productos a cargo de ${usuario}`;
     tituloCelda.font = { size: 16, bold: true };
     tituloCelda.alignment = { horizontal: "center", vertical: "middle" };
 
@@ -193,21 +182,14 @@ const Reporte_productos_usuario = () => {
     });
 
     const headers = [
-      "ID",
-      "PRODUCTO",
-      "SOLICITADO",
-      "ASIGNADO",
-      "ENTREGA DE DOSSIER",
-      "OBTENCION DE REGISTRO",
-      "LANZADO",
-      "TIEMPO DE LANZAMIENTO(AÑOS)",
-      "TIEMPO DE DESARROLLO(AÑOS)",
-      "TIEMPO DE REGISTROS(AÑOS)",
-      "TIEMPO 1RA FABRICACION(AÑOS)",
-      "AVANCE",
-      "OBSERVACIONES",
+      "Id",
+      "Producto",
+      "Fecha Inicio Producto",
+      "Fecha Fin Producto",
+      "Tiempo Estimado - Meses",
+      "Tiempo Total - Meses",
+      ...headersEtapas,
     ];
-
     worksheet.addRow(headers);
 
     headers.forEach((_, index) => {
@@ -227,7 +209,7 @@ const Reporte_productos_usuario = () => {
     });
 
     // AGREGANDO LOS DATOS AL EXCEL
-    productosUsuario.forEach((prod) => {
+    productosConEtapasPDF.forEach((prod) => {
       const values = Object.values(prod); //OBTIENE LOS VALORES DE CADA PROPIEDAD DE CADA OBJETO
       const row = worksheet.addRow(values);
       row.eachCell((cell) => {
@@ -287,6 +269,10 @@ const Reporte_productos_usuario = () => {
             >
               <th className="border-r-2 p-2">Id</th>
               <th className="border-r-2 p-2">Producto</th>
+              <th className="border-r-2 p-2">Fecha Inicio Producto</th>
+              <th className="border-r-2 p-2">Fecha Fin Producto</th>
+              <th className="border-r-2 p-2">Tiempo Estimado - Meses</th>
+              <th className="border-r-2 p-2">Tiempo total - Meses</th>
               {allEtapas?.map((etap, index) => (
                 <th key={index} className="border-r-2 p-2">
                   {etap?.Nombre}
@@ -303,20 +289,49 @@ const Reporte_productos_usuario = () => {
                 <td className="p-2 border-r-2 text-center">
                   {producto?.Nombre}
                 </td>
+                <td className="p-2 border-r-2 text-center">
+                  {setFecha(producto?.FechaInicio)}
+                </td>
+                <td className="p-2 border-r-2 text-center">
+                  {setFecha(producto?.FechaFin)}
+                </td>
+                <td className="p-2 border-r-2 text-center">
+                  {diasAMeses(producto?.TiempoEstimado)}
+                </td>
+                <td className="p-2 border-r-2 text-center">
+                  {diasAMeses(producto?.TiempoTotal)}
+                </td>
                 {producto?.progreso?.map((eta, index) => (
                   <td
                     key={index}
                     className={`p-2 border-r-2 text-center ${
-                      eta.FechaInicio ? "" : "bg-gray-300"
+                      eta.FechaInicio ? "" : ""
                     }`}
                   >
-                    {eta.FechaInicio ? setFecha(eta?.FechaInicio) : eta?.Nombre}
+                    {eta.FechaFinal ? setFecha(eta?.FechaFinal) : ""}
                   </td>
                 ))}
               </tr>
             ))}
           </tbody>
         </table>
+        {/* <table className="border-collapse border-2 mt-2 text-xs md:text-sm">
+          <thead>
+            <tr
+              style={{
+                backgroundColor: "#dedcda",
+              }}
+              className="uppercase"
+            >
+              <th>Hola</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Hola2</td>
+            </tr>
+          </tbody>
+        </table> */}
       </div>
       <div className="w-full flex gap-4 flex-wrap justify-center my-6">
         <button
