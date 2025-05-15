@@ -12,11 +12,12 @@ const Reporte_productos_usuario = () => {
   const params = useParams();
   const usuario = params?.usuario;
   const serie = params?.serie;
-  const headerImage = "\\img\\Logo-Wellco.png";
+  const headerImage = "/img/Logo-Wellco.png";
 
   //DATOS PARA EL ARCHIVO
   const { productosUsuario, loadingProdUser, errorProdUser } =
     fetch_productos_usuario(usuario, serie);
+
   //TRAE TODAS LAS ETAPAS
   const { allEtapas, loading, error } = fetch_all_etapas();
   //console.log(allEtapas);
