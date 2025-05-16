@@ -29,10 +29,10 @@ function Reportes() {
   const [etapaSeleccionada, setEtapaSeleccionada] = useState();
   const [usuarioSeleccionado, setUsuarioSeleccionado] = useState();
 
-  const [fechaDesde, setFechaDesde] = useState("");
-  const [fechaHasta, setFechaHasta] = useState("");
-
+  // const [fechaDesde, setFechaDesde] = useState("");
+  // const [fechaHasta, setFechaHasta] = useState("");
   // console.log(reporteSeleccionado?.Nombre);
+
   const handleClick = () => {
     console.log(reporteSeleccionado?.Nombre);
     console.log(usuarioSeleccionado);
@@ -122,7 +122,7 @@ function Reportes() {
             hasError={!usuarioSeleccionado}
           />
         )}
-        {reporteSeleccionado?.Id && (
+        {/* {reporteSeleccionado?.Id && (
           <div className="w-full max-w-xs flex flex-col items-center justify-start">
             <p className="text-white uppercase font-black text-lg md:text-xl mb-2 drop-shadow-[1px_1px_0px_black]">
               Filtrar por fecha Inicio
@@ -148,7 +148,7 @@ function Reportes() {
               />
             </label>
           </div>
-        )}
+        )} */}
         {reporteSeleccionado &&
           (productoSeleccionado ||
             etapaSeleccionada ||

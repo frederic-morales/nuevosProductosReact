@@ -12,7 +12,7 @@ const Reporte_productos_usuario = () => {
   const params = useParams();
   const usuario = params?.usuario;
   const serie = params?.serie;
-  const headerImage = "/img/Logo-Wellco.png";
+  // const headerImage = "/img/Logo-Wellco.png";
 
   //DATOS PARA EL ARCHIVO
   const { productosUsuario, loadingProdUser, errorProdUser } =
@@ -89,6 +89,7 @@ const Reporte_productos_usuario = () => {
   // console.log(productosUsuario);
   // console.log(productosConEtapasPDF);
   // console.log(productosConEtapas);
+
   //ARCHIVO A DESCARGAR PDF
   const generarPDF = async () => {
     try {
@@ -99,7 +100,7 @@ const Reporte_productos_usuario = () => {
       });
 
       //IMAGEN
-      doc.addImage(headerImage, "PNG", 10, 10, 15, 15); //imgX imgY imgWidth imgHeigth
+      // doc.addImage(headerImage, "PNG", 10, 10, 15, 15); //imgX imgY imgWidth imgHeigth
 
       //TITULO
       const pageWidth = doc.internal.pageSize.getWidth(); //ANCHO DEL DOC
@@ -169,18 +170,18 @@ const Reporte_productos_usuario = () => {
     tituloCelda.alignment = { horizontal: "center", vertical: "middle" };
 
     //AGREGANDO LOGO
-    const response = await fetch(headerImage);
-    const blob = await response.blob();
-    const buffer = await blob.arrayBuffer();
-    const imageId = workbook.addImage({
-      buffer,
-      extension: "png",
-    });
+    // const response = await fetch(headerImage);
+    // const blob = await response.blob();
+    // const buffer = await blob.arrayBuffer();
+    // const imageId = workbook.addImage({
+    //   buffer,
+    //   extension: "png",
+    // });
 
-    worksheet.addImage(imageId, {
-      tl: { col: 0, row: 0 },
-      ext: { width: 60, height: 60 },
-    });
+    // worksheet.addImage(imageId, {
+    //   tl: { col: 0, row: 0 },
+    //   ext: { width: 60, height: 60 },
+    // });
 
     const headers = [
       "Id",
@@ -251,11 +252,11 @@ const Reporte_productos_usuario = () => {
       {/* SE MUESTRA EL ARCHIVO ANTES DE DESCARGAR */}
       <div ref={tablaRef} className="bg-white p-2.5 overflow-x-scroll">
         <div className="relative h-15 flex items-center justify-center">
-          <img
+          {/* <img
             className="h-6 sm:h-12 w-fit absolute top-2 left-0"
             src={headerImage}
             alt=""
-          />
+          /> */}
           <h2 className="text-center uppercase font-bold text-sm sm:text-lg mt-6 sm:mt-0">
             Productos a cargo de {usuario}
           </h2>
